@@ -1,10 +1,10 @@
 CREATE TABLE users
-(id SERIAL,
+(id SERIAL PRIMARY KEY,
  first_name VARCHAR(30),
  last_name VARCHAR(30),
  email VARCHAR(30),
  admin BOOLEAN,
  last_login TIME,
  is_active BOOLEAN,
- age TINYINT,
+ age SMALLINT,
  pass VARCHAR(100));

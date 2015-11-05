@@ -5,32 +5,32 @@ CREATE TYPE event AS ENUM
 ('subscribed', 'commented');
 
 CREATE TABLE podcasts
-(id SERIAL,
+(id SERIAL PRIMARY KEY,
  name VARCHAR(100),
  description TEXT,
  genre genre,
  release_date date);
 
 CREATE TABLE followers
-(id SERIAL,
- follower VARCHAR(20) references users(id),
- followee VARCHAR(20) references users(id));
+(id SERIAL PRIMARY KEY,
+ follower integer REFERENCES users,
+ followee integer REFERENCES users);
 
 CREATE TABLE comments
-(id SERIAL,
- user_id VARCHAR(20) references users(id),
- podcast_id VARCHAR(20) references podcasts(id),
+(id SERIAL PRIMARY KEY,
+ user_id integer REFERENCES users,
+ podcast_id integer REFERENCES podcasts,
  comment_blob TEXT);
 
 CREATE TABLE events
-(id SERIAL,
- user_id VARCHAR(20) references users(id),
- podcast_id VARCHAR(20) references podcasts(id),
+(id SERIAL PRIMARY KEY,
+ user_id integer REFERENCES users,
+ podcast_id integer REFERENCES podcasts,
  event event);
 
 CREATE TABLE subscriptions
-(id SERIAL,
- user_id VARCHAR(20) references users(id),
- podcast_id VARCHAR(20) references podcasts(id));
+(id SERIAL PRIMARY KEY,
+ user_id integer REFERENCES users,
+ podcast_id integer REFERENCES podcasts);
 
 
