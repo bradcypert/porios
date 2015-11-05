@@ -5,31 +5,31 @@ CREATE TYPE event AS ENUM
 ('subscribed', 'commented');
 
 CREATE TABLE podcasts
-(id VARCHAR(20) PRIMARY KEY,
+(id SERIAL,
  name VARCHAR(100),
  description TEXT,
  genre genre,
  release_date date);
 
 CREATE TABLE followers
-(id VARCHAR(20) PRIMARY KEY,
+(id SERIAL,
  follower VARCHAR(20) references users(id),
  followee VARCHAR(20) references users(id));
 
 CREATE TABLE comments
-(id VARCHAR(20) PRIMARY KEY,
+(id SERIAL,
  user_id VARCHAR(20) references users(id),
  podcast_id VARCHAR(20) references podcasts(id),
  comment_blob TEXT);
 
 CREATE TABLE events
-(id VARCHAR(20) PRIMARY KEY,
+(id SERIAL,
  user_id VARCHAR(20) references users(id),
  podcast_id VARCHAR(20) references podcasts(id),
  event event);
 
 CREATE TABLE subscriptions
-(id VARCHAR(20) PRIMARY KEY,
+(id SERIAL,
  user_id VARCHAR(20) references users(id),
  podcast_id VARCHAR(20) references podcasts(id));
 
