@@ -2,6 +2,7 @@
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [app.layout :refer [error-page]]
             [app.routes.home :refer [home-routes]]
+            [app.routes.podcasts :refer [podcast-routes]]
             [app.middleware :as middleware]
             [app.db.core :as db]
             [compojure.route :as route]
@@ -42,6 +43,7 @@
 (def app-routes
   (routes
     (wrap-routes #'home-routes middleware/wrap-csrf)
+    (wrap-routes #'podcast-routes middleware/wrap-csrf)
     (route/not-found
       (:body
         (error-page {:status 404

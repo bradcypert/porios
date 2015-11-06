@@ -36,7 +36,7 @@ SET name = :name, description = :description, genre = :genre, release_date = :re
 --name: get-podcasts
 -- gets paginated list of podcasts. Provide limit and offset.
 SELECT * FROM podcasts
-LIMIT :limit OFFSET :offset
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: get-podcast
 -- gets a podcast by ID.
@@ -47,14 +47,14 @@ WHERE id = :id
 -- gets paginated list of podcasts by genere, provide genre, limit, then offset.
 SELECT * FROM podcasts
 WHERE genre = :genre
-LIMIT :limit OFFSET :offset
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: get-new-podcasts
 -- gets all podcasts that have been released within the past month, limit 10.
 SELECT * FROM podcasts
 WHERE release_date > current_date - interval '30 days'
-LIMIT 10
-ORDER BY release_date desc;
+ORDER BY release_date DESC
+LIMIT cast(10 as bigint)
 
 
 
@@ -122,7 +122,7 @@ WHERE podcast_id = :podcast_id
 -- gets all comments for a podcast for pagination. Provide limit and offset.
 SELECT * FROM comments
 WHERE podcast_id = :podcast_id
-LIMIT :limit OFFSET :offset
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: get-all-comments-for-user
 -- gets all comments for a given user
@@ -133,7 +133,7 @@ WHERE user_id = :user_id
 -- gets all comments for a given user for pagination. Provide limit and offset.
 SELECT * FROM comments
 WHERE user_id = :user_id
-LIMIT :limit OFFSET :offset
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: update-comment!
 -- updates a comment's blob by it's ID
@@ -158,13 +158,13 @@ WHERE id = :id
 -- gets all events for a given user for pagination. Provide limit and offset.
 SELECT * FROM events
 WHERE user_id = :user_id
-LIMIT :limit OFFSET :offset
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: get-events-for-podcast-paginate
 -- gets all events for a given podcast for pagination. Provide limit and offset.
 SELECT * FROM events
 WHERE podcast_id = :podcast_id
-LIMIT :limit OFFSET :offset
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: get-events-for-followees-of-user
 -- gets all events of followees of a given user.
@@ -202,7 +202,7 @@ WHERE user_id = :user_id
 -- gets all subscriptions for a given user with a limit and offset
 SELECT * FROM subscriptions
 WHERE (user_id = :user_id)
-LIMIT :limit OFFSET :offset
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: get-subscribers-for-podcast
 -- gets all subscribers for a given podcast
