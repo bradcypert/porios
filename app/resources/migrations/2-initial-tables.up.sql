@@ -9,7 +9,8 @@ CREATE TABLE podcasts
  name VARCHAR(100),
  description TEXT,
  genre genre,
- release_date date);
+ release_date date,
+ feed varchar(2500));
 
 CREATE TABLE followers
 (id SERIAL PRIMARY KEY,
