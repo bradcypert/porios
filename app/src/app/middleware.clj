@@ -19,19 +19,14 @@
   (:import [javax.servlet ServletContext]))
 
 ; CHECK WITH BRAD BEFORE MODIFYING THIS FILE.
+; Because tis probably isn't the file you're looking for.
 
 (defn wrap-context [handler]
   (fn [request]
     (binding [*app-context*
               (if-let [context (:servlet-context request)]
-                ;; If we're not inside a servlet environment
-                ;; (for example when using mock requests), then
-                ;; .getContextPath might not exist
                 (try (.getContextPath ^ServletContext context)
                      (catch IllegalArgumentException _ context))
-                ;; if the context is not specified in the request
-                ;; we check if one has been specified in the environment
-                ;; instead
                 (:app-context env))]
       (handler request))))
 
@@ -53,13 +48,16 @@
         wrap-exceptions)
     handler))
 
+;; disabled in dev to allow testing using API clients
 (defn wrap-csrf [handler]
-  (wrap-anti-forgery
+  (if (env :dev)
+    handler
+    (wrap-anti-forgery
     handler
     {:error-response
      (error-page
        {:status 403
-        :title "Invalid anti-forgery token"})}))
+        :title "Invalid anti-forgery token"})})))
 
 (defn wrap-formats [handler]
   (wrap-restful-format handler {:formats [:json-kw :transit-json :transit-msgpack]}))
