@@ -36,9 +36,17 @@
                                    :comment_blob comment_blob})
          (ok)))))
 
+(defn- update-podcast [params]
+  (if-let [id (:comment_id params)]
+    (do
+      (db/update-comment! {:id (Integer/parseInt id) :comment_blob (:comment_blob params)})
+      (ok))
+    (bad-request)))
+
 (defroutes podcast-routes
   (GET "/podcasts" {params :params} (-> params get-podcasts))
   (GET "/podcasts/new" [] (get-new-podcasts))
   (GET "/podcasts/:id" [id] (-> id get-podcast))
   (GET "/podcasts/:id/comments" {params :params} (-> params get-podcast-comments))
-  (POST "/podcasts/:id/comments" {params :params} (-> params create-podcast-comment)))
+  (POST "/podcasts/:id/comments" {params :params} (-> params create-podcast-comment))
+  (PATCH "/podcasts/:id/comments/:comment_id" {params :params} (-> params update-podcast)))

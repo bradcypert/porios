@@ -139,6 +139,7 @@ LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 -- updates a comment's blob by it's ID
 UPDATE comments
 SET comment_blob = :comment_blob
+WHERE id = :id
 
 
 
