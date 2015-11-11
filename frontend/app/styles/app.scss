@@ -1,0 +1,27 @@
+@import 'colors.scss';
+
+html, body, body > .ember-view {
+	height: 100%;
+	margin: 0;
+}
+
+nav {
+	background-color: $brand-blue;
+	height: 100%;
+	padding: 30px 5px;
+	width: 7%;
+	
+	ul {
+		list-style-type: none;
+		
+		li:first-of-type {
+			margin-bottom: 125px;
+			margin-top: 50px;
+		}
+
+		li {
+			margin-bottom: 75px;
+		}
+	}
+
+}
