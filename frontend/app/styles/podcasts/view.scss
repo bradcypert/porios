@@ -1,0 +1,16 @@
+.picture-frame {
+	background-color: $soft-grey;
+	border-bottom: 10px solid $brand-blue;
+	padding: 0 25px 50px;
+
+	img {
+		display: block;
+		height:300px;
+		margin: 0 auto;
+		width:300px;
+	}
+}
+
+.left-rail {
+	width: 25%;
+}
