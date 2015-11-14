@@ -1,5 +1,11 @@
+@import 'reset.scss';
+
 @import 'colors.scss';
 @import 'fonts.scss';
+
+// Import all atomic structures
+@import 'atoms/helpers.scss';
+@import 'atoms/buttons.scss';
 
 // `/podcast` styles
 @import 'podcasts/index.scss';
