@@ -2,9 +2,19 @@
 @import url(https://fonts.googleapis.com/css?family=Bitter:700,400);
 
 h1, h2, .hero, .h1, .h2 {
-	font-family: 'Bitter', Helvetica;	
+	font-family: 'Bitter', Helvetica;
+	margin: 10px 0;	
 }
 
 body, p, h3, h4, h5, h5 {
 	font-family: 'Inconsolata', Helvetica;
+	margin: 10px 0;
+}
+
+h1, .h1 {
+	font-size: 3.4em;	
+}
+
+h2, .h2 {
+	font-size: 3.4em;
 }

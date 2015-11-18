@@ -1,0 +1,34 @@
+%box-size {
+	height: 66px;
+	width: 66px;
+}
+
+.subscriber-list {
+
+	&.title {
+		font-size: 1.6em;
+	}
+
+	&.subscriber-img {
+		@extend %box-size;
+		float: left;
+	}
+
+	&.more-box {
+		@extend %box-size;
+		background-color: #ccc;
+		display: inline-block;
+
+		.number {
+			font-size:2.6em;
+			margin: 0 auto;
+			width: 68%;
+		}
+
+		.others-text {
+			margin: 0 auto;
+			width: 74%;
+		}
+	}
+
+}

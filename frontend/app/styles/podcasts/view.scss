@@ -12,11 +12,20 @@
 }
 
 .left-rail {
+	box-sizing: border-box;
 	float: left;
-	width: 25%;
+	width: 30%;
 }
 
 .right-rail {
+  box-sizing: border-box;
 	float: left;
 	width: 70%;
+	padding: 0 35px;
+}
+
+dt {
+	color: #999;
+	float: left;
+	width: 20%;
 }
