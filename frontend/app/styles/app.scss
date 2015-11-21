@@ -30,6 +30,7 @@ ul {
   -webkit-padding-start: 0;
 	margin: 0 auto;
 }
+
 nav {
 	background-color: $brand-blue;
 	box-sizing: border-box;
@@ -40,6 +41,7 @@ nav {
 	width: 7%;
 	
 	ul {
+		color: $soft-grey;
 		list-style-type: none;
 		
 		li:first-of-type {
@@ -52,8 +54,8 @@ nav {
 		}
 
 		.the-p {
-			font-size: 1.4em;
-			font-family: 'Bitter', Helvetica;
+			font-size: 1.8em;
+			font-family: 'Inconsolata', Helvetica;
 		}
 	}
 

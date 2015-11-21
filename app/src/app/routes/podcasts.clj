@@ -36,7 +36,7 @@
                                    :comment_blob comment_blob})
          (ok)))))
 
-(defn- update-podcast [params]
+(defn- update-podcast-comment [params]
   (if-let [id (:comment_id params)]
     (do
       (db/update-comment! {:id (Integer/parseInt id) :comment_blob (:comment_blob params)})
@@ -49,4 +49,4 @@
   (GET "/podcasts/:id" [id] (-> id get-podcast))
   (GET "/podcasts/:id/comments" {params :params} (-> params get-podcast-comments))
   (POST "/podcasts/:id/comments" {params :params} (-> params create-podcast-comment))
-  (PATCH "/podcasts/:id/comments/:comment_id" {params :params} (-> params update-podcast)))
+  (PATCH "/podcasts/:id/comments/:comment_id" {params :params} (-> params update-podcast-comment)))

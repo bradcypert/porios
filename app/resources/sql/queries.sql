@@ -15,6 +15,11 @@ WHERE id = :id
 SELECT * FROM users
 WHERE id = :id
 
+-- name: get-user-by-email-and-password
+-- retrieve a user by email and password hash
+SELECT * FROM users
+WHERE email = :email AND password = :password
+
 -- name: delete-user!
 -- delete a user given the id
 DELETE FROM users
@@ -154,6 +159,11 @@ VALUES (:user_id, :podcast_id, event)
 -- deletes an event. Im not sure if we'll ever need this, but just in case.
 DELETE FROM events
 WHERE id = :id
+
+--name get-all-events-for-user
+-- gets all events for a given user.
+SELECT * FROM events
+WHERE user_id = :user_id
 
 --name: get-events-for-user-paginate
 -- gets all events for a given user for pagination. Provide limit and offset.
