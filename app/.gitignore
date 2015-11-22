@@ -9,3 +9,5 @@ pom.xml
 profiles.clj
 /.env
 *.log
+/test2junit
+build.xml

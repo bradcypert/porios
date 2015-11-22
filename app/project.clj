@@ -26,7 +26,8 @@
                  [migratus "0.8.7"]
                  [conman "0.2.7"]
                  [org.postgresql/postgresql "9.4-1203-jdbc41"]
-                 [org.immutant/web "2.1.0"]]
+                 [org.immutant/web "2.1.0"]
+                 [test2junit "1.1.3"]]
 
   :min-lein-version "2.0.0"
   :uberjar-name "app.jar"
@@ -36,7 +37,8 @@
   :migratus {:store :database}
 
   :plugins [[lein-environ "1.0.1"]
-            [migratus-lein "0.2.0"]]
+            [migratus-lein "0.2.0"]
+            [test2junit "1.1.3"]]
   :profiles
   {:uberjar {:omit-source true
              :env {:production true}
