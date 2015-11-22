@@ -25,6 +25,12 @@
         id (Integer/parseInt (:id params))]
     (db/get-comments-for-podcast-paginate {:podcast_id id :limit limit :offset offset})))
 
+(defn- get-podcast-events [params]
+  (let [limit (:limit params 50) 
+        offset (:offset params 0)
+        id (Integer/parseInt (:id params))]
+    (db/get-events-for-podcast-paginate {:podcast_id id :limit limit :offset offset})))
+
 (defn- create-podcast-comment [params]
   (let [user_id (:user_id params)
            podcast_id (:id params)
@@ -48,5 +54,6 @@
   (GET "/podcasts/new" [] (get-new-podcasts))
   (GET "/podcasts/:id" [id] (-> id get-podcast))
   (GET "/podcasts/:id/comments" {params :params} (-> params get-podcast-comments))
+  (GET "/podcasts/:id/events" {params :params} (-> params get-podcast-events))
   (POST "/podcasts/:id/comments" {params :params} (-> params create-podcast-comment))
   (PATCH "/podcasts/:id/comments/:comment_id" {params :params} (-> params update-podcast-comment)))
