@@ -199,7 +199,7 @@ VALUES (:user_id, :podcast_id)
 DELETE FROM subscriptions
 WHERE id = :id
 
---name: delete-subscription-by-user-and-podcast-id
+--name: delete-subscription-by-user-and-podcast-id!
 -- deletes an existing subscription by user and podcast id
 DELETE FROM subscriptions
 WHERE user_id = :user_id AND podcast_id = :podcast_id

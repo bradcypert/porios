@@ -49,11 +49,38 @@
       (ok))
     (bad-request)))
 
+(defn- subscribe-to-podcast [params]
+  (let [id (Integer/parseInt (:id params))
+           user (Integer/parseInt (:user_id params))]
+    (if (nil? user)
+      (bad-request)
+      (do
+        (db/create-subscription! {:user_id user :podcast_id id})
+        (ok)))))
+
+(defn- unsubscribe-to-podcast [params]
+  (let [id (Integer/parseInt (:id params))
+           user (Integer/parseInt (:user_id params))]
+    (if (nil? user)
+      (bad-request)
+      (do
+        (db/delete-subscription-by-user-and-podcast-id! {:user_id user :podcast_id id})
+        (ok)))))
+
+(defn- get-subscriber-count-for-podcast [id]
+  (if-let [id (Integer/parseInt id)]
+    (db/get-subscriber-count-for-podcast {:podcast_id id})
+    (bad-request)))
+
+
 (defroutes podcast-routes
   (GET "/podcasts" {params :params} (-> params get-podcasts))
   (GET "/podcasts/new" [] (get-new-podcasts))
   (GET "/podcasts/:id" [id] (-> id get-podcast))
   (GET "/podcasts/:id/comments" {params :params} (-> params get-podcast-comments))
   (GET "/podcasts/:id/events" {params :params} (-> params get-podcast-events))
+  (GET "/podcasts/:id/subscriber/count" [id] (-> id get-subscriber-count-for-podcast))
   (POST "/podcasts/:id/comments" {params :params} (-> params create-podcast-comment))
+  (POST "/podcasts/:id/subscribe" {params :params} (-> params subscribe-to-podcast))
+  (POST "/podcasts/:id/unsubscribe"{params :params} (-> params unsubscribe-to-podcast))
   (PATCH "/podcasts/:id/comments/:comment_id" {params :params} (-> params update-podcast-comment)))
