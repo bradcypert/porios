@@ -33,12 +33,20 @@
     (db/get-events-for-followees-of-user {:user_id id})))
 
 (defn- create-user [params]
-  ;; Do something...
-  )
+  (let [first_name (:first_name params)
+        last_name (:last_name params)
+        email (:email params)
+        password (:password params)]
+    (db/create-user! {:first_name first_name :last_name last_name :email email :password password}))
+  (ok))
 
-(defn- user-user [params]
-  ;; Do something...
-  )
+;Dangerous (or at least sloppy)?
+(defn- update-user [params]
+ (try
+   (do
+    (db/update-user! params)
+    (ok))
+   (catch Exception e (bad-request))))
 
 (defroutes user-routes
   (GET "/users/:id" [id] (-> id get-user))

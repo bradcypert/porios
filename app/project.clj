@@ -21,9 +21,10 @@
                  [org.clojure/tools.nrepl "0.2.11"]
                  [org.webjars/bootstrap "3.3.5"]
                  [org.webjars/jquery "2.1.4"]
-                 [buddy "0.7.2"]
+                 [buddy "0.8.1"]
+                 [buddy/buddy-sign "0.8.1"]
                  [migratus "0.8.7"]
-                 [conman "0.2.3"]
+                 [conman "0.2.7"]
                  [org.postgresql/postgresql "9.4-1203-jdbc41"]
                  [org.immutant/web "2.1.0"]]
 

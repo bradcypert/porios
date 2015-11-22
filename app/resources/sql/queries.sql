@@ -1,8 +1,8 @@
 -- name: create-user!
 -- creates a new user record
 INSERT INTO users
-(id, first_name, last_name, email, pass)
-VALUES (:id, :first_name, :last_name, :email, :pass)
+(first_name, last_name, email, pass)
+VALUES (:first_name, :last_name, :email, :pass)
 
 -- name: update-user!
 -- update an existing user record
@@ -160,7 +160,7 @@ VALUES (:user_id, :podcast_id, event)
 DELETE FROM events
 WHERE id = :id
 
---name get-all-events-for-user
+--name: get-all-events-for-user
 -- gets all events for a given user.
 SELECT * FROM events
 WHERE user_id = :user_id

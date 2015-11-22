@@ -1,13 +1,10 @@
 (ns app.modules.auth
- (:require [buddy.sign.jws :refer [jws]]
+ (:require [buddy.sign.jws :as jws]
            [app.db.core :as db])) 
 
 (defonce secret "9!h:L<o81R,oB(tX2uY0L_joNeK'Rr")
 
 (def encryption {:alg :a256kw :enc :a128gcm})
-
-(defn- fetch-user-info [user]
-  db/get-user-token-fields {:user user})
 
 (defn generate-signature [email password]
   (let [user (db/get-user-by-email-and-password {:email email :password password})]
