@@ -42,6 +42,10 @@
                                    :comment_blob comment_blob})
          (ok)))))
 
+(defn- delete-podcast-comment [comment-id]
+  (let [c (Integer/parseInt comment-id)]
+    (db/delete-comment! {:id c})))
+
 (defn- update-podcast-comment [params]
   (if-let [id (:comment_id params)]
     (do
@@ -83,4 +87,5 @@
   (POST "/podcasts/:id/comments" {params :params} (-> params create-podcast-comment))
   (POST "/podcasts/:id/subscribe" {params :params} (-> params subscribe-to-podcast))
   (POST "/podcasts/:id/unsubscribe"{params :params} (-> params unsubscribe-to-podcast))
+  (DELETE "/podcasts/:id/comments/:cid" [cid] (-> cid delete-podcast-comment))
   (PATCH "/podcasts/:id/comments/:comment_id" {params :params} (-> params update-podcast-comment)))
