@@ -1,5 +1,5 @@
 (ns app.routes.podcasts
-  (:require [compojure.core :refer [defroutes GET POST PATCH]]
+  (:require [compojure.core :refer [defroutes GET POST PATCH DELETE]]
             [app.db.core :as db]
             [ring.util.http-response :refer [ok bad-request]]))
 
