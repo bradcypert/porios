@@ -108,6 +108,12 @@ INSERT INTO comments
 (user_id, podcast_id, comment_blob)
 VALUES (:user_id, :podcast_id, :comment_blob)
 
+--name: create-comment<!
+-- creates a new comment given a userID, podcastID, and blob - returns the inserted row.
+INSERT INTO comments
+(user_id, podcast_id, comment_blob)
+VALUES (:user_id, :podcast_id, :comment_blob)
+
 --name: delete-comment!
 -- deletes a comment by ID
 DELETE FROM comments
@@ -150,10 +156,10 @@ WHERE id = :id
 
 
 --name: create-event!
--- creates a new event
+-- creates a new event, event must be "comment" or "subscribe"
 INSERT INTO events
-(user_id, podcast_id, event)
-VALUES (:user_id, :podcast_id, event)
+(user_id, podcast_id, event, comment_id)
+VALUES (:user_id, :podcast_id, :event, :comment_id)
 
 --name: delete-event!
 -- deletes an event. Im not sure if we'll ever need this, but just in case.

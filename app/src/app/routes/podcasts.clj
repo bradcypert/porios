@@ -1,65 +1,63 @@
 (ns app.routes.podcasts
   (:require [compojure.core :refer [defroutes GET POST PATCH DELETE]]
             [app.db.core :as db]
+            [app.modules.podcasts :as podcasts]
             [ring.util.http-response :refer [ok bad-request]]))
 
 (defn- get-podcasts [params]
-  (let [limit (:limit params 50) offset (:offset params 0)]
+  (let [limit (:limit params 50)
+        offset (:offset params 0)]
     (if-let [genre (:genre params)]
-      (db/get-podcasts-by-genre {:genre genre :limit limit :offset limit})
-      (db/get-podcasts {:limit limit :offset offset}))))
+      (podcasts/get-podcasts-by-genre genre limit offset)
+      (podcasts/get-podcasts limit offset))))
 
 (defn- get-podcast [^:Integer id]
   (let [id (Integer/parseInt id)]
-    (db/get-podcast {:id id})))
-
-(defn- get-podcasts-by-genre [genre limit offset]
-  (db/get-podcasts-by-genre {:genre genre :limit limit :offset offset}))
+    (podcasts/get-podcast id)))
 
 (defn- get-new-podcasts []
-  (db/get-new-podcasts))
+  (podcasts/get-new-podcasts))
 
 (defn- get-podcast-comments [params]
-  (let [limit (:limit params 50) 
+  (let [limit (:limit params 50)
         offset (:offset params 0)
         id (Integer/parseInt (:id params))]
-    (db/get-comments-for-podcast-paginate {:podcast_id id :limit limit :offset offset})))
+    (podcasts/get-podcast-comments id limit offset)))
 
 (defn- get-podcast-events [params]
-  (let [limit (:limit params 50) 
+  (let [limit (:limit params 50)
         offset (:offset params 0)
         id (Integer/parseInt (:id params))]
-    (db/get-events-for-podcast-paginate {:podcast_id id :limit limit :offset offset})))
+    (podcasts/get-podcast-events id limit offset)))
 
 (defn- create-podcast-comment [params]
-  (let [user_id (:user_id params)
-           podcast_id (:id params)
+  (let [user_id (Integer/parseInt (:user_id params))
+           podcast_id (Integer/parseInt (:id params))
            comment_blob (:comment_blob params)]
    (if (some nil? (list user_id podcast_id comment_blob))
      (bad-request)
-     (do (db/create-comment! {:user_id (Integer/parseInt user_id)
-                                   :podcast_id (Integer/parseInt podcast_id)
-                                   :comment_blob comment_blob})
-         (ok)))))
+     (do
+       (podcasts/create-podcast-comment user_id podcast_id comment_blob)
+       (ok)))))
 
 (defn- delete-podcast-comment [comment-id]
-  (let [c (Integer/parseInt comment-id)]
-    (db/delete-comment! {:id c})))
+  (let [id (Integer/parseInt comment-id)]
+    (podcasts/delete-podcast-comment id)))
 
 (defn- update-podcast-comment [params]
-  (if-let [id (:comment_id params)]
+  (if-let [id (Integer/parseInt (:comment_id params))]
     (do
-      (db/update-comment! {:id (Integer/parseInt id) :comment_blob (:comment_blob params)})
+      (podcasts/update-podcast-comment id (:comment_blob params))
       (ok))
     (bad-request)))
 
 (defn- subscribe-to-podcast [params]
   (let [id (Integer/parseInt (:id params))
-           user (Integer/parseInt (:user_id params))]
+        user (Integer/parseInt (:user_id params))]
     (if (nil? user)
       (bad-request)
       (do
-        (db/create-subscription! {:user_id user :podcast_id id})
+        (podcasts/subscribe-to-podcast user id)
         (ok)))))
 
 (defn- unsubscribe-to-podcast [params]
@@ -68,12 +66,12 @@
     (if (nil? user)
       (bad-request)
       (do
-        (db/delete-subscription-by-user-and-podcast-id! {:user_id user :podcast_id id})
+        (podcasts/unsubscribe-to-podcast id user)
         (ok)))))
 
 (defn- get-subscriber-count-for-podcast [id]
   (if-let [id (Integer/parseInt id)]
-    (db/get-subscriber-count-for-podcast {:podcast_id id})
+    (podcasts/get-subscriber-count-for-podcast id)
     (bad-request)))
 
 

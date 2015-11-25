@@ -1,50 +1,50 @@
 (ns app.routes.users
   (:require [compojure.core :refer [defroutes GET POST PATCH]]
-            [app.db.core :as db]
+            [app.modules.users :as users]
             [app.modules.auth :as auth]
             [ring.util.http-response :refer [ok bad-request]]))
 
 (defn- get-user [id]
   (let [id (Integer/parseInt id)]
-    (db/get-user {:id id})))
+    (users/get-user id)))
 
 (defn- get-user-subscriptions [id]
   (let [id (Integer/parseInt id)]
-    (db/get-subscriptions-for-user {:id id})))
+    (users/get-user-subscriptions id)))
 
 (defn- get-user-followers [id]
   (let [id (Integer/parseInt id)]
-    (db/get-followers-for-user {:user_id id})))
+    (users/get-user-followers id)))
 
 (defn- get-user-followings [id]
   (let [id (Integer/parseInt id)]
-    (db/get-following-for-user {:user_id id})))
+    (users/get-user-followings id)))
 
 (defn- get-user-comments [id]
   (let [id (Integer/parseInt id)]
-    (db/get-all-comments-for-user {:user_id id})))
+    (users/get-user-comments id)))
 
 (defn- get-user-events [id]
   (let [id (Integer/parseInt id)]
-    (db/get-all-events-for-user {:user_id id})))
+    (users/get-user-events id)))
 
 (defn- get-user-following-events [id]
   (let [id (Integer/parseInt id)]
-    (db/get-events-for-followees-of-user {:user_id id})))
+    (users/get-user-following-events id)))
 
 (defn- create-user [params]
-  (let [first_name (:first_name params)
-        last_name (:last_name params)
-        email (:email params)
-        password (:password params)]
-    (db/create-user! {:first_name first_name :last_name last_name :email email :password password}))
+  (let [first     (:first_name params)
+        last      (:last_name params)
+        email     (:email params)
+        password  (:password params)]
+    (users/create-user first last email password))
   (ok))
 
 ;Dangerous (or at least sloppy)?
 (defn- update-user [params]
  (try
    (do
-    (db/update-user! params)
+    (users/update-user params)
     (ok))
    (catch Exception e (bad-request))))
 

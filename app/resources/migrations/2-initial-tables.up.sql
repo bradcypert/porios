@@ -27,6 +27,7 @@ CREATE TABLE events
 (id SERIAL PRIMARY KEY,
  user_id integer REFERENCES users,
  podcast_id integer REFERENCES podcasts,
+ comment_id integer REFERENCES comments,
  event event);
 
 CREATE TABLE subscriptions
