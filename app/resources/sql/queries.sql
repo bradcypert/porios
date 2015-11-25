@@ -186,7 +186,7 @@ LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 --name: get-events-for-followees-of-user
 -- gets all events of followees of a given user.
 SELECT * FROM events e
-WHERE e.user_id IN 
+WHERE e.user_id IN
   (SELECT f.followee
    FROM followers f
    WHERE f.follower = :user_id)
