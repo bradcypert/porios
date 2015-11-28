@@ -33,7 +33,7 @@ INSERT INTO podcasts
 (name, description, genre, release_date)
 VALUES (:name, :description, :genre, :release_date)
 
--- name: update-podcast!
+--name: update-podcast!
 -- updates an existing podcast.
 UPDATE podcasts
 SET name = :name, description = :description, genre = :genre, release_date = :release_date
@@ -51,7 +51,7 @@ WHERE id = :id
 --name: get-podcasts-by-genre
 -- gets paginated list of podcasts by genere, provide genre, limit, then offset.
 SELECT * FROM podcasts
-WHERE genre = :genre
+WHERE genre = cast(:genre as genre)
 LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
 --name: get-new-podcasts

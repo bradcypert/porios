@@ -1,6 +1,6 @@
 (ns app.modules.auth
  (:require [buddy.sign.jws :as jws]
-           [app.db.core :as db])) 
+           [app.db.core :as db]))
 
 (defonce secret "9!h:L<o81R,oB(tX2uY0L_joNeK'Rr")
 
