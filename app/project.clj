@@ -1,4 +1,4 @@
-(defproject app "0.1.0-SNAPSHOT"
+(defproject app "0.1.0"
 
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
@@ -49,8 +49,8 @@
                                  [ring/ring-devel "1.4.0"]
                                  [pjstadig/humane-test-output "0.7.0"]
                                  [mvxcvi/puget "0.9.2"]]
-                  
-                  
+
+
                   :repl-options {:init-ns app.core}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]
