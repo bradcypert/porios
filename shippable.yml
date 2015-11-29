@@ -4,7 +4,7 @@ lein:
   - lein2
 
 before_script:
-  - echo "CREATE ROLE dev WITH LOGIN PASSWORD 'dev'" | psql -U postgres
+  - psql -c "CREATE ROLE dev WITH LOGIN PASSWORD 'dev';" -U postgres
   - psql -c 'create database poriostest;' -U postgres
 
 script:
