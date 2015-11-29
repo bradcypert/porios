@@ -1,0 +1,1 @@
+ALTER TABLE users DROP COLUMN pic_url RESTRICT;
