@@ -3,37 +3,37 @@
 
 (defn get-user
   "Fetches a user by ID"
-  [id]
-  (db/get-user id))
+  [^:Integer id]
+  (db/get-user {:id id}))
 
 (defn get-user-subscriptions
   "Fetches the subscriptions for a user by their ID"
-  [id]
+  [^:Integer id]
   (db/get-subscriptions-for-user {:user_id id}))
 
 (defn get-user-followers
   "Fetches the followers for a user by the user's ID"
-  [id]
+  [^:Integer id]
   (db/get-followers-for-user {:user_id id}))
 
 (defn get-user-followings
   "Fetches the followees for a user by the user's ID"
-  [id]
+  [^:Integer id]
   (db/get-following-for-user {:user_id id}))
 
 (defn get-user-comments
   "Fetches the comments for a user by the user's ID"
-  [id]
+  [^:Integer id]
   (db/get-all-comments-for-user {:user_id id}))
 
 (defn get-user-events
   "Fetches the events for a user by the user's ID"
-  [id]
+  [^:Integer id]
   (db/get-all-events-for-user {:user_id id}))
 
 (defn get-user-following-events
   "Fetches the events for the followees by the given user's ID"
-  [id]
+  [^:Integer id]
   (db/get-events-for-followees-of-user {:user_id id}))
 
 (defn create-user
