@@ -81,6 +81,10 @@
       wrap-identity
       (wrap-authentication (session-backend))))
 
+(defn wrap-json-web-token [handler]
+  (println (keys handler))
+  handler)
+
 (defn wrap-base [handler]
   (-> handler
       wrap-dev
@@ -88,6 +92,7 @@
       wrap-formats
       wrap-webjars
       wrap-flash
+      ;wrap-json-web-token
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
         (-> site-defaults

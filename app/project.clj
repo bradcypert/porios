@@ -35,9 +35,14 @@
 
   :main app.core
   :migratus {:store :database}
+  :uberwar {:handler app.handler/app
+            :init app.handler/init
+            :destroy app.handler/destroy
+            :name "ROOT.war"}
 
   :plugins [[lein-environ "1.0.1"]
             [migratus-lein "0.2.0"]
+            [lein-uberwar "0.1.0"]
             [test2junit "1.1.3"]]
   :profiles
   {:uberjar {:omit-source true
