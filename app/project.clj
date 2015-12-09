@@ -43,6 +43,7 @@
   :plugins [[lein-environ "1.0.1"]
             [migratus-lein "0.2.0"]
             [lein-uberwar "0.1.0"]
+            [lein-elastic-beanstalk "0.2.8-SNAPSHOT"]
             [test2junit "1.1.3"]]
   :profiles
   {:uberjar {:omit-source true
