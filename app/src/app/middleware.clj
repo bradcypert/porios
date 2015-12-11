@@ -80,12 +80,13 @@
 
 (defn ensure-json-token [handler]
   (fn [request]
-    (let [method (:request-method request)]
+    (let [method (:request-method request)
+          json-token (:jwt (:params request))]
       (if (contains? token-request-types method)
-        true
-        false
-      ))
-    (handler request)))
+        (if (some? json-token)
+          (handler request) ; Change me once we figure out a way to validate the token is real.
+          (throw (Exception. "No JSON Web Token provided")))
+        (handler request)))))
 
 (defn wrap-auth [handler]
   (-> handler
