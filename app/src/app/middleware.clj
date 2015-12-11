@@ -19,7 +19,9 @@
   (:import [javax.servlet ServletContext]))
 
 ; CHECK WITH BRAD BEFORE MODIFYING THIS FILE.
-; Because tis probably isn't the file you're looking for.
+; Because it probably isn't the file you're looking for.
+
+(def token-request-types [:put :post :patch :delete])
 
 (defn wrap-context [handler]
   (fn [request]
@@ -76,14 +78,20 @@
     (binding [*identity* (get-in request [:session :identity])]
       (handler request))))
 
+(defn ensure-json-token [handler]
+  (fn [request]
+    (let [method (:request-method request)]
+      (if (contains? token-request-types method)
+        true
+        false
+      ))
+    (handler request)))
+
 (defn wrap-auth [handler]
   (-> handler
+      ensure-json-token
       wrap-identity
       (wrap-authentication (session-backend))))
-
-(defn wrap-json-web-token [handler]
-  (println (keys handler))
-  handler)
 
 (defn wrap-base [handler]
   (-> handler
@@ -92,7 +100,6 @@
       wrap-formats
       wrap-webjars
       wrap-flash
-      ;wrap-json-web-token
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
         (-> site-defaults
