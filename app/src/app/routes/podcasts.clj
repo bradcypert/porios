@@ -4,33 +4,39 @@
             [app.modules.podcasts :as podcasts]
             [ring.util.http-response :refer [ok bad-request]]))
 
-(defn- get-podcasts [params]
+(defn- get-podcasts 
+  [params]
   (let [limit (:limit params 50)
         offset (:offset params 0)]
     (if-let [genre (:genre params)]
       (podcasts/get-podcasts-by-genre genre limit offset)
       (podcasts/get-podcasts limit offset))))
 
-(defn- get-podcast [^:Integer id]
+(defn- get-podcast 
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (podcasts/get-podcast id)))
 
-(defn- get-new-podcasts []
+(defn- get-new-podcasts 
+  []
   (podcasts/get-new-podcasts))
 
-(defn- get-podcast-comments [params]
+(defn- get-podcast-comments 
+  [params]
   (let [limit (:limit params 50)
         offset (:offset params 0)
         id (Integer/parseInt (:id params))]
     (podcasts/get-podcast-comments id limit offset)))
 
-(defn- get-podcast-events [params]
+(defn- get-podcast-events 
+  [params]
   (let [limit (:limit params 50)
         offset (:offset params 0)
         id (Integer/parseInt (:id params))]
     (podcasts/get-podcast-events id limit offset)))
 
-(defn- create-podcast-comment [params]
+(defn- create-podcast-comment 
+  [params]
   (let [user_id (Integer/parseInt (:user_id params))
            podcast_id (Integer/parseInt (:id params))
            comment_blob (:comment_blob params)]
@@ -40,18 +46,21 @@
        (podcasts/create-podcast-comment user_id podcast_id comment_blob)
        (ok)))))
 
-(defn- delete-podcast-comment [comment-id]
+(defn- delete-podcast-comment 
+  [^:Integer comment-id]
   (let [id (Integer/parseInt comment-id)]
     (podcasts/delete-podcast-comment id)))
 
-(defn- update-podcast-comment [params]
+(defn- update-podcast-comment
+  [^:Integer params]
   (if-let [id (Integer/parseInt (:comment_id params))]
     (do
       (podcasts/update-podcast-comment id (:comment_blob params))
       (ok))
     (bad-request)))
 
-(defn- subscribe-to-podcast [params]
+(defn- subscribe-to-podcast 
+  [params]
   (let [id (Integer/parseInt (:id params))
         user (Integer/parseInt (:user_id params))]
     (if (nil? user)
@@ -60,7 +69,8 @@
         (podcasts/subscribe-to-podcast user id)
         (ok)))))
 
-(defn- unsubscribe-to-podcast [params]
+(defn- unsubscribe-to-podcast
+  [params]
   (let [id (Integer/parseInt (:id params))
            user (Integer/parseInt (:user_id params))]
     (if (nil? user)
@@ -69,7 +79,8 @@
         (podcasts/unsubscribe-to-podcast id user)
         (ok)))))
 
-(defn- get-subscriber-count-for-podcast [id]
+(defn- get-subscriber-count-for-podcast
+  [^:Integer id]
   (if-let [id (Integer/parseInt id)]
     (podcasts/get-subscriber-count-for-podcast id)
     (bad-request)))

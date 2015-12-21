@@ -4,35 +4,43 @@
             [app.modules.auth :as auth]
             [ring.util.http-response :refer [ok bad-request]]))
 
-(defn- get-user [id]
+(defn- get-user
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user id)))
 
-(defn- get-user-subscriptions [id]
+(defn- get-user-subscriptions
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user-subscriptions id)))
 
-(defn- get-user-followers [id]
+(defn- get-user-followers 
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user-followers id)))
 
-(defn- get-user-followings [id]
+(defn- get-user-followings
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user-followings id)))
 
-(defn- get-user-comments [id]
+(defn- get-user-comments
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user-comments id)))
 
-(defn- get-user-events [id]
+(defn- get-user-events
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user-events id)))
 
-(defn- get-user-following-events [id]
+(defn- get-user-following-events
+  [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user-following-events id)))
 
-(defn- create-user [params]
+(defn- create-user 
+  [params] ;;TODO: Clojure TypeHint for map?
   (let [first     (:first_name params)
         last      (:last_name params)
         email     (:email params)
@@ -41,12 +49,13 @@
   (ok))
 
 ;Dangerous (or at least sloppy)?
-(defn- update-user [params]
- (try
-   (do
-    (users/update-user params)
-    (ok))
-   (catch Exception e (bad-request))))
+(defn- update-user 
+  [params]
+  (try
+    (do
+      (users/update-user params)
+      (ok))
+    (catch Exception e (bad-request))))
 
 (defroutes user-routes
   (GET "/users/:id" [id] (-> id get-user))
