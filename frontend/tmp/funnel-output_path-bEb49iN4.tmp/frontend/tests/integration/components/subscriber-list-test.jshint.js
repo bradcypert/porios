@@ -1,0 +1,1 @@
+/Users/brad/Projects/podcasts/frontend/tmp/jshinter-output_path-lSliYLw6.tmp/integration/components/subscriber-list-test.jshint.js
