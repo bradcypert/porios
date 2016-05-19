@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
+import { Provider } from 'react-redux';
 
 import Page from 'components/page';
 import HomePage from 'pages/home';
@@ -12,6 +13,7 @@ import PlayerPage from 'pages/player';
 export default class extends React.Component {
     render() {
         return (
+          <Provider store={this.props.store}>
             <Router>
                 <Route path="/" component={Page}>
                   <Route path="/connect" component={ConnectPage} />
@@ -22,6 +24,7 @@ export default class extends React.Component {
                   <IndexRoute component={ExplorePage} />
                 </Route>
             </Router>
+          </Provider>
         )
     }
 }
