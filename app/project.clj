@@ -14,6 +14,7 @@
                  [ring/ring-defaults "0.1.5"]
                  [ring "1.4.0"
                   :exclusions [ring/ring-jetty-adapter]]
+                 [ring-cors "0.1.7"]
                  [metosin/ring-middleware-format "0.6.0"]
                  [metosin/ring-http-response "0.6.5"]
                  [bouncer "0.3.3"]
@@ -62,10 +63,10 @@
                                (pjstadig.humane-test-output/activate!)]
                   ;;when :nrepl-port is set the application starts the nREPL server on load
                   :env {:dev        true
-                        :port       3000
+                        :port       9000
                         :nrepl-port 7000}}
    :project/test {:env {:test       true
-                        :port       3001
+                        :port       9001
                         :nrepl-port 7001}}
    :profiles/dev {}
    :profiles/test {}})

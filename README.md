@@ -1,6 +1,12 @@
 #Porios
-##Where Podcasts Live
+##Connecting people through podcasts
 
-This is a really basic sample readme just to get something in GIT. Add to this later.
+####Building the API
+1. `lein deps`
+2. `lein run`
+3. `open localhost:9000/podcasts` for sample data
 
-Toni wuz not here
+####Building the Frontend
+1. `npm install`
+2. `npm start`
+3. `open localhost:3000` to make sure it renders

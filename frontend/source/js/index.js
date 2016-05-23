@@ -6,7 +6,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers/index';
 import { combineReducers } from 'redux-immutable';
 import Immutable from 'immutable';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
+import {loadPodcasts} from './actions/podcast-actions';
 
 const reducer = combineReducers(_.assign({}, reducers));
 let initialState = Immutable.Map();
@@ -15,6 +16,8 @@ const store = createStore(reducer, initialState, compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
+
+loadPodcasts(store.dispatch);
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(<Router store={store} />, document.querySelector('#react-app-mount'));

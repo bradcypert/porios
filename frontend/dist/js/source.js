@@ -19110,6 +19110,466 @@ module.exports = function symbolObservablePonyfill(root) {
 };
 
 },{}],37:[function(require,module,exports){
+(function(self) {
+  'use strict';
+
+  if (self.fetch) {
+    return
+  }
+
+  var support = {
+    searchParams: 'URLSearchParams' in self,
+    iterable: 'Symbol' in self && 'iterator' in Symbol,
+    blob: 'FileReader' in self && 'Blob' in self && (function() {
+      try {
+        new Blob()
+        return true
+      } catch(e) {
+        return false
+      }
+    })(),
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
+  }
+
+  function normalizeName(name) {
+    if (typeof name !== 'string') {
+      name = String(name)
+    }
+    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+      throw new TypeError('Invalid character in header field name')
+    }
+    return name.toLowerCase()
+  }
+
+  function normalizeValue(value) {
+    if (typeof value !== 'string') {
+      value = String(value)
+    }
+    return value
+  }
+
+  // Build a destructive iterator for the value list
+  function iteratorFor(items) {
+    var iterator = {
+      next: function() {
+        var value = items.shift()
+        return {done: value === undefined, value: value}
+      }
+    }
+
+    if (support.iterable) {
+      iterator[Symbol.iterator] = function() {
+        return iterator
+      }
+    }
+
+    return iterator
+  }
+
+  function Headers(headers) {
+    this.map = {}
+
+    if (headers instanceof Headers) {
+      headers.forEach(function(value, name) {
+        this.append(name, value)
+      }, this)
+
+    } else if (headers) {
+      Object.getOwnPropertyNames(headers).forEach(function(name) {
+        this.append(name, headers[name])
+      }, this)
+    }
+  }
+
+  Headers.prototype.append = function(name, value) {
+    name = normalizeName(name)
+    value = normalizeValue(value)
+    var list = this.map[name]
+    if (!list) {
+      list = []
+      this.map[name] = list
+    }
+    list.push(value)
+  }
+
+  Headers.prototype['delete'] = function(name) {
+    delete this.map[normalizeName(name)]
+  }
+
+  Headers.prototype.get = function(name) {
+    var values = this.map[normalizeName(name)]
+    return values ? values[0] : null
+  }
+
+  Headers.prototype.getAll = function(name) {
+    return this.map[normalizeName(name)] || []
+  }
+
+  Headers.prototype.has = function(name) {
+    return this.map.hasOwnProperty(normalizeName(name))
+  }
+
+  Headers.prototype.set = function(name, value) {
+    this.map[normalizeName(name)] = [normalizeValue(value)]
+  }
+
+  Headers.prototype.forEach = function(callback, thisArg) {
+    Object.getOwnPropertyNames(this.map).forEach(function(name) {
+      this.map[name].forEach(function(value) {
+        callback.call(thisArg, value, name, this)
+      }, this)
+    }, this)
+  }
+
+  Headers.prototype.keys = function() {
+    var items = []
+    this.forEach(function(value, name) { items.push(name) })
+    return iteratorFor(items)
+  }
+
+  Headers.prototype.values = function() {
+    var items = []
+    this.forEach(function(value) { items.push(value) })
+    return iteratorFor(items)
+  }
+
+  Headers.prototype.entries = function() {
+    var items = []
+    this.forEach(function(value, name) { items.push([name, value]) })
+    return iteratorFor(items)
+  }
+
+  if (support.iterable) {
+    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+  }
+
+  function consumed(body) {
+    if (body.bodyUsed) {
+      return Promise.reject(new TypeError('Already read'))
+    }
+    body.bodyUsed = true
+  }
+
+  function fileReaderReady(reader) {
+    return new Promise(function(resolve, reject) {
+      reader.onload = function() {
+        resolve(reader.result)
+      }
+      reader.onerror = function() {
+        reject(reader.error)
+      }
+    })
+  }
+
+  function readBlobAsArrayBuffer(blob) {
+    var reader = new FileReader()
+    reader.readAsArrayBuffer(blob)
+    return fileReaderReady(reader)
+  }
+
+  function readBlobAsText(blob) {
+    var reader = new FileReader()
+    reader.readAsText(blob)
+    return fileReaderReady(reader)
+  }
+
+  function Body() {
+    this.bodyUsed = false
+
+    this._initBody = function(body) {
+      this._bodyInit = body
+      if (typeof body === 'string') {
+        this._bodyText = body
+      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+        this._bodyBlob = body
+      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+        this._bodyFormData = body
+      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+        this._bodyText = body.toString()
+      } else if (!body) {
+        this._bodyText = ''
+      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+        // Only support ArrayBuffers for POST method.
+        // Receiving ArrayBuffers happens via Blobs, instead.
+      } else {
+        throw new Error('unsupported BodyInit type')
+      }
+
+      if (!this.headers.get('content-type')) {
+        if (typeof body === 'string') {
+          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+        } else if (this._bodyBlob && this._bodyBlob.type) {
+          this.headers.set('content-type', this._bodyBlob.type)
+        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+        }
+      }
+    }
+
+    if (support.blob) {
+      this.blob = function() {
+        var rejected = consumed(this)
+        if (rejected) {
+          return rejected
+        }
+
+        if (this._bodyBlob) {
+          return Promise.resolve(this._bodyBlob)
+        } else if (this._bodyFormData) {
+          throw new Error('could not read FormData body as blob')
+        } else {
+          return Promise.resolve(new Blob([this._bodyText]))
+        }
+      }
+
+      this.arrayBuffer = function() {
+        return this.blob().then(readBlobAsArrayBuffer)
+      }
+
+      this.text = function() {
+        var rejected = consumed(this)
+        if (rejected) {
+          return rejected
+        }
+
+        if (this._bodyBlob) {
+          return readBlobAsText(this._bodyBlob)
+        } else if (this._bodyFormData) {
+          throw new Error('could not read FormData body as text')
+        } else {
+          return Promise.resolve(this._bodyText)
+        }
+      }
+    } else {
+      this.text = function() {
+        var rejected = consumed(this)
+        return rejected ? rejected : Promise.resolve(this._bodyText)
+      }
+    }
+
+    if (support.formData) {
+      this.formData = function() {
+        return this.text().then(decode)
+      }
+    }
+
+    this.json = function() {
+      return this.text().then(JSON.parse)
+    }
+
+    return this
+  }
+
+  // HTTP methods whose capitalization should be normalized
+  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+  function normalizeMethod(method) {
+    var upcased = method.toUpperCase()
+    return (methods.indexOf(upcased) > -1) ? upcased : method
+  }
+
+  function Request(input, options) {
+    options = options || {}
+    var body = options.body
+    if (Request.prototype.isPrototypeOf(input)) {
+      if (input.bodyUsed) {
+        throw new TypeError('Already read')
+      }
+      this.url = input.url
+      this.credentials = input.credentials
+      if (!options.headers) {
+        this.headers = new Headers(input.headers)
+      }
+      this.method = input.method
+      this.mode = input.mode
+      if (!body) {
+        body = input._bodyInit
+        input.bodyUsed = true
+      }
+    } else {
+      this.url = input
+    }
+
+    this.credentials = options.credentials || this.credentials || 'omit'
+    if (options.headers || !this.headers) {
+      this.headers = new Headers(options.headers)
+    }
+    this.method = normalizeMethod(options.method || this.method || 'GET')
+    this.mode = options.mode || this.mode || null
+    this.referrer = null
+
+    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+      throw new TypeError('Body not allowed for GET or HEAD requests')
+    }
+    this._initBody(body)
+  }
+
+  Request.prototype.clone = function() {
+    return new Request(this)
+  }
+
+  function decode(body) {
+    var form = new FormData()
+    body.trim().split('&').forEach(function(bytes) {
+      if (bytes) {
+        var split = bytes.split('=')
+        var name = split.shift().replace(/\+/g, ' ')
+        var value = split.join('=').replace(/\+/g, ' ')
+        form.append(decodeURIComponent(name), decodeURIComponent(value))
+      }
+    })
+    return form
+  }
+
+  function headers(xhr) {
+    var head = new Headers()
+    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
+    pairs.forEach(function(header) {
+      var split = header.trim().split(':')
+      var key = split.shift().trim()
+      var value = split.join(':').trim()
+      head.append(key, value)
+    })
+    return head
+  }
+
+  Body.call(Request.prototype)
+
+  function Response(bodyInit, options) {
+    if (!options) {
+      options = {}
+    }
+
+    this.type = 'default'
+    this.status = options.status
+    this.ok = this.status >= 200 && this.status < 300
+    this.statusText = options.statusText
+    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
+    this.url = options.url || ''
+    this._initBody(bodyInit)
+  }
+
+  Body.call(Response.prototype)
+
+  Response.prototype.clone = function() {
+    return new Response(this._bodyInit, {
+      status: this.status,
+      statusText: this.statusText,
+      headers: new Headers(this.headers),
+      url: this.url
+    })
+  }
+
+  Response.error = function() {
+    var response = new Response(null, {status: 0, statusText: ''})
+    response.type = 'error'
+    return response
+  }
+
+  var redirectStatuses = [301, 302, 303, 307, 308]
+
+  Response.redirect = function(url, status) {
+    if (redirectStatuses.indexOf(status) === -1) {
+      throw new RangeError('Invalid status code')
+    }
+
+    return new Response(null, {status: status, headers: {location: url}})
+  }
+
+  self.Headers = Headers
+  self.Request = Request
+  self.Response = Response
+
+  self.fetch = function(input, init) {
+    return new Promise(function(resolve, reject) {
+      var request
+      if (Request.prototype.isPrototypeOf(input) && !init) {
+        request = input
+      } else {
+        request = new Request(input, init)
+      }
+
+      var xhr = new XMLHttpRequest()
+
+      function responseURL() {
+        if ('responseURL' in xhr) {
+          return xhr.responseURL
+        }
+
+        // Avoid security warnings on getResponseHeader when not allowed by CORS
+        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+          return xhr.getResponseHeader('X-Request-URL')
+        }
+
+        return
+      }
+
+      xhr.onload = function() {
+        var options = {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          headers: headers(xhr),
+          url: responseURL()
+        }
+        var body = 'response' in xhr ? xhr.response : xhr.responseText
+        resolve(new Response(body, options))
+      }
+
+      xhr.onerror = function() {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.ontimeout = function() {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.open(request.method, request.url, true)
+
+      if (request.credentials === 'include') {
+        xhr.withCredentials = true
+      }
+
+      if ('responseType' in xhr && support.blob) {
+        xhr.responseType = 'blob'
+      }
+
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value)
+      })
+
+      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+    })
+  }
+  self.fetch.polyfill = true
+})(typeof self !== 'undefined' ? self : this);
+
+},{}],38:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.loadPodcasts = loadPodcasts;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _utilConstants = require('../util/constants');
+
+var _utilApi = require('../util/api');
+
+var _utilApi2 = _interopRequireDefault(_utilApi);
+
+function loadPodcasts(dispatch) {
+  return _utilApi2['default'].get('podcasts').then(function (json) {
+    dispatch({ type: _utilConstants.PODCAST_ACTIONS.LOAD_PODCASTS_SUCCESS, data: json.data });
+    return json.data;
+  })['catch'](function (e) {
+    console.log('error', e);
+  });
+}
+
+},{"../util/api":63,"../util/constants":64}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19161,7 +19621,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],38:[function(require,module,exports){
+},{"react":"react"}],40:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19215,7 +19675,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],39:[function(require,module,exports){
+},{"react":"react"}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19269,7 +19729,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],40:[function(require,module,exports){
+},{"react":"react"}],42:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19323,7 +19783,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],41:[function(require,module,exports){
+},{"react":"react"}],43:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19377,7 +19837,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],42:[function(require,module,exports){
+},{"react":"react"}],44:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19428,7 +19888,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],43:[function(require,module,exports){
+},{"react":"react"}],45:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19482,7 +19942,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],44:[function(require,module,exports){
+},{"react":"react"}],46:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19540,7 +20000,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"components/sidebar":46,"react":"react"}],45:[function(require,module,exports){
+},{"components/sidebar":48,"react":"react"}],47:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19632,7 +20092,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"components/page":44,"pages/connect":51,"pages/explore":52,"pages/home":53,"pages/player":54,"pages/podcast":55,"pages/season":56,"react":"react","react-redux":8,"react-router":"react-router"}],46:[function(require,module,exports){
+},{"components/page":46,"pages/connect":53,"pages/explore":54,"pages/home":55,"pages/player":56,"pages/podcast":57,"pages/season":58,"react":"react","react-redux":8,"react-router":"react-router"}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19749,7 +20209,7 @@ var _default = (function (_React$Component2) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"components/icons/cast":37,"components/icons/gear":38,"components/icons/heart":39,"components/icons/messages":40,"components/icons/newspaper":41,"components/icons/people":42,"components/icons/person":43,"react":"react","react-router":"react-router"}],47:[function(require,module,exports){
+},{"components/icons/cast":39,"components/icons/gear":40,"components/icons/heart":41,"components/icons/messages":42,"components/icons/newspaper":43,"components/icons/people":44,"components/icons/person":45,"react":"react","react-router":"react-router"}],49:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -19786,6 +20246,8 @@ var _reduxThunk = require('redux-thunk');
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
+var _actionsPodcastActions = require('./actions/podcast-actions');
+
 var reducer = (0, _reduxImmutable.combineReducers)(_lodash2['default'].assign({}, _reducersIndex2['default']));
 var initialState = _immutable2['default'].Map();
 
@@ -19793,11 +20255,13 @@ var store = (0, _redux.createStore)(reducer, initialState, (0, _redux.compose)((
     return f;
 }));
 
+(0, _actionsPodcastActions.loadPodcasts)(store.dispatch);
+
 document.addEventListener('DOMContentLoaded', function () {
     _reactDom2['default'].render(_react2['default'].createElement(_componentsRouter2['default'], { store: store }), document.querySelector('#react-app-mount'));
 });
 
-},{"./reducers/index":58,"components/router":45,"immutable":2,"lodash":4,"react":"react","react-dom":"react-dom","redux":29,"redux-immutable":18,"redux-thunk":23}],48:[function(require,module,exports){
+},{"./actions/podcast-actions":38,"./reducers/index":60,"components/router":47,"immutable":2,"lodash":4,"react":"react","react-dom":"react-dom","redux":29,"redux-immutable":18,"redux-thunk":23}],50:[function(require,module,exports){
 /**
  * Generates an array of the given size, with the given value in each index.
  *
@@ -19820,7 +20284,7 @@ function generate(size, value) {
   return Array.apply(null, { length: size }).map(map);
 }
 
-},{}],49:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 /**
  * Returns the given JSX if the condition is true. If not, returns an empty string.
  *
@@ -19842,7 +20306,7 @@ function jsxIf(condition, jsx) {
   return condition ? genJsx() : '';
 }
 
-},{}],50:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -19874,7 +20338,7 @@ exports.podcast = podcast;
 exports.mockCategories = mockCategories;
 exports.mockEpisode = episode;
 
-},{}],51:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19921,7 +20385,7 @@ var _default = (function (_React$Component) {
 exports["default"] = _default;
 module.exports = exports["default"];
 
-},{"react":"react"}],52:[function(require,module,exports){
+},{"react":"react"}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20068,7 +20532,7 @@ var _default = (function (_React$Component2) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"components/page":44,"lib/arrays":48,"lib/jsx-helpers":49,"lib/mock-data":50,"react":"react","react-router":"react-router"}],53:[function(require,module,exports){
+},{"components/page":46,"lib/arrays":50,"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react","react-router":"react-router"}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20116,7 +20580,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"react":"react"}],54:[function(require,module,exports){
+},{"react":"react"}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20240,7 +20704,7 @@ var _default = (function (_React$Component2) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"lib/jsx-helpers":49,"lib/mock-data":50,"react":"react"}],55:[function(require,module,exports){
+},{"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react"}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20463,7 +20927,7 @@ var _default = (function (_React$Component4) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"lib/jsx-helpers":49,"lib/mock-data":50,"react":"react"}],56:[function(require,module,exports){
+},{"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react"}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20686,7 +21150,7 @@ var _default = (function (_React$Component4) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"lib/jsx-helpers":49,"lib/mock-data":50,"react":"react"}],57:[function(require,module,exports){
+},{"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react"}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20732,7 +21196,7 @@ function loginState(state, action) {
   }
 }
 
-},{"../util/constants":61,"immutable":2,"lodash":4}],58:[function(require,module,exports){
+},{"../util/constants":64,"immutable":2,"lodash":4}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20762,7 +21226,7 @@ var userReducers = _interopRequireWildcard(_userReducers);
 exports['default'] = _lodash2['default'].assign({}, appReducers, podcastReducers, userReducers);
 module.exports = exports['default'];
 
-},{"./app-reducers":57,"./podcast-reducers":59,"./user-reducers":60,"lodash":4}],59:[function(require,module,exports){
+},{"./app-reducers":59,"./podcast-reducers":61,"./user-reducers":62,"lodash":4}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20790,9 +21254,6 @@ function podcasts(state, action) {
     case _utilConstants.PODCAST_ACTIONS.PODCAST_LIST_SUCCESS:
       return (0, _immutable.fromJS)(action.data);
 
-    case _utilConstants.PODCAST_ACTIONS.PODCAST_CREATE_SUCCESS:
-      return state.unshift((0, _immutable.fromJS)(action.team));
-
     case _utilConstants.APP_ACTIONS.LOGOUT:
       return state.clear();
 
@@ -20801,7 +21262,7 @@ function podcasts(state, action) {
   }
 }
 
-},{"../util/constants":61,"immutable":2,"lodash":4}],60:[function(require,module,exports){
+},{"../util/constants":64,"immutable":2,"lodash":4}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20835,7 +21296,78 @@ function user(state, action) {
   }
 }
 
-},{"../util/constants":61,"immutable":2}],61:[function(require,module,exports){
+},{"../util/constants":64,"immutable":2}],63:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _whatwgFetch = require('whatwg-fetch');
+
+var _whatwgFetch2 = _interopRequireDefault(_whatwgFetch);
+
+var _constants = require('./constants');
+
+var HEADERS = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+};
+
+function doFetch(url, method, payload) {
+  var options = { method: method, headers: HEADERS };
+  if (payload) {
+    options.body = JSON.stringify(payload);
+  }
+  return fetch(_constants.API_URL + url, options).then(handleResponse, handleResponse);
+}
+
+function handleResponse(response) {
+  if (response.status == 304) {
+    return { status: 304 };
+  } else if (response.status == 400) {
+    return response.json().then(function (json) {
+      return Promise.reject({ status: 400, validationErrors: json.data });
+    });
+  } else if (response.ok) {
+    return response.json().then(function (json) {
+      return json;
+    });
+  } else {
+    throw Promise.reject(response);
+  }
+}
+
+exports['default'] = {
+  get: function get(url) {
+    return doFetch(url, 'GET');
+  },
+
+  'delete': function _delete(url) {
+    return doFetch(url, 'DELETE');
+  },
+
+  post: function post(url, payload) {
+    return doFetch(url, 'POST', payload);
+  },
+
+  put: function put(url, payload) {
+    return doFetch(url, 'PUT', payload);
+  },
+
+  patch: function patch(url, payload) {
+    return doFetch(url, 'PATCH', payload);
+  },
+
+  setStorage: function setStorage(storage) {
+    return _setStorage(storage);
+  }
+};
+module.exports = exports['default'];
+
+},{"./constants":64,"whatwg-fetch":37}],64:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20848,7 +21380,7 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var API_URL = ({ 'local': 'http://localhost:8080/', 'test': 'changeme', 'prod': 'changeme' })['local'];
+var API_URL = ({ 'local': 'http://localhost:9000/', 'test': 'changeme', 'prod': 'changeme' })['local'];
 
 exports.API_URL = API_URL;
 var APP_ACTIONS = createActionsFor('SIGNUP', 'LOGIN', 'LOGOUT', 'BACK');
@@ -20865,9 +21397,16 @@ function createActionsFor() {
     args[_key] = arguments[_key];
   }
 
-  return _lodash2['default'].flatten(args.map(function (arg) {
+  var actionList = _lodash2['default'].flatten(args.map(function (arg) {
     return [arg, arg + "_SUCCESS", arg + "_FAILED"];
   }));
+
+  var actions = _lodash2['default'].reduce(actionList, function (result, item) {
+    result[item] = item;
+    return result;
+  }, {});
+
+  return actions;
 }
 
-},{"lodash":4}]},{},[47]);
+},{"lodash":4}]},{},[49]);

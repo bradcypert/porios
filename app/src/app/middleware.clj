@@ -11,6 +11,7 @@
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.format :refer [wrap-restful-format]]
+            [ring.middleware.cors :refer [wrap-cors]]
             [buddy.auth.middleware :refer [wrap-authentication]]
             [buddy.auth.backends.session :refer [session-backend]]
             [buddy.auth.accessrules :refer [restrict]]
@@ -84,7 +85,7 @@
           json-token (:jwt (:params request))]
       (if (contains? token-request-types method)
         (if (some? json-token)
-          (handler request) ; Change me once we figure out a way to validate the token is real.
+          (handler request) ;TODO: Change me once we figure out a way to validate the token is real.
           (throw (Exception. "No JSON Web Token provided")))
         (handler request)))))
 
@@ -101,6 +102,8 @@
       wrap-formats
       wrap-webjars
       wrap-flash
+      (wrap-cors :access-control-allow-origin [#".+"]
+                 :access-control-allow-methods [:get :put :post :delete])
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
         (-> site-defaults

@@ -9,9 +9,6 @@ export function podcasts(state = Immutable.List(), action) {
     case PODCAST_ACTIONS.PODCAST_LIST_SUCCESS:
       return fromJS(action.data);
 
-    case PODCAST_ACTIONS.PODCAST_CREATE_SUCCESS:
-      return state.unshift(fromJS(action.team));
-
     case APP_ACTIONS.LOGOUT:
       return state.clear();
 
