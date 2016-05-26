@@ -9,6 +9,7 @@ import PodcastPage from 'pages/podcast';
 import SeasonPage from 'pages/season';
 import ExplorePage from 'pages/explore';
 import PlayerPage from 'pages/player';
+import MessagesPage from 'pages/messages';
 
 export default class extends React.Component {
     render() {
@@ -20,6 +21,7 @@ export default class extends React.Component {
                   <Route path="/podcast/:id" component={PodcastPage} />
                   <Route path="/podcast/:id/:season" component={SeasonPage} />
                   <Route path="/explore" component={ExplorePage} />
+                  <Route path="/messages" component={MessagesPage} />
                   <Route path="/player/:podcastId/:episodeId" component={PlayerPage} />
                   <IndexRoute component={ExplorePage} />
                 </Route>

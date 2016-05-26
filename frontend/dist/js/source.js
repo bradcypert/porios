@@ -19568,7 +19568,7 @@ function loadPodcasts(dispatch) {
   });
 }
 
-},{"../util/api":63,"../util/constants":64}],39:[function(require,module,exports){
+},{"../util/api":64,"../util/constants":65}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20052,6 +20052,10 @@ var _pagesPlayer = require('pages/player');
 
 var _pagesPlayer2 = _interopRequireDefault(_pagesPlayer);
 
+var _pagesMessages = require('pages/messages');
+
+var _pagesMessages2 = _interopRequireDefault(_pagesMessages);
+
 var _default = (function (_React$Component) {
   _inherits(_default, _React$Component);
 
@@ -20077,6 +20081,7 @@ var _default = (function (_React$Component) {
             _react2['default'].createElement(_reactRouter.Route, { path: '/podcast/:id', component: _pagesPodcast2['default'] }),
             _react2['default'].createElement(_reactRouter.Route, { path: '/podcast/:id/:season', component: _pagesSeason2['default'] }),
             _react2['default'].createElement(_reactRouter.Route, { path: '/explore', component: _pagesExplore2['default'] }),
+            _react2['default'].createElement(_reactRouter.Route, { path: '/messages', component: _pagesMessages2['default'] }),
             _react2['default'].createElement(_reactRouter.Route, { path: '/player/:podcastId/:episodeId', component: _pagesPlayer2['default'] }),
             _react2['default'].createElement(_reactRouter.IndexRoute, { component: _pagesExplore2['default'] })
           )
@@ -20091,7 +20096,7 @@ var _default = (function (_React$Component) {
 exports['default'] = _default;
 module.exports = exports['default'];
 
-},{"components/page":46,"pages/connect":53,"pages/explore":54,"pages/home":55,"pages/player":56,"pages/podcast":57,"pages/season":58,"react":"react","react-redux":8,"react-router":"react-router"}],48:[function(require,module,exports){
+},{"components/page":46,"pages/connect":53,"pages/explore":54,"pages/home":55,"pages/messages":56,"pages/player":57,"pages/podcast":58,"pages/season":59,"react":"react","react-redux":8,"react-router":"react-router"}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20256,7 +20261,7 @@ var store = (0, _redux.createStore)(reducer, initialState, (0, _redux.applyMiddl
   _reactDom2['default'].render(_react2['default'].createElement(_componentsRouter2['default'], { store: store }), document.querySelector('#react-app-mount'));
 });
 
-},{"./actions/podcast-actions":38,"./reducers/index":60,"components/router":47,"immutable":2,"lodash":4,"react":"react","react-dom":"react-dom","redux":29,"redux-immutable":18,"redux-thunk":23}],50:[function(require,module,exports){
+},{"./actions/podcast-actions":38,"./reducers/index":61,"components/router":47,"immutable":2,"lodash":4,"react":"react","react-dom":"react-dom","redux":29,"redux-immutable":18,"redux-thunk":23}],50:[function(require,module,exports){
 /**
  * Generates an array of the given size, with the given value in each index.
  *
@@ -20526,7 +20531,7 @@ var Explore = (function (_React$Component2) {
 exports['default'] = (0, _reactRedux.connect)((0, _utilState.selectState)('podcasts'))(Explore);
 module.exports = exports['default'];
 
-},{"../actions/podcast-actions":38,"../util/state":65,"components/page":46,"lib/arrays":50,"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react","react-redux":8,"react-router":"react-router"}],55:[function(require,module,exports){
+},{"../actions/podcast-actions":38,"../util/state":66,"components/page":46,"lib/arrays":50,"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react","react-redux":8,"react-router":"react-router"}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20575,6 +20580,150 @@ exports['default'] = _default;
 module.exports = exports['default'];
 
 },{"react":"react"}],56:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _componentsPage = require('components/page');
+
+var _componentsPage2 = _interopRequireDefault(_componentsPage);
+
+var _utilState = require('../util/state');
+
+var _reactRedux = require('react-redux');
+
+var _actionsPodcastActions = require('../actions/podcast-actions');
+
+var MessageList = (function (_React$Component) {
+  _inherits(MessageList, _React$Component);
+
+  function MessageList() {
+    _classCallCheck(this, MessageList);
+
+    _get(Object.getPrototypeOf(MessageList.prototype), 'constructor', this).call(this);
+  }
+
+  _createClass(MessageList, [{
+    key: 'messageListItem',
+    value: function messageListItem(item) {
+      return _react2['default'].createElement(
+        'li',
+        null,
+        _react2['default'].createElement('h4', null)
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var messages = this.props.messages || [];
+      return _react2['default'].createElement(
+        'section',
+        { className: 'message-list' },
+        _react2['default'].createElement(
+          'ul',
+          null,
+          messages.map(this.messageListItem)
+        )
+      );
+    }
+  }]);
+
+  return MessageList;
+})(_react2['default'].Component);
+
+var Message = (function (_React$Component2) {
+  _inherits(Message, _React$Component2);
+
+  function Message() {
+    _classCallCheck(this, Message);
+
+    _get(Object.getPrototypeOf(Message.prototype), 'constructor', this).call(this);
+  }
+
+  _createClass(Message, [{
+    key: 'render',
+    value: function render() {
+      return _react2['default'].createElement(
+        'main',
+        { className: 'message' },
+        _react2['default'].createElement(
+          'header',
+          null,
+          _react2['default'].createElement(
+            'h2',
+            null,
+            'Brad Cypert'
+          )
+        ),
+        _react2['default'].createElement(
+          'section',
+          null,
+          _react2['default'].createElement(
+            'p',
+            null,
+            'Heres a message.'
+          )
+        )
+      );
+    }
+  }]);
+
+  return Message;
+})(_react2['default'].Component);
+
+var Messages = (function (_React$Component3) {
+  _inherits(Messages, _React$Component3);
+
+  function Messages() {
+    _classCallCheck(this, Messages);
+
+    _get(Object.getPrototypeOf(Messages.prototype), 'constructor', this).call(this);
+  }
+
+  _createClass(Messages, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {}
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'render',
+    value: function render() {
+      var messages = this.props.messages || [];
+      return _react2['default'].createElement(
+        'div',
+        { className: 'messages' },
+        _react2['default'].createElement(MessageList, { messages: messages }),
+        _react2['default'].createElement(Message, { message: messages[0] })
+      );
+    }
+  }]);
+
+  return Messages;
+})(_react2['default'].Component);
+
+exports['default'] = (0, _reactRedux.connect)((0, _utilState.selectState)('messages'))(Messages);
+module.exports = exports['default'];
+
+},{"../actions/podcast-actions":38,"../util/state":66,"components/page":46,"react":"react","react-redux":8,"react-router":"react-router"}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20687,229 +20836,6 @@ var _default = (function (_React$Component2) {
                 { className: 'player' },
                 (0, _libJsxHelpers.jsxIf)(this.state.podcast && this.state.episode, function () {
                     return _react2['default'].createElement(partials.Page, { episode: _this2.state.episode, podcast: _this2.state.podcast });
-                })
-            );
-        }
-    }]);
-
-    return _default;
-})(_react2['default'].Component);
-
-exports['default'] = _default;
-module.exports = exports['default'];
-
-},{"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react"}],57:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-    value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _libJsxHelpers = require('lib/jsx-helpers');
-
-var _libMockData = require('lib/mock-data');
-
-var _render = {
-    podcastLogo: function podcastLogo(source) {
-        return _react2['default'].createElement(
-            'div',
-            { className: 'podcast-logo' },
-            _react2['default'].createElement('img', { src: source })
-        );
-    },
-    stat: function stat(_ref) {
-        var label = _ref.label;
-        var value = _ref.value;
-        return _react2['default'].createElement(
-            'div',
-            { className: 'stat' },
-            _react2['default'].createElement(
-                'label',
-                { className: 'stat-label' },
-                label
-            ),
-            _react2['default'].createElement(
-                'span',
-                { className: 'stat-value' },
-                value
-            )
-        );
-    }
-};
-
-var partials = {
-    Stat: (function (_React$Component) {
-        _inherits(Stat, _React$Component);
-
-        function Stat() {
-            _classCallCheck(this, Stat);
-
-            _get(Object.getPrototypeOf(Stat.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        _createClass(Stat, [{
-            key: 'render',
-            value: function render() {
-                return _react2['default'].createElement(
-                    'div',
-                    { className: 'stat' },
-                    _react2['default'].createElement(
-                        'label',
-                        { className: 'stat-label' },
-                        this.props.label
-                    ),
-                    _react2['default'].createElement(
-                        'span',
-                        { className: 'stat-value' },
-                        this.props.value
-                    )
-                );
-            }
-        }]);
-
-        return Stat;
-    })(_react2['default'].Component),
-    Overview: (function (_React$Component2) {
-        _inherits(Overview, _React$Component2);
-
-        function Overview() {
-            _classCallCheck(this, Overview);
-
-            _get(Object.getPrototypeOf(Overview.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        _createClass(Overview, [{
-            key: 'render',
-            value: function render() {
-                var podcast = this.props.podcast;
-
-                return _react2['default'].createElement(
-                    'aside',
-                    { className: 'aside' },
-                    _render.podcastLogo(podcast.logo),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'container' },
-                        _react2['default'].createElement(
-                            'div',
-                            { className: 'button-pair large margin-top-large' },
-                            _react2['default'].createElement(
-                                'button',
-                                { className: 'button primary' },
-                                'Subscribe'
-                            ),
-                            _react2['default'].createElement(
-                                'button',
-                                { className: 'button' },
-                                'Latest Episode'
-                            )
-                        ),
-                        _react2['default'].createElement(
-                            'h2',
-                            { className: 'margin-top' },
-                            'Similar'
-                        )
-                    )
-                );
-            }
-        }]);
-
-        return Overview;
-    })(_react2['default'].Component),
-    DetailsView: (function (_React$Component3) {
-        _inherits(DetailsView, _React$Component3);
-
-        function DetailsView() {
-            _classCallCheck(this, DetailsView);
-
-            _get(Object.getPrototypeOf(DetailsView.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        _createClass(DetailsView, [{
-            key: 'render',
-            value: function render() {
-                var podcast = this.props.podcast;
-
-                return _react2['default'].createElement(
-                    'article',
-                    { className: 'article' },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'container' },
-                        _react2['default'].createElement(
-                            'h1',
-                            { className: 'margin-top-small' },
-                            podcast.title
-                        ),
-                        _react2['default'].createElement(
-                            'p',
-                            null,
-                            podcast.description
-                        ),
-                        _react2['default'].createElement(
-                            'div',
-                            { className: 'stats' },
-                            _render.stat({ label: 'Episodes', value: podcast.episodeCount }),
-                            _render.stat({ label: 'Subscribers', value: podcast.subscribers }),
-                            _react2['default'].createElement(partials.Stat, { label: 'Genre', value: podcast.genres.join(', ') }),
-                            _react2['default'].createElement(partials.Stat, { label: 'Release Date', value: new Date(podcast.released).toDateString() })
-                        )
-                    )
-                );
-            }
-        }]);
-
-        return DetailsView;
-    })(_react2['default'].Component)
-};
-
-var _default = (function (_React$Component4) {
-    _inherits(_default, _React$Component4);
-
-    function _default() {
-        _classCallCheck(this, _default);
-
-        _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).call(this);
-
-        this.state = {
-            podcast: null
-        };
-    }
-
-    _createClass(_default, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this = this;
-
-            Promise.resolve(_libMockData.podcast).then(function (podcast) {
-                _this.setState({ podcast: podcast });
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return _react2['default'].createElement(
-                'div',
-                { className: 'home' },
-                !this.state.podcast || _react2['default'].createElement(partials.Overview, { podcast: this.state.podcast }),
-                (0, _libJsxHelpers.jsxIf)(this.state.podcast, function () {
-                    return _react2['default'].createElement(partials.DetailsView, { podcast: _this2.state.podcast });
                 })
             );
         }
@@ -21148,6 +21074,229 @@ module.exports = exports['default'];
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _libJsxHelpers = require('lib/jsx-helpers');
+
+var _libMockData = require('lib/mock-data');
+
+var _render = {
+    podcastLogo: function podcastLogo(source) {
+        return _react2['default'].createElement(
+            'div',
+            { className: 'podcast-logo' },
+            _react2['default'].createElement('img', { src: source })
+        );
+    },
+    stat: function stat(_ref) {
+        var label = _ref.label;
+        var value = _ref.value;
+        return _react2['default'].createElement(
+            'div',
+            { className: 'stat' },
+            _react2['default'].createElement(
+                'label',
+                { className: 'stat-label' },
+                label
+            ),
+            _react2['default'].createElement(
+                'span',
+                { className: 'stat-value' },
+                value
+            )
+        );
+    }
+};
+
+var partials = {
+    Stat: (function (_React$Component) {
+        _inherits(Stat, _React$Component);
+
+        function Stat() {
+            _classCallCheck(this, Stat);
+
+            _get(Object.getPrototypeOf(Stat.prototype), 'constructor', this).apply(this, arguments);
+        }
+
+        _createClass(Stat, [{
+            key: 'render',
+            value: function render() {
+                return _react2['default'].createElement(
+                    'div',
+                    { className: 'stat' },
+                    _react2['default'].createElement(
+                        'label',
+                        { className: 'stat-label' },
+                        this.props.label
+                    ),
+                    _react2['default'].createElement(
+                        'span',
+                        { className: 'stat-value' },
+                        this.props.value
+                    )
+                );
+            }
+        }]);
+
+        return Stat;
+    })(_react2['default'].Component),
+    Overview: (function (_React$Component2) {
+        _inherits(Overview, _React$Component2);
+
+        function Overview() {
+            _classCallCheck(this, Overview);
+
+            _get(Object.getPrototypeOf(Overview.prototype), 'constructor', this).apply(this, arguments);
+        }
+
+        _createClass(Overview, [{
+            key: 'render',
+            value: function render() {
+                var podcast = this.props.podcast;
+
+                return _react2['default'].createElement(
+                    'aside',
+                    { className: 'aside' },
+                    _render.podcastLogo(podcast.logo),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'container' },
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'button-pair large margin-top-large' },
+                            _react2['default'].createElement(
+                                'button',
+                                { className: 'button primary' },
+                                'Subscribe'
+                            ),
+                            _react2['default'].createElement(
+                                'button',
+                                { className: 'button' },
+                                'Latest Episode'
+                            )
+                        ),
+                        _react2['default'].createElement(
+                            'h2',
+                            { className: 'margin-top' },
+                            'Similar'
+                        )
+                    )
+                );
+            }
+        }]);
+
+        return Overview;
+    })(_react2['default'].Component),
+    DetailsView: (function (_React$Component3) {
+        _inherits(DetailsView, _React$Component3);
+
+        function DetailsView() {
+            _classCallCheck(this, DetailsView);
+
+            _get(Object.getPrototypeOf(DetailsView.prototype), 'constructor', this).apply(this, arguments);
+        }
+
+        _createClass(DetailsView, [{
+            key: 'render',
+            value: function render() {
+                var podcast = this.props.podcast;
+
+                return _react2['default'].createElement(
+                    'article',
+                    { className: 'article' },
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'container' },
+                        _react2['default'].createElement(
+                            'h1',
+                            { className: 'margin-top-small' },
+                            podcast.title
+                        ),
+                        _react2['default'].createElement(
+                            'p',
+                            null,
+                            podcast.description
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'stats' },
+                            _render.stat({ label: 'Episodes', value: podcast.episodeCount }),
+                            _render.stat({ label: 'Subscribers', value: podcast.subscribers }),
+                            _react2['default'].createElement(partials.Stat, { label: 'Genre', value: podcast.genres.join(', ') }),
+                            _react2['default'].createElement(partials.Stat, { label: 'Release Date', value: new Date(podcast.released).toDateString() })
+                        )
+                    )
+                );
+            }
+        }]);
+
+        return DetailsView;
+    })(_react2['default'].Component)
+};
+
+var _default = (function (_React$Component4) {
+    _inherits(_default, _React$Component4);
+
+    function _default() {
+        _classCallCheck(this, _default);
+
+        _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).call(this);
+
+        this.state = {
+            podcast: null
+        };
+    }
+
+    _createClass(_default, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this = this;
+
+            Promise.resolve(_libMockData.podcast).then(function (podcast) {
+                _this.setState({ podcast: podcast });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2['default'].createElement(
+                'div',
+                { className: 'home' },
+                !this.state.podcast || _react2['default'].createElement(partials.Overview, { podcast: this.state.podcast }),
+                (0, _libJsxHelpers.jsxIf)(this.state.podcast, function () {
+                    return _react2['default'].createElement(partials.DetailsView, { podcast: _this2.state.podcast });
+                })
+            );
+        }
+    }]);
+
+    return _default;
+})(_react2['default'].Component);
+
+exports['default'] = _default;
+module.exports = exports['default'];
+
+},{"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react"}],60:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 exports.loginState = loginState;
@@ -21190,7 +21339,7 @@ function loginState(state, action) {
   }
 }
 
-},{"../util/constants":64,"immutable":2,"lodash":4}],60:[function(require,module,exports){
+},{"../util/constants":65,"immutable":2,"lodash":4}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -21220,7 +21369,7 @@ var userReducers = _interopRequireWildcard(_userReducers);
 exports['default'] = _lodash2['default'].assign({}, appReducers, podcastReducers, userReducers);
 module.exports = exports['default'];
 
-},{"./app-reducers":59,"./podcast-reducers":61,"./user-reducers":62,"lodash":4}],61:[function(require,module,exports){
+},{"./app-reducers":60,"./podcast-reducers":62,"./user-reducers":63,"lodash":4}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -21256,7 +21405,7 @@ function podcasts(state, action) {
   }
 }
 
-},{"../util/constants":64,"immutable":2,"lodash":4}],62:[function(require,module,exports){
+},{"../util/constants":65,"immutable":2,"lodash":4}],63:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -21290,7 +21439,7 @@ function user(state, action) {
   }
 }
 
-},{"../util/constants":64,"immutable":2}],63:[function(require,module,exports){
+},{"../util/constants":65,"immutable":2}],64:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -21361,7 +21510,7 @@ exports['default'] = {
 };
 module.exports = exports['default'];
 
-},{"./constants":64,"whatwg-fetch":37}],64:[function(require,module,exports){
+},{"./constants":65,"whatwg-fetch":37}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -21403,7 +21552,7 @@ function createActionsFor() {
   return actions;
 }
 
-},{"lodash":4}],65:[function(require,module,exports){
+},{"lodash":4}],66:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

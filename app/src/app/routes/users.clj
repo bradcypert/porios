@@ -14,7 +14,7 @@
   (let [id (Integer/parseInt id)]
     (users/get-user-subscriptions id)))
 
-(defn- get-user-followers 
+(defn- get-user-followers
   [^:Integer id]
   (let [id (Integer/parseInt id)]
     (users/get-user-followers id)))
@@ -39,7 +39,7 @@
   (let [id (Integer/parseInt id)]
     (users/get-user-following-events id)))
 
-(defn- create-user 
+(defn- create-user
   [params] ;;TODO: Clojure TypeHint for map?
   (let [first     (:first_name params)
         last      (:last_name params)
@@ -49,7 +49,7 @@
   (ok))
 
 ;Dangerous (or at least sloppy)?
-(defn- update-user 
+(defn- update-user
   [params]
   (try
     (do
