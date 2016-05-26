@@ -20468,8 +20468,8 @@ var partials = {
           'li',
           { key: i },
           _react2['default'].createElement(
-            'a',
-            { href: '#/podcast/' + podcast.id },
+            _reactRouter.Link,
+            { to: '/podcast/' + podcast.id },
             _react2['default'].createElement('div', { className: 'podcast-background', style: { backgroundImage: 'url(' + podcast.logo + ')' } }),
             _react2['default'].createElement(
               'div',

@@ -24,10 +24,10 @@ const partials = {
     li(podcast, i) {
       return (
         <li key={i}>
-          <a href={`#/podcast/${podcast.id}`}>
+          <Link to={`/podcast/${podcast.id}`}>
             <div className="podcast-background" style={{ backgroundImage: `url(${podcast.logo})` }}></div>
             <div className="podcast-title">{podcast.title}</div>
-          </a>
+          </Link>
         </li>
       )
     }
