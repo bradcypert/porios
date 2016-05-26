@@ -1,1 +1,0 @@
-/Users/brad/Projects/podcasts/frontend/app/components/subscriber-list.js

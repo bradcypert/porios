@@ -1,1 +1,0 @@
-/Users/brad/Projects/podcasts/frontend/tmp/jshinter-output_path-lSliYLw6.tmp/unit/routes/application-test.jshint.js
