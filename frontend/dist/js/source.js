@@ -19562,8 +19562,7 @@ var _utilApi2 = _interopRequireDefault(_utilApi);
 
 function loadPodcasts(dispatch) {
   return _utilApi2['default'].get('podcasts').then(function (json) {
-    dispatch({ type: _utilConstants.PODCAST_ACTIONS.LOAD_PODCASTS_SUCCESS, data: json });
-    return json;
+    return dispatch({ type: _utilConstants.PODCAST_ACTIONS.LOAD_PODCASTS_SUCCESS, data: json });
   })['catch'](function (e) {
     console.log('error', e);
   });
@@ -20251,14 +20250,10 @@ var _actionsPodcastActions = require('./actions/podcast-actions');
 var reducer = (0, _reduxImmutable.combineReducers)(_lodash2['default'].assign({}, _reducersIndex2['default']));
 var initialState = _immutable2['default'].Map();
 
-var store = (0, _redux.createStore)(reducer, initialState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2['default']), window.devToolsExtension ? window.devToolsExtension() : function (f) {
-    return f;
-}));
+var store = (0, _redux.createStore)(reducer, initialState, (0, _redux.applyMiddleware)(_reduxThunk2['default']));
 
-(0, _actionsPodcastActions.loadPodcasts)(store.dispatch);
-
-document.addEventListener('DOMContentLoaded', function () {
-    _reactDom2['default'].render(_react2['default'].createElement(_componentsRouter2['default'], { store: store }), document.querySelector('#react-app-mount'));
+(0, _actionsPodcastActions.loadPodcasts)(store.dispatch).then(function () {
+  _reactDom2['default'].render(_react2['default'].createElement(_componentsRouter2['default'], { store: store }), document.querySelector('#react-app-mount'));
 });
 
 },{"./actions/podcast-actions":38,"./reducers/index":60,"components/router":47,"immutable":2,"lodash":4,"react":"react","react-dom":"react-dom","redux":29,"redux-immutable":18,"redux-thunk":23}],50:[function(require,module,exports){
@@ -20426,13 +20421,7 @@ var _utilState = require('../util/state');
 
 var _reactRedux = require('react-redux');
 
-var _render = {
-  categories: function categories(_categories) {
-    return _categories.map(function (category) {
-      return _react2['default'].createElement(partials.PodcastList, { key: category.name, label: category.name, podcasts: category.podcasts });
-    });
-  }
-};
+var _actionsPodcastActions = require('../actions/podcast-actions');
 
 var partials = {
   PodcastList: (function (_React$Component) {
@@ -20493,13 +20482,15 @@ var Explore = (function (_React$Component2) {
     _classCallCheck(this, Explore);
 
     _get(Object.getPrototypeOf(Explore.prototype), 'constructor', this).call(this);
-
     this.state = {
       categories: null
     };
   }
 
   _createClass(Explore, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {}
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this = this;
@@ -20518,14 +20509,12 @@ var Explore = (function (_React$Component2) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      console.log(this.props);
+      var categories = this.state.categories || [];
       return _react2['default'].createElement(
         'div',
         { className: 'explore' },
-        (0, _libJsxHelpers.jsxIf)(this.state.categories, function () {
-          return _render.categories(_this2.state.categories);
+        categories.map(function (category) {
+          return _react2['default'].createElement(partials.PodcastList, { key: category.name, label: category.name, podcasts: category.podcasts });
         })
       );
     }
@@ -20537,7 +20526,7 @@ var Explore = (function (_React$Component2) {
 exports['default'] = (0, _reactRedux.connect)((0, _utilState.selectState)('podcasts'))(Explore);
 module.exports = exports['default'];
 
-},{"../util/state":65,"components/page":46,"lib/arrays":50,"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react","react-redux":8,"react-router":"react-router"}],55:[function(require,module,exports){
+},{"../actions/podcast-actions":38,"../util/state":65,"components/page":46,"lib/arrays":50,"lib/jsx-helpers":51,"lib/mock-data":52,"react":"react","react-redux":8,"react-router":"react-router"}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -21254,10 +21243,9 @@ var _utilConstants = require('../util/constants');
 function podcasts(state, action) {
   if (state === undefined) state = _immutable2['default'].List();
 
-  console.log(state, action);
   switch (action.type) {
 
-    case _utilConstants.PODCAST_ACTIONS.PODCAST_LIST_SUCCESS:
+    case _utilConstants.PODCAST_ACTIONS.LOAD_PODCASTS_SUCCESS:
       return (0, _immutable.fromJS)(action.data);
 
     case _utilConstants.APP_ACTIONS.LOGOUT:

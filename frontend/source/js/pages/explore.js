@@ -6,12 +6,7 @@ import { podcast as mockPodcast, mockCategories } from 'lib/mock-data';
 import * as arrays from 'lib/arrays';
 import {selectState} from '../util/state';
 import {connect} from 'react-redux';
-
-const render = {
-  categories: (categories) => {
-      return categories.map(category => <partials.PodcastList key={category.name} label={category.name} podcasts={category.podcasts} />)
-  }
-};
+import {loadPodcasts} from '../actions/podcast-actions';
 
 const partials = {
   PodcastList: class extends React.Component {
@@ -42,10 +37,13 @@ const partials = {
 class Explore extends React.Component {
   constructor() {
     super();
-
     this.state = {
       categories: null
-    }
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+
   }
 
   componentDidMount() {
@@ -60,10 +58,10 @@ class Explore extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    let categories = this.state.categories || [];
     return (
       <div className='explore'>
-        { jsxIf(this.state.categories, () => render.categories(this.state.categories)) }
+        {categories.map(category => <partials.PodcastList key={category.name} label={category.name} podcasts={category.podcasts}/>)}
       </div>
     )
   }

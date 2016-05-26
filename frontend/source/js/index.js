@@ -12,13 +12,8 @@ import {loadPodcasts} from './actions/podcast-actions';
 const reducer = combineReducers(_.assign({}, reducers));
 let initialState = Immutable.Map();
 
-const store = createStore(reducer, initialState, compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-));
+const store = createStore(reducer, initialState, applyMiddleware(thunk));
 
-loadPodcasts(store.dispatch);
-
-document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(<Router store={store} />, document.querySelector('#react-app-mount'));
+loadPodcasts(store.dispatch).then(() => {
+  ReactDOM.render(<Router store={store} />, document.querySelector('#react-app-mount'));
 });
