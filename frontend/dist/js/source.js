@@ -20766,8 +20766,31 @@ var Message = (function (_React$Component2) {
   }
 
   _createClass(Message, [{
+    key: 'messageItem',
+    value: function messageItem(item) {
+      return _react2['default'].createElement(
+        'div',
+        { className: 'message-container' },
+        _react2['default'].createElement(
+          'p',
+          { className: item.sent ? 'sent bubble' : 'received bubble' },
+          item.content
+        )
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var messages = [{
+        content: 'Hey Brad! Check out Developer Tea sometime! I think you\'ll like it!',
+        sent: false
+      }, {
+        content: 'Thanks Mark! I\'ll definitely check it out soon!',
+        sent: true
+      }, {
+        content: 'You better!',
+        sent: false
+      }];
       return _react2['default'].createElement(
         'main',
         { className: 'message' },
@@ -20777,16 +20800,21 @@ var Message = (function (_React$Component2) {
           _react2['default'].createElement(
             'h2',
             null,
-            'Brad Cypert'
+            'Mark Hamill'
           )
         ),
         _react2['default'].createElement(
           'section',
           null,
+          messages.map(this.messageItem)
+        ),
+        _react2['default'].createElement(
+          'section',
+          null,
           _react2['default'].createElement(
-            'p',
+            'form',
             null,
-            'Heres a message.'
+            _react2['default'].createElement('input', { className: 'send-message', type: 'text' })
           )
         )
       );

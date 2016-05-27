@@ -337,3 +337,55 @@ p {
   margin: 0 auto;
   display: block;
 }
+.messages {
+  height: 100%;
+}
+.messages .message-list {
+  background-color: #474747;
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  width: 30%;
+}
+.messages .message {
+  background-color: #fff;
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  padding: 15px;
+  width: 50%;
+}
+.messages .message-container {
+  clear: both;
+}
+.messages .send-message {
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+  outline: none;
+  font-size: 16px;
+}
+.messages .send-message:focus {
+  border-bottom: solid 2px #969696;
+}
+.messages .bubble {
+  display: inline-block;
+  color: #333;
+  position: relative;
+  max-width: 60%;
+  min-height: 20px;
+  padding: 0px;
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.messages .bubble.sent {
+  background: #f0f0f0;
+  float: right;
+}
+.messages .bubble.received {
+  background: #fda383;
+}

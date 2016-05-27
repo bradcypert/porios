@@ -5,6 +5,7 @@ import {selectState} from '../util/state';
 import {connect} from 'react-redux';
 import {loadPodcasts} from '../actions/podcast-actions';
 
+
 class MessageList extends React.Component {
   constructor() {
     super();
@@ -35,16 +36,43 @@ class Message extends React.Component {
     super();
   }
 
+  messageItem(item) {
+    return (
+      <div className='message-container'>
+        <p className={item.sent ? 'sent bubble' : 'received bubble'}>
+          {item.content}
+        </p>
+      </div>
+    )
+  }
+
   render() {
+    let messages = [
+      {
+        content:'Hey Brad! Check out Developer Tea sometime! I think you\'ll like it!',
+        sent: false,
+      },
+      {
+        content:'Thanks Mark! I\'ll definitely check it out soon!',
+        sent: true,
+      },
+      {
+        content:'You better!',
+        sent: false,
+      },
+    ];
     return (
       <main className='message'>
         <header>
-          <h2>Brad Cypert</h2>
+          <h2>Mark Hamill</h2>
         </header>
         <section>
-          <p>
-            Heres a message.
-          </p>
+          {messages.map(this.messageItem)}
+        </section>
+        <section>
+          <form>
+            <input className="send-message" type="text"/>
+          </form>
         </section>
       </main>
     )
