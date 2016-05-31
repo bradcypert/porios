@@ -4,7 +4,19 @@ import Page from 'components/page';
 import {selectState} from '../util/state';
 import {connect} from 'react-redux';
 import {loadPodcasts} from '../actions/podcast-actions';
+import {Editor, EditorState, RichUtils} from 'draft-js';
 
+class MessageInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {editorState: EditorState.createEmpty()};
+    this.onChange = (editorState) => this.setState({editorState});
+  }
+  render() {
+    const {editorState} = this.state;
+    return <Editor editorState={editorState} onChange={this.onChange} />;
+  }
+}
 
 class MessageList extends React.Component {
   constructor() {
@@ -71,7 +83,7 @@ class Message extends React.Component {
         </section>
         <section>
           <form>
-            <input className="send-message" type="text"/>
+            <MessageInput/>
           </form>
         </section>
       </main>

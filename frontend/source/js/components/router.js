@@ -11,6 +11,7 @@ import ExplorePage from 'pages/explore';
 import PlayerPage from 'pages/player';
 import MessagesPage from 'pages/messages';
 import FeedPage from 'pages/feed';
+import SettingsPage from 'pages/settings';
 
 export default class extends React.Component {
     render() {
@@ -25,6 +26,7 @@ export default class extends React.Component {
                   <Route path="/messages" component={MessagesPage} />
                   <Route path="/feed" component={FeedPage} />
                   <Route path="/player/:podcastId/:episodeId" component={PlayerPage} />
+                  <Route path="/settings" component={SettingsPage} />
                   <IndexRoute component={ExplorePage} />
                 </Route>
             </Router>
