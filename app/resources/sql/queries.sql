@@ -27,6 +27,15 @@ WHERE id = :id
 
 
 
+-- name: create-message!
+-- creates a new message entry between two users with an associated message.
+INSERT INTO messages
+(recipient, sender, message)
+VALUES (:to, :from, :message)
+
+
+
+
 -- name: create-podcast!
 -- creates a new podcast. Shouldn't be user facing.
 INSERT INTO podcasts

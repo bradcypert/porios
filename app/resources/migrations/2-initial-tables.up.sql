@@ -1,4 +1,4 @@
-CREATE TYPE genre AS ENUM 
+CREATE TYPE genre AS ENUM
 ('arts','government','science and medicine', 'business', 'health', 'culture', 'comedy', 'family', 'sports', 'education', 'music', 'technology', 'hobbies', 'religion', 'tv');
 
 CREATE TYPE event AS ENUM
@@ -35,4 +35,8 @@ CREATE TABLE subscriptions
  user_id integer REFERENCES users,
  podcast_id integer REFERENCES podcasts);
 
-
+CREATE TABLE messages
+(id SERIAL primary key
+ recipient integer REFERENCES users,
+ sender integer REFERENCES users,
+ message TEXT);

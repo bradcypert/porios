@@ -36,6 +36,15 @@
   [^:Integer id]
   (db/get-events-for-followees-of-user {:user_id id}))
 
+(defn message-user
+  "Creates a new message record for two users with a given message"
+  [^:Integer to
+   ^:Integer from
+   ^:String message]
+   (db/create-message! {:to to
+                        :from from
+                        :message message}))
+
 (defn create-user
   "Creates a new user"
   [first last email password]

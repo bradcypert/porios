@@ -57,6 +57,13 @@
       (ok))
     (catch Exception e (bad-request))))
 
+(defn- message-user
+  [params]
+  (let [to-user   (:id params)
+        message   (:message params)
+        from-user (:from params)]
+        (users/message-user to-user from-user message)))
+
 (defroutes user-routes
   (GET "/users/:id" [id] (-> id get-user))
   (GET "/users/:id/subscriptions" [id] (-> id get-user-subscriptions))
@@ -66,4 +73,5 @@
   (GET "/users/:id/events" [id] (-> id get-user-events))
   (GET "/users/:id/events/following" [id] (-> get-user-following-events))
   (POST "/users/" {params :params} (-> params create-user))
+  (POST "/users/:id/message" {params :params} (-> params message-user))
   (PATCH "/users/:id" {params :params} (-> params update-user)))
