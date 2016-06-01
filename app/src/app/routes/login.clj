@@ -4,7 +4,7 @@
             [app.modules.auth :as auth]
             [ring.util.http-response :refer [ok bad-request]]))
 
-(defn- login 
+(defn- login
   [params]
   (let [email (:email params)
         password (:password params)]
