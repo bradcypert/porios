@@ -15,12 +15,34 @@ import { PodcastService } from '../services/podcast.service';
     ]
 })
 export class ExploreComponent {
-    podcasts: Podcast[];
+    podcasts: {};
+    categories: Array<string>;
 
     constructor(private _podcastService: PodcastService, private _router: Router) { }
 
     getPodcasts() {
-        this._podcastService.getPodcasts().then(podcasts => this.podcasts = podcasts);
+        this._podcastService.getPodcasts().then(podcasts => (
+            this.podcasts = this.categorizePodcasts(podcasts)
+        ));
+    }
+
+    categorizePodcasts(value: Array<any>) {
+        if (value) {
+            this.categories = value.map((p: any) => p.category);
+            this.categories = this.categories.filter(this.onlyUnique);
+            let groupedPodcasts = {};
+
+            this.categories.map((c: any) => {
+                groupedPodcasts[c] = [];
+                value.map((p: any) => {
+                    if (p.category === c) {
+                        groupedPodcasts[c].push(p);
+                    }
+                })
+            })
+
+            return groupedPodcasts;
+        }
     }
 
     ngOnInit() {
@@ -30,5 +52,9 @@ export class ExploreComponent {
     exploreDetail(podcast: Podcast) {
         let link = ['ExploreDetail', { id: podcast.id }];
         this._router.navigate(link);
+    }
+
+    onlyUnique(value: any, index: any, self: any) {
+        return self.indexOf(value) === index;
     }
 }
