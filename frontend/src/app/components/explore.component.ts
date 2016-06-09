@@ -16,26 +16,31 @@ import { PodcastService } from '../services/podcast.service';
 })
 export class ExploreComponent {
     podcasts: {};
-    categories: Array<string>;
+    genres: Array<string>;
 
     constructor(private _podcastService: PodcastService, private _router: Router) { }
 
     getPodcasts() {
-        this._podcastService.getPodcasts().then(podcasts => (
-            this.podcasts = this.categorizePodcasts(podcasts)
-        ));
+        this._podcastService.getPodcasts()
+            .then(podcasts => (
+                this.podcasts = this.categorizePodcasts(podcasts)
+            ))
+            .catch(error => (
+                console.error(error)
+            ));
     }
 
     categorizePodcasts(value: Array<any>) {
         if (value) {
-            this.categories = value.map((p: any) => p.category);
-            this.categories = this.categories.filter(this.onlyUnique);
+
+            this.genres = value.map((p: any) => p.genre);
+            this.genres = this.genres.filter(this.onlyUnique);
             let groupedPodcasts = {};
 
-            this.categories.map((c: any) => {
+            this.genres.map((c: any) => {
                 groupedPodcasts[c] = [];
                 value.map((p: any) => {
-                    if (p.category === c) {
+                    if (p.genre === c) {
                         groupedPodcasts[c].push(p);
                     }
                 })

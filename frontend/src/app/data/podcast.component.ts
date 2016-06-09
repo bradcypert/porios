@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-
 export class Podcast {
     id: number;
     name: string;
-    category: string;
+    description: string;
+    genre: string;
+    release_date: Date;
+    feed: string;
 }

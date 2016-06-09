@@ -1,7 +1,8 @@
 import { Http, Headers } from '@angular/http';
-import { Injectable } from '@angular/core';
+import { Injectable, bind } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 import { USERS } from '../mock/mock-users';
 import { User } from '../data/user.component';
@@ -15,6 +16,8 @@ export class UserService {
     private token: string = 'new';
     private url: string = '';
     private response: any;
+    
+    public currentUser: Subject<User> = new BehaviorSubject<User>(null);
     
     constructor( private _http: Http, private _cookieService: CookieService ) { }
     
@@ -43,6 +46,10 @@ export class UserService {
             .toPromise()
             .then(response => response.json().data)
             .catch(this.handleError);
+    }
+    
+    setCurrentUser(newUser: User) {
+        bind(UserService).toClass(UserService)        
     }
     
     private handleError(error: any) {

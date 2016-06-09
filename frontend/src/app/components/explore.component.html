@@ -1,8 +1,8 @@
 <div class="podcast-list">
-    <div *ngFor="let category of categories" class="podcast-category">
-        <h2 class="list-title">{{category}}</h2>
+    <div *ngFor="let genre of genres" class="podcast-category">
+        <h2 class="list-title">{{genre}}</h2>
         <ul>
-            <li *ngFor="let podcast of podcasts[category]">
+            <li *ngFor="let podcast of podcasts[genre]">
                 <a (click)="exploreDetail(podcast)">
                     <div class="podcast-background" style="background-image:url(/src/assets/img/placeholders/dev-tea.png);"></div>
                     <div class="podcast-title">{{podcast.name}}</div>

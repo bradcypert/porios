@@ -279,6 +279,7 @@ p {
   box-sizing: border-box;
 }
 .main .aside {
+  display: inline-block;
   font-size: 16px;
   vertical-align: top;
   width: 32.6%;

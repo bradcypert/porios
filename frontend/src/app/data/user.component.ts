@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { uid } from '../utils/uid';
 
 export class User {
-    id: number;
+    id: string;
     name: string;
     username: string;
     password: string;
+
+    constructor() {
+        this.id = uid();
+    }
 }
