@@ -272,14 +272,13 @@ p {
   margin: 1em 0;
 }
 .main {
-  display: inline-block;
-  height: 100vh;
   overflow: auto;
   vertical-align: top;
-  width: calc(100% - 8vw);
+  padding: 5px;
+  flex: 1;
+  box-sizing: border-box;
 }
 .main .aside {
-  display: inline-block;
   font-size: 16px;
   vertical-align: top;
   width: 32.6%;
@@ -298,7 +297,6 @@ p {
 }
 .sidebar {
   background: #07bafa;
-  display: inline-block;
   font-size: 16px;
   height: 100vh;
   vertical-align: top;
@@ -446,6 +444,7 @@ p {
 .messages .bubble.received {
   background: #fda383;
 }
-#left-nav {
-  margin-right: -5px;
+porios {
+  display: flex;
+  flex-flow: row wrap;
 }

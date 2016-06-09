@@ -10,6 +10,7 @@ import { FeedComponent } from './components/feed.component';
 import { MessagesComponent } from './components/messages.component';
 import { SettingsComponent } from './components/settings.component';
 import { AccountComponent } from './components/account.component';
+import { LoginComponent } from './components/account/login.component';
 
 import '../assets/css/styles.css';
 
@@ -32,6 +33,7 @@ import '../assets/css/styles.css';
   { path: '/messages', name: 'Messages', component: MessagesComponent },
   { path: '/settings', name: 'Settings', component: SettingsComponent },
   { path: '/account', name: 'Account', component: AccountComponent },
+  { path: '/account/login', name: 'Login', component: LoginComponent },
 ])
 export class AppComponent {
   constructor() { }
