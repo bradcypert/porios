@@ -9,4 +9,4 @@
 ####Building the Frontend
 1. `npm install`
 2. `npm start`
-3. `open localhost:3000` to make sure it renders
+3. `open localhost:8080` to make sure it renders
