@@ -36,7 +36,7 @@ CREATE TABLE subscriptions
  podcast_id integer REFERENCES podcasts);
 
 CREATE TABLE messages
-(id SERIAL primary key
+(id SERIAL primary key,
  recipient integer REFERENCES users,
  sender integer REFERENCES users,
  message TEXT);
