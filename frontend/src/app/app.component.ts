@@ -11,6 +11,8 @@ import { MessagesComponent } from './components/messages.component';
 import { SettingsComponent } from './components/settings.component';
 import { AccountComponent } from './components/account.component';
 import { LoginComponent } from './components/account/login.component';
+import { SidebarComponent } from './components/sidebar.component';
+import { PlayerComponent } from './components/player.component';
 
 import '../assets/css/styles.css';
 
@@ -18,7 +20,7 @@ import '../assets/css/styles.css';
   selector: 'porios',
   template: require('./app.component.html'),
   styles: [require('./app.component.css')],
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, SidebarComponent, PlayerComponent],
   providers: [
     ROUTER_PROVIDERS
   ]
