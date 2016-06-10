@@ -11,4 +11,4 @@
     (auth/generate-signature email password)))
 
 (defroutes login-routes
-  (GET "/login" {params :params} (-> params login)))
+  (POST "/login" {params :params} (-> params login)))
