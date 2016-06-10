@@ -2,11 +2,8 @@ import { uid } from '../utils/uid';
 
 export class User {
     id: string;
-    name: string;
-    username: string;
-    password: string;
 
-    constructor() {
+    constructor(public name: string, public avatarSrc: string) {
         this.id = uid();
     }
 }

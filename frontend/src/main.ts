@@ -5,6 +5,8 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { HTTP_PROVIDERS, JSONP_PROVIDERS } from '@angular/http';
 
 import { UserService } from './app/services/user.service'; 
+import { MessageService } from './app/services/message.service';
+import { ThreadService } from './app/services/thread.service'; 
 import { CookieService } from './app/services/cookie.service';
 
 if (process.env.ENV === 'production') {

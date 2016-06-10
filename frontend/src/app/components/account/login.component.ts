@@ -14,12 +14,12 @@ import { UserService } from '../../services/user.service';
     ]
 })
 export class LoginComponent {
-    private user: User = new User();
+    private user: User = new User('', '');
     private loginForm: ControlGroup;
     
     constructor( private _router: Router, private _userService: UserService, private fb: FormBuilder ) { }
     
     login(){
-        this._userService.login(this.user.username, this.user.password);
+        this._userService.login(this.user.name, this.user.avatarSrc);
     }
 }
