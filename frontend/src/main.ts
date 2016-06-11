@@ -10,6 +10,7 @@ import { ThreadService } from './app/services/thread.service';
 import { CookieService } from './app/services/cookie.service';
 import { PlayerService } from './app/services/audio/player.service';
 import { SoundService } from './app/services/audio/sound.service';
+import { PlaylistService } from './app/services/audio/playlist.service';
 
 if (process.env.ENV === 'production') {
   enableProdMode();
@@ -22,4 +23,5 @@ bootstrap(AppComponent,
     CookieService,
     UserService,
     PlayerService,
-    SoundService]);
+    SoundService,
+    PlaylistService]);

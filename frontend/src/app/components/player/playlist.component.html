@@ -1,3 +1,14 @@
 <div id="playlistSidebar" [class.active]="isOpen">
-    Playlist
+    <ul>
+        <li *ngFor="let sound of playlist" (click)="setCurrentSound(sound)">
+            <a class="thumbnail">
+                NSP
+            </a>
+            <div class="content">
+                <h3>{{sound.name}}</h3>
+                <span class="preview">This is a preview</span>
+                <span class="meta">This is a Duration</span>
+            </div>
+        </li>
+    </ul>
 </div>

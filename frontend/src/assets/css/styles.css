@@ -610,10 +610,6 @@ timeline {
   background: #474747;
 }
 
-#sliderHandler {
-  position: absolute;
-}
-
 #timeSlider{
   position: relative;
   height: 8px;
@@ -631,8 +627,8 @@ timeline {
   border-radius: 100px;
   background-image: none;
   background-color: #07bafa;
-  top: -4px;
-  left: -7.5px;
+  transform: translateX(-7.5px);
+  transform: translateY(-4px);
   width: 15px;
   height: 15px;
   box-sizing: border-box;
@@ -643,14 +639,81 @@ timeline {
   top: 0;
   right: 0;
   height: 90vh;
-  width: 8vw;
+  width: 283px;
   background: #474747;
-  transform: translateX(8vw); 
+  transform: translateX(283px); 
   transition: all 0.5s ease-in-out;
 }
 
 #playlistSidebar.active {
   transform: translateX(0);
+}
+
+#playlistSidebar ul li {
+  position: relative;
+  background: #ffffff;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-top: 1px solid #f2f2f2;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+#playlistSidebar ul li:first-of-type {
+  border-top: none;
+}
+
+#playlistSidebar ul li:hover {
+  background: #d41243;
+}
+
+#playlistSidebar ul li:hover .content h3,
+#playlistSidebar ul li:hover .content .preview,
+#playlistSidebar ul li:hover .content .meta {
+  color: #fff;
+}
+
+#playlistSidebar ul li .thumbnail {
+  display: inline-block;
+  background: #bfbfbf;
+  width: 50px;
+  color: #ffffff;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s linear 0s;
+  margin: 0;
+  border-radius: 0;
+}
+
+#playlistSidebar ul li .content {
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: top;
+  line-height: 1;
+}
+
+#playlistSidebar ul li .content h3 {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  color: #808080;
+}
+
+#playlistSidebar ul li .content .preview {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 5px;
+  color: #cccccc;
+  font-size: 12px;
+}
+
+#playlistSidebar ul li .content .meta {
+  color: #b3b3b3;
+  font-size: 12px;
 }
 
 /* End Media Player */

@@ -2,13 +2,18 @@ import { Component, ElementRef } from '@angular/core';
 
 import { PlayerService } from '../services/audio/player.service';
 
+import { HorizontalDrag } from './horizontaldrag.directive';
+
 @Component ({
     selector: 'timeline',
     template: `
         <div id="timeSlider" (click)='changePlaybackTime($event)'>
-			<span id='sliderHandler' tabindex="0" [style.left]="calculatePositionByTime()" [style.top]="sliderHandlerPositionY"></span>
+			<span horizontaldrag id='sliderHandler' tabindex="0" [style.left]="calculatePositionByTime()" [style.top]="sliderHandlerPositionY"></span>
 		</div>
-        `
+        `,
+    directives: [
+        HorizontalDrag
+    ]
 })
 export class TimelineDirective {
 
