@@ -1,0 +1,20 @@
+frontend:
+  image: bradcypert/node
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - "8080:8080"
+
+backend:
+  image: bradcypert/clojure
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - "9000:9000"
+  links:
+    - postgres
+
+postgres:
+  image: postgres
+  ports:
+    - "5432:5432"
