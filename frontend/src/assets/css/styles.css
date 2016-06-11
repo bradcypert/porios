@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 html,
 body,
 div,
@@ -626,25 +630,35 @@ p {
 timeline {
   padding: 15px;
   display: flex;
+  margin-left: auto;
 }
 
 .player { 
   height: 10vh;
 }
 
-.btn-play {
+.btn-play,
+.btn-playlist {
   width: 8vw;
   background: #474747;
   border: 0;
   border-radius: 0;
+  height: 100%;
 }
 
-.btn-play i {
+.btn-playlist {
+  margin-left: auto;
+}
+
+.btn-play i,
+.btn-playlist i {
   color: #fff;
 }
 
 .btn-play:focus,
-.btn-play:active {
+.btn-play:active,
+.btn-playlist:focus,
+.btn-playlist:active {
   outline: none;
 }
 
@@ -681,6 +695,21 @@ timeline {
   width: 15px;
   height: 15px;
   box-sizing: border-box;
+}
+
+#playlistSidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 90vh;
+  width: 8vw;
+  background: #474747;
+  transform: translateX(8vw); 
+  transition: all 0.5s ease-in-out;
+}
+
+#playlistSidebar.active {
+  transform: translateX(0);
 }
 
 /* End Media Player */

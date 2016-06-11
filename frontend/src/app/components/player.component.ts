@@ -1,25 +1,29 @@
 import { ViewChild, Component, ElementRef, Renderer } from '@angular/core';
 
+import { PlaylistComponent } from './player/playlist.component';
+
 import { TimelineDirective } from '../directives/timeline.directive';
 
 import { PlayerService } from '../services/audio/player.service';
 
-@Component ({
+@Component({
     selector: 'player',
     template: require('./player.component.html'),
     directives: [
-        TimelineDirective
+        TimelineDirective,
+        PlaylistComponent
     ]
 })
 export class PlayerComponent {
 
-    @ViewChild(TimelineDirective) timeline:TimelineDirective;
+    @ViewChild(PlaylistComponent) playlist: PlaylistComponent;
+    @ViewChild(TimelineDirective) timeline: TimelineDirective;
 
     private sound: HTMLAudioElement = new Audio();
     private isPlaying: boolean = false;
 
-    constructor ( private element: ElementRef, private _playerService: PlayerService, private renderer: Renderer ) {
-        
+    constructor(private element: ElementRef, private _playerService: PlayerService, private renderer: Renderer) {
+
     }
 
     ngAfterViewInit() {
@@ -31,7 +35,7 @@ export class PlayerComponent {
         });
     }
 
-    ngOnInit() {        
+    ngOnInit() {
         this.sound.src = 'http://localhost:8080/src/assets/audio/nsp.mp3';
         this._playerService.loadSound(this.sound);
     }
@@ -43,6 +47,16 @@ export class PlayerComponent {
         } else {
             this._playerService.play();
             this.isPlaying = true;
+        }
+    }
+
+    togglePlaylist() {
+        if (this.playlist) {
+            if (this.playlist.getState()) {
+                this.playlist.close();
+            } else {
+                this.playlist.open();
+            }
         }
     }
 }
