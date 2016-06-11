@@ -1,80 +1,57 @@
-import { Component, ElementRef, OnInit, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component, ElementRef } from '@angular/core';
 
-@Component({
-	selector: 'time-seeker',
-	template: `
-		<div id="timeSlider" (click)='changePlaybackTime($event)'>
-				<span id='sliderHandler' tabindex="0" [style.left]="calculatePositionByTime()" [style.top]="sliderHandlerPositionY"></span>
+import { PlayerService } from '../services/audio/player.service';
+
+@Component ({
+    selector: 'timeline',
+    template: `
+        <div id="timeSlider" (click)='changePlaybackTime($event)'>
+			<span id='sliderHandler' tabindex="0" [style.left]="calculatePositionByTime()" [style.top]="sliderHandlerPositionY"></span>
 		</div>
-	`,
-	styles: [`
-		#sliderHandler {
-			position: absolute;
-		}
-
-		#timeSlider{
-			position: relative;
-		}
-
-		#timeSlider{
-			position: relative;
-			height:8px;
-			background-color:#cfcfcf;
-			background-image:none;
-			border:none;
-			width: 307px;
-			float: right;
-			border-radius: 4px;
-			cursor: pointer !important;
-		}
-
-		#sliderHandler{
-			position: absolute;
-			border-radius: 100px;
-			background-image: none !important;
-			background-color: #fff !important;
-			border:1px solid #ff8b00 !important;
-			top:-4px !important;
-			width:15px !important;
-			height:15px !important;
-			box-sizing: border-box;
-		}
-	`]
+        `
 })
-export class TimeSeekerCmp implements OnInit {
-	@Input() time: number;
-	@Input('total-time') duration: number;
+export class TimelineDirective {
 
-	constructor( private element: ElementRef ) {
+    private position: number;
 
-	}
+    private timelinePosition: any;
+
+    constructor ( private element: ElementRef, private _playerService: PlayerService ) {
+        
+    }
+
+    ngOnInit () {
+        let offset = this.element.nativeElement.getBoundingClientRect();
+		let width = this.element.nativeElement.style.width;
+		let height = this.element.nativeElement.style.height;
+    }
+
+    setPosition(value: number) {
+        this.position = value;
+    }
 
 	calculatePositionByTime() {
-		var percent = this.time * 100 / this.duration;
-		var pos = percent * this.getTimeSliderWidth() / 100;
-		return pos;
+        if (this.position) {
+            let percent = this.position / 100;
+            let width = this.getTimeSliderWidth();
+            let pos = ((percent * width) - 7.5).toString() + 'px';
+            return pos;
+        }
 	}
-
-	ngOnInit() {
-		var offset = this.element.nativeElement.getBoundingClientRect();
-		var width = this.element.nativeElement.style.width;
-		var height = this.element.nativeElement.style.height;
-	}
-
 
 	changePlaybackTime($event: any) {
-		var time = this.calculateTimePercentOnClick($event);
-		//this.something.seek(time);
+		let time = this.calculateTimePercentOnClick($event);
+		this._playerService.seek(time);
 	}
 
 	private calculateTimePercentOnClick($event: any) {
-		var parentX = this.getTimeSliderWidth();
-		var percent = $event.x * 100 / parentX;
+		let parentX = this.getTimeSliderWidth();
+		let percent = $event.offsetX * 100 / parentX;
 		return percent;
 	}
 
 	private getTimeSliderWidth() {
 		return parseInt(this.element.nativeElement.children[0].clientWidth);
 	}
+    
 }

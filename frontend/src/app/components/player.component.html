@@ -1,6 +1,7 @@
 <div id="audioplayer">
-	<button id="pButton" class="play" (click)="playAudio()">Play</button>
-	<div id="timeline">
-		<div id="playhead"></div>
-	</div>
+	<button class="btn btn-play" (click)="toggleState()">
+		<i *ngIf="isPlaying" class="fa fa-2x fa-pause-circle" aria-hidden="true"></i>
+		<i *ngIf="!isPlaying" class="fa fa-2x fa-play-circle" aria-hidden="true"></i>
+	</button>
+	<timeline></timeline>
 </div>

@@ -621,19 +621,66 @@ p {
   padding-right: 110px;
 }
 
-#timeline{
-	width: 400px;
-	height: 20px;
-	background: #4200f7;
-	margin-top: 20px;
-	float: left;
-	border-radius: 15px;
+/* Media Player */
+
+timeline {
+  padding: 15px;
+  display: flex;
 }
- 
-#playhead{
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	margin-top: 1px;
-	background: rgba(0, 255, 196, 0.82);
+
+.player { 
+  height: 10vh;
 }
+
+.btn-play {
+  width: 8vw;
+  background: #474747;
+  border: 0;
+  border-radius: 0;
+}
+
+.btn-play i {
+  color: #fff;
+}
+
+.btn-play:focus,
+.btn-play:active {
+  outline: none;
+}
+
+#audioplayer {
+  display: flex;
+  flex-flow: row wrap;
+  height: 100%;
+  background: #474747;
+}
+
+#sliderHandler {
+  position: absolute;
+}
+
+#timeSlider{
+  position: relative;
+  height: 8px;
+  background-color: #cfcfcf;
+  background-image: none;
+  border: none;
+  width: 307px;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: center;
+}
+
+#sliderHandler{
+  position: absolute;
+  border-radius: 100px;
+  background-image: none;
+  background-color: #07bafa;
+  top: -4px;
+  left: -7.5px;
+  width: 15px;
+  height: 15px;
+  box-sizing: border-box;
+}
+
+/* End Media Player */

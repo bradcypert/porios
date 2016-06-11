@@ -8,9 +8,18 @@ import { UserService } from './app/services/user.service';
 import { MessageService } from './app/services/message.service';
 import { ThreadService } from './app/services/thread.service'; 
 import { CookieService } from './app/services/cookie.service';
+import { PlayerService } from './app/services/audio/player.service';
+import { SoundService } from './app/services/audio/sound.service';
 
 if (process.env.ENV === 'production') {
   enableProdMode();
 }
 
-bootstrap(AppComponent, [ROUTER_DIRECTIVES, HTTP_PROVIDERS, JSONP_PROVIDERS, CookieService, UserService]);
+bootstrap(AppComponent, 
+    [ROUTER_DIRECTIVES,
+    HTTP_PROVIDERS,
+    JSONP_PROVIDERS,
+    CookieService,
+    UserService,
+    PlayerService,
+    SoundService]);
