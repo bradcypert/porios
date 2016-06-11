@@ -11,11 +11,11 @@ import { ThreadService } from '../../services/thread.service';
     selector: 'chat-thread',
     template: `
     <div class="media conversation">
-      <div class="pull-left">
-        <img class="media-object avatar" 
+      <div class="avatar">
+        <img class="media-object" 
             src="{{thread.avatarSrc}}">
       </div>
-      <div class="media-body">
+      <div class="message-body">
         <h5 class="media-heading contact-name">{{thread.name}}
           <span *ngIf="selected">&bull;</span>
         </h5>
@@ -54,9 +54,7 @@ class ChatThread implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <div class="conversation-wrap">
-      <chat-thread
-            *ngFor="let thread of threads | async"
-            [thread]="thread">
+      <chat-thread *ngFor="let thread of threads | async" [thread]="thread">
       </chat-thread>
     </div>
   `
