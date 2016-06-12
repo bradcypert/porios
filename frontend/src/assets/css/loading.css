@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'grotesque';
+    src: url('../fonts/Brandon_reg.otf');
+}
+
+body {
+    overflow: hidden;
+}
+
+.brand-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: url('../img/top_bkg.jpg');
+    text-align: center;
+    background-size: 100% 100%;
+    z-index: 1;
+}
+
+.brand-container .tagline {
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'grotesque';
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translateY(-50%);
+}
+
+.brand-container .tagline p {
+    margin: 0;
+    color: #fff;
+    font-size: 50px;
+    line-height: 60px;
+}
+
+.brand-container .tagline p:first-of-type {
+    font-size: 40px;
+    line-height: 50px; 
+}
