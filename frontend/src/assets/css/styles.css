@@ -286,6 +286,7 @@ p {
   margin: 15px;
   padding: 15px;
   background: #fff;
+  position: relative;
 }
 .main .aside {
   display: inline-block;
@@ -744,3 +745,42 @@ timeline {
 }
 
 /* End Media Player */
+
+/* Account Components */
+
+/* Login Form */
+
+#loginForm {
+  position: absolute;
+  top: 50%;
+  width: 400px;
+  height: 200px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#loginForm .form-control {
+  outline: none;
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid #474747;
+  border-radius: 0;
+  padding-left: 0;
+}
+
+#loginForm .submitArea .btn {
+  background: transparent;
+  border: 2px solid #474747;
+  color: #474747;
+  float: right;
+  transition: all 0.25s ease-in-out;
+}
+
+#loginForm .submitArea .btn:hover {
+  background: #474747;
+  color: #fff;
+}
+
+/* End Login Form */
+
+/* End Account Components */

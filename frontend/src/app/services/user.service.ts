@@ -47,6 +47,10 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    validateUser() {
+        return false;
+    }
+
     public setCurrentUser(newUser: User): void {
         this.currentUser.next(newUser);
     }

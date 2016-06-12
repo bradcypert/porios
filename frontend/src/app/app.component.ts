@@ -34,8 +34,7 @@ import '../assets/css/styles.css';
   { path: '/feed', name: 'Feed', component: FeedComponent },
   { path: '/messages', name: 'Messages', component: MessagesComponent },
   { path: '/settings', name: 'Settings', component: SettingsComponent },
-  { path: '/account', name: 'Account', component: AccountComponent },
-  { path: '/account/login', name: 'Login', component: LoginComponent },
+  { path: '/account/...', name: 'Account', component: AccountComponent },
 ])
 export class AppComponent {
   constructor() { }
