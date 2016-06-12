@@ -1,5 +1,6 @@
-body {
-  overflow-x: hidden;
+@font-face {
+    font-family: 'grotesque';
+    src: url('../fonts/Brandon_reg.otf');
 }
 
 html,
@@ -130,9 +131,11 @@ body {
   height: 100%;
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Calibri, Arial, sans-serif;
-  background: #f2f2f2;
+  overflow-x: hidden;
+  font-family: "grotesque";
+  background: url('../img/top_bkg.jpg');
   color: #333;
+  background-size: 100% 100%;
 }
 .page {
   font-size: 16px;
@@ -280,6 +283,9 @@ p {
   vertical-align: top;
   flex: 1;
   box-sizing: border-box;
+  margin: 15px;
+  padding: 15px;
+  background: #fff;
 }
 .main .aside {
   display: inline-block;
@@ -459,8 +465,16 @@ chat-thread:nth-of-type(n + 3) .conversation {
   box-sizing: border-box;
 }
 .msg-send-btn button {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border-radius: 0;
+  background: #474747;
+  border-color: #474747;
+  text-transform: uppercase;
+  transition: all 0.25s ease-in-out;
+}
+.msg-send-btn button:hover {
+  background: #07bafa;
+  border-color: #07bafa;
+  color: #474747;
 }
 .avatar img {
   width: 50px;
@@ -537,20 +551,33 @@ chat-thread:nth-of-type(n + 3) .conversation {
   background: #ddd;
 }
 .panel {
-  height: 90vh;
+  height: 100%;
   overflow: hidden;
   margin: 0;
+  position: relative;
 }
 #messages .panel-heading {
   height: 39px;
   background: #ee1111;
   color: #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
 }
 .panel-body {
-  height: calc(90vh - 73px);
   overflow-y: scroll;
+  left: 0;
+  right: 0;
+  top: 39px;
+  bottom: 34px;
+  position: absolute;
 }
 .panel-footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
   height: 34px;
   padding: 0;
   background: #fff;

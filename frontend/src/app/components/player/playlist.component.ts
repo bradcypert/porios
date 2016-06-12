@@ -1,22 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 
 import { Sound } from '../../data/sound.component';
 import { PlaylistService } from '../../services/audio/playlist.service';
 
-@Component ({
+@Component({
     selector: 'playlist',
     template: require('./playlist.component.html')
 })
 export class PlaylistComponent {
 
     public playlist: Array<Sound>;
+    private el: HTMLElement;
 
-    constructor (private _playlistServce: PlaylistService) { }
+    constructor(private _playlistService: PlaylistService, private element: ElementRef) {
+        this.el = element.nativeElement;
+    }
 
     private isOpen: boolean = false;
 
     ngOnInit() {
-        this.playlist = this._playlistServce.getPlaylist();
+        this.playlist = this._playlistService.getPlaylist();
     }
 
     open() {
@@ -32,7 +35,6 @@ export class PlaylistComponent {
     }
 
     setCurrentSound(sound: Sound) {
-        this._playlistServce.setCurrentSound(sound);
+        this._playlistService.setCurrentSound(sound);
     }
-
 }

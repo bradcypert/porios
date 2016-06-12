@@ -7,10 +7,10 @@ import { Sound } from '../../data/sound.component';
 @Injectable()
 export class PlaylistService {
 
-    private currentSound: number;
+    public currentSound: number;
+    
     private playlist: Array<Sound> = [];
     private isPlaying: boolean;
-
     private sound: Sound;
 
     constructor( private _playerService: PlayerService ) { }

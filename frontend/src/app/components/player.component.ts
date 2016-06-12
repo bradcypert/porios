@@ -50,6 +50,12 @@ export class PlayerComponent {
                 this.timeline.setPosition(position);
                 this.timeline.calculatePositionByTime();
             });
+            this.renderer.listen(this.sound, 'play', () => {
+                this.isPlaying = true;
+            });
+            this.renderer.listen(this.sound, 'pause', () => {
+                this.isPlaying = false;
+            })
         }
     }
 
