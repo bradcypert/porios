@@ -30,11 +30,11 @@ export class PlayerComponent {
     }
 
     ngOnInit() {
-        let tmpsrc = 'http://localhost:8080/src/assets/audio/nsp.mp3';
+        let tmpsrc = 'http://localhost:3000/src/assets/audio/nsp.mp3';
         let tmpMeta = 'nsp'
         let tmp = new Sound(tmpMeta, tmpsrc);
 
-        let tmpsrc2 = 'http://localhost:8080/src/assets/audio/nsp2.mp3';
+        let tmpsrc2 = 'http://localhost:3000/src/assets/audio/nsp2.mp3';
         let tmpMeta2 = 'nsp2'
         let tmp2 = new Sound(tmpMeta2, tmpsrc2);
 
