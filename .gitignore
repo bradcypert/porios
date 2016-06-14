@@ -6,3 +6,4 @@ node_modules
 frontend/tmp
 *.php
 .ssh/
+*.sh
