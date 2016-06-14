@@ -25,7 +25,10 @@ WHERE email = :email AND pass = :password
 DELETE FROM users
 WHERE id = :id
 
-
+-- name: get-user-avatar-for-email
+-- gets the avatar for a given email address
+SELECT pic_url FROM users
+where email = :email
 
 -- name: create-message!
 -- creates a new message entry between two users with an associated message.

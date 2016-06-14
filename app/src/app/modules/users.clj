@@ -62,3 +62,8 @@
       (db/update-user! request_params)
       (true))
     (catch Exception e (false))))
+
+(defn get-user-avatar-for-email
+  "Returns a URL pointing the users avatar"
+  [email]
+  (db/get-user-avatar-for-email {:email email}))
