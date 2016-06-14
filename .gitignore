@@ -4,5 +4,5 @@
 npm-debug.log
 node_modules
 frontend/tmp
-deploy.php
+*.php
 .ssh/
