@@ -25,7 +25,7 @@
                  [buddy "0.13.0"]
                  [buddy/buddy-auth "1.0.0"]
                  [buddy/buddy-sign "1.0.0"]
-                 [migratus "0.8.7"]
+                 [migratus "0.8.25"]
                  [conman "0.2.7"]
                  [org.postgresql/postgresql "9.4-1203-jdbc41"]
                  [org.immutant/web "2.1.0"]
@@ -43,7 +43,7 @@
             :name "ROOT.war"}
 
   :plugins [[lein-environ "1.0.1"]
-            [migratus-lein "0.2.0"]
+            [migratus-lein "0.3.7"]
             [lein-uberwar "0.1.0"]
             [lein-elastic-beanstalk "0.2.8-SNAPSHOT"]
             [test2junit "1.1.3"]]
