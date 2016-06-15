@@ -47,9 +47,9 @@
 
 (defn create-user
   "Creates a new user"
-  [first last email password]
-  (db/create-user! {:first_name first
-                    :last_name last
+  [first-name last-name email password]
+  (db/create-user! {:first_name first-name
+                    :last_name last-name
                     :email email
                     :password password}))
 

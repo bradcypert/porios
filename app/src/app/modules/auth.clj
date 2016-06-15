@@ -8,7 +8,9 @@
 
 (defn generate-signature [email password]
   (let [user (db/get-user-by-email-and-password {:email email :password password})]
-    (jwt/sign {:user (:id user)} secret)))
+    (if (:id user) 
+      (jwt/sign {:user (:id user)} secret)
+      nil)))
 
 (defn is-authorized-signature? [signature]
   (let [user (db/get-user-by-email-and-password (jwt/unsign signature secret))]
