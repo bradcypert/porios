@@ -24,9 +24,11 @@ export class PlaylistService {
         if (this.playlist.length > 0) {
             if ((this.currentSound + 1) >= this.playlist.length) {
                 this.currentSound = 0;
+                this._playerService.loadSound(this.playlist[this.currentSound])
                 this.playSound;
             } else {
                 this.currentSound += 1;
+                this._playerService.loadSound(this.playlist[this.currentSound])
                 this.playSound;
             }
         }
@@ -34,7 +36,9 @@ export class PlaylistService {
 
     playSound() {
         if (this.playlist.length > 0) {
-            this._playerService.loadSound(this.playlist[this.currentSound]);
+            if (this._playerService.getSound().src == '') {
+                this._playerService.loadSound(this.playlist[this.currentSound])
+            }
             this._playerService.play();
             this.isPlaying = true;
         }
@@ -58,6 +62,7 @@ export class PlaylistService {
     setCurrentSound(sound: Sound) {
         if ( this.playlist.indexOf(sound) >= 0 ) {
             this.currentSound = this.playlist.indexOf(sound);
+            this._playerService.loadSound(this.playlist[this.currentSound]);
             this.playSound();
         }
     }

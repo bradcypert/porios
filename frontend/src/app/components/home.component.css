@@ -19,7 +19,7 @@
 .home label {
   position: relative;
   width: 25%;
-  background-color: #2980b9;
+  background-color: red;
   border: none;
   border-radius: 100%;
   cursor: pointer;

@@ -458,7 +458,7 @@ chat-thread:nth-of-type(n + 3) .conversation {
 }
 .conversation-wrap .conversation {
   position: relative;
-  background: #ecf0f1fff;
+  background: #ecf0f1;
   display: block;
   width: 100%;
   padding: 10px;
@@ -468,7 +468,7 @@ chat-thread:nth-of-type(n + 3) .conversation {
     display: inline-block;
     background: #bfbfbf;
     width: 50px;
-    color: #ecf0f1fff;
+    color: #ecf0f1;
     line-height: 50px;
     text-align: center;
     text-decoration: none;

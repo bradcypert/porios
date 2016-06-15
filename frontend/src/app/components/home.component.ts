@@ -18,12 +18,7 @@ export class HomeComponent {
     private el: HTMLElement;
 
     private colorArray: Array<any> = [
-        '#c0392b',
-        '#e74c3c',
-        '#2980b9',
-        '#3498db',
-        '#8e44ad',
-        '#9b59b6'
+        'red'
     ]
 
     constructor( private element: ElementRef, private _playerService: PlayerService, private _renderer: Renderer ) {
@@ -49,7 +44,7 @@ export class HomeComponent {
     }
 
     getColor() { 
-        return this.colorArray[Math.floor(Math.random() * this.colorArray.length)];
+        return this.colorArray[Math.floor(Math.random() * this.colorArray.length)]
     }
 
 }
