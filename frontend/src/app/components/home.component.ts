@@ -19,8 +19,12 @@ export class HomeComponent {
     private el: HTMLElement;
 
     private colorArray: Array<any> = [
-        'red'
+        'red',
+        '#3498db',
+        '#8e44ad'
     ]
+
+    private pulsar: string = 'red';
 
     constructor( private _playlistService: PlaylistService, private element: ElementRef, private _playerService: PlayerService, private _renderer: Renderer ) {
         this.el = element.nativeElement;
@@ -44,8 +48,17 @@ export class HomeComponent {
         }
     }
 
+    ngOnInit() {
+        this.getColor();
+    }
+
     getColor() { 
-        return this.colorArray[Math.floor(Math.random() * this.colorArray.length)]
+        let self = this;
+
+        setTimeout( function() {
+            self.pulsar = self.colorArray[Math.floor(Math.random() * self.colorArray.length)]
+            self.getColor();
+        }, 1200)
     }
 
     toggleSound() {

@@ -71,6 +71,7 @@
   box-shadow: rgba(255, 238, 239, 0.4) 0 0 0 1px;
   z-index: 1;
   transform: scale(0) translateZ(0);
+  transition: background-color 1s ease-in-out;
 }
 
 .home .pulser:nth-child(1) {
