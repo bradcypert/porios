@@ -18,7 +18,7 @@ WHERE id = :id
 -- name: get-user-by-email-and-password
 -- retrieve a user by email and password hash
 SELECT * FROM users
-WHERE email = :email AND pass = :password
+WHERE lower(email) = lower(:email) AND pass = :password
 
 -- name: delete-user!
 -- delete a user given the id
@@ -28,7 +28,7 @@ WHERE id = :id
 -- name: get-user-avatar-for-email
 -- gets the avatar for a given email address
 SELECT pic_url FROM users
-where email = :email
+where lower(email) = lower(:email)
 
 -- name: create-message!
 -- creates a new message entry between two users with an associated message.
