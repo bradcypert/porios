@@ -43,14 +43,35 @@ p {
   line-height: 1.2;
   margin: 1em 0;
 }
+
 .main {
   overflow: auto;
   vertical-align: top;
-  flex: 1;
   box-sizing: border-box;
   background: #ecf0f1;
   position: relative;
+  height: 100%;
+  max-height: 100vh;
+  transition: all 0.5s ease-in-out;
 }
+
+.open .main {
+  max-height: 90vh;
+}
+
+i.fa {
+  transition: 0.5s all ease-in-out;
+}
+
+i.fa.spin {
+  transform: rotate3d(1,0,0,180deg);
+}
+
+#page-wrapper {
+  flex: 1;
+  height: 100vh;
+}
+
 .main .aside {
   display: inline-block;
   font-size: 16px;
@@ -111,7 +132,7 @@ sidebar > ul {
   position: relative;
   background: #2c3e50;
   font-size: 16px;
-  height: 90vh;
+  height: 100vh;
   vertical-align: top;
   width: 215px;
 }
@@ -352,7 +373,7 @@ sidebar > ul {
 .porios {
   display: flex;
   flex-flow: row wrap;
-  height: 90vh
+  height: 100vh
 }
 .message {
   width: 70%;
@@ -586,6 +607,22 @@ timeline {
   flex-flow: row wrap;
   height: 100%;
   background: #2c3e50;
+  position: relative;
+}
+
+#audioplayer nag {
+  position: absolute;
+  top: -25px;
+  left: calc(50% - 25px);
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  background: #2c3e50;
+  color: #ecf0f1;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+  z-index: 20;
 }
 
 #timeSlider{
@@ -618,33 +655,37 @@ timeline {
   right: 0;
   height: 90vh;
   width: 283px;
-  background: #2c3e50;
+  background: #ecf0f1;
   transform: translateX(283px); 
-  transition: all 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  box-shadow: 0 0 10px 0 #2c3e50;
 }
 
 #playlistSidebar.active {
   transform: translateX(0);
 }
 
+#playlistSidebar ul {
+  padding-left: 0;
+}
+
 #playlistSidebar ul li {
   position: relative;
-  background: #ecf0f1fff;
+  background: #ecf0f1;
   display: block;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  border-top: 1px solid #f2f2f2;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
 }
 
-#playlistSidebar ul li:first-of-type {
-  border-top: none;
+#playlistSidebar ul li:last-of-type {
+  border-bottom: none;
 }
 
 #playlistSidebar ul li:hover {
-  background: #d41243;
+  background: #e74c3c;
 }
 
 #playlistSidebar ul li:hover .content h3,
@@ -657,7 +698,7 @@ timeline {
   display: inline-block;
   background: #bfbfbf;
   width: 50px;
-  color: #ecf0f1fff;
+  color: #7f8c8d;
   line-height: 50px;
   text-align: center;
   text-decoration: none;
@@ -678,6 +719,7 @@ timeline {
   width: 100%;
   margin-bottom: 5px;
   color: #808080;
+  margin-top: 0;
 }
 
 #playlistSidebar ul li .content .preview {

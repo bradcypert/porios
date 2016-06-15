@@ -1,4 +1,7 @@
 <div id="audioplayer">
+	<nag (click)="togglePlayer()">
+		<i [class.spin]="open" class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
+	</nag>
 	<button class="btn btn-play" (click)="toggleState()">
 		<i *ngIf="isPlaying" class="fa fa-2x fa-pause-circle"></i>
 		<i *ngIf="!isPlaying" class="fa fa-2x fa-play-circle"></i>

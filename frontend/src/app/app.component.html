@@ -2,10 +2,12 @@
   <div id="left-nav" class="sidebar">
     <sidebar></sidebar>
   </div>
-  <div id="page-wrapper" class="main">
-    <router-outlet></router-outlet>
+  <div id="page-wrapper">
+    <div class="main">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="player">
+      <player></player>
+    </div>
   </div>
-</div>
-<div class="player">
-  <player></player>
 </div>

@@ -24,9 +24,11 @@ export class PlayerComponent {
 
     private isPlaying: boolean = false;
     private sound: HTMLAudioElement;
+    private open: boolean = false;
+    private el: HTMLElement;
 
     constructor(private element: ElementRef, private _playerService: PlayerService, private renderer: Renderer, private _playlistService: PlaylistService) {
-
+        this.el = element.nativeElement;
     }
 
     ngOnInit() {
@@ -40,6 +42,8 @@ export class PlayerComponent {
 
         this._playlistService.addSound(tmp);
         this._playlistService.addSound(tmp2);
+
+        this.playerClose();
     }
 
     ngAfterViewInit() {
@@ -76,6 +80,24 @@ export class PlayerComponent {
             } else {
                 this.playlist.open();
             }
+        }
+    }
+
+    playerClose() {
+        this.el.parentElement.parentElement.classList.remove('open');
+        this.open = false;
+    }
+
+    playerOpen() {
+        this.el.parentElement.parentElement.classList.add('open')
+        this.open = true;
+    }
+
+    togglePlayer() {
+        if (this.open) {
+            this.playerClose();
+        } else {
+            this.playerOpen();
         }
     }
 }
