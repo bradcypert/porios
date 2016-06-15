@@ -60,6 +60,9 @@ export class PlayerComponent {
             this.renderer.listen(this.sound, 'pause', () => {
                 this.isPlaying = false;
             })
+            this.renderer.listen(this.sound, 'ended', () => {
+                this._playlistService.nextSound();
+            })
         }
     }
 

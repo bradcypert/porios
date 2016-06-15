@@ -13,7 +13,10 @@ export class PlayerService {
 		this._soundService.loadSound(sound);
 	}
 
-	play() {
+	play(sound?: Sound) {
+		if (sound) {
+			this.loadSound(sound);
+		}
 		if (this._soundService.getSound) {
 			this._soundService.playSound();
 		}

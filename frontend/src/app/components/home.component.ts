@@ -2,6 +2,7 @@ import { ElementRef, Component, Renderer } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 import { PlayerService } from '../services/audio/player.service';
+import { PlaylistService } from '../services/audio/playlist.service';
 
 @Component ({
     selector: 'home',
@@ -21,7 +22,7 @@ export class HomeComponent {
         'red'
     ]
 
-    constructor( private element: ElementRef, private _playerService: PlayerService, private _renderer: Renderer ) {
+    constructor( private _playlistService: PlaylistService, private element: ElementRef, private _playerService: PlayerService, private _renderer: Renderer ) {
         this.el = element.nativeElement;
     }
 
@@ -45,6 +46,14 @@ export class HomeComponent {
 
     getColor() { 
         return this.colorArray[Math.floor(Math.random() * this.colorArray.length)]
+    }
+
+    toggleSound() {
+        if (this.isPlaying) {
+            this._playlistService.pauseSound();
+        } else {
+            this._playlistService.playSound();
+        }
     }
 
 }
