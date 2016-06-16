@@ -25,6 +25,7 @@
                  [buddy "0.13.0"]
                  [buddy/buddy-auth "1.0.0"]
                  [buddy/buddy-sign "1.0.0"]
+                 [buddy/buddy-hashers "0.14.0"]
                  [migratus "0.8.7"]
                  [conman "0.2.7"]
                  [org.postgresql/postgresql "9.4-1203-jdbc41"]

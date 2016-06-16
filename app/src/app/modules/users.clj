@@ -1,5 +1,6 @@
 (ns app.modules.users
-  (:require [app.db.core :as db]))
+  (:require [app.db.core :as db]
+            [app.modules.auth :as auth]))
 
 (defn get-user
   "Fetches a user by ID"
@@ -51,7 +52,7 @@
   (db/create-user! {:first_name first-name
                     :last_name last-name
                     :email email
-                    :password password}))
+                    :password (auth/encrypt password)}))
 
 ;Dangerous? Or at least sloppy?
 (defn update-user

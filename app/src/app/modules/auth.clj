@@ -1,14 +1,21 @@
 (ns app.modules.auth
  (:require [buddy.sign.jwt :as jwt]
+           [buddy.hashers :as hashers]
            [app.db.core :as db]))
 
 (defonce secret "9!h:L<o81R,oB(tX2uY0L_joNeK'Rr")
 
 (def encryption {:alg :a256kw :enc :a128gcm})
 
+(defn encrypt [item]
+  (hashers/derive item))
+
+(defn check-match [item source]
+  (hashers/check item source))
+
 (defn generate-signature [email password]
-  (let [user (db/get-user-by-email-and-password {:email email :password password})]
-    (if (:id user) 
+  (let [user (first (db/get-user-by-email {:email email}))]
+    (if (check-match password (:pass user)) 
       (jwt/sign {:user (:id user)} secret)
       nil)))
 

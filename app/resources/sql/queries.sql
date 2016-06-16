@@ -2,7 +2,7 @@
 -- creates a new user record
 INSERT INTO users
 (first_name, last_name, email, pass)
-VALUES (:first_name, :last_name, :email, :pass)
+VALUES (:first_name, :last_name, :email, :password)
 
 -- name: update-user!
 -- update an existing user record
@@ -14,6 +14,11 @@ WHERE id = :id
 -- retrieve a user given the id.
 SELECT * FROM users
 WHERE id = :id
+
+-- name: get-user-by-email
+-- retrieve a user given their email address
+SELECT * FROM users
+WHERE lower(email) = lower(:email)
 
 -- name: get-user-by-email-and-password
 -- retrieve a user by email and password hash

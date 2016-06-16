@@ -78,6 +78,6 @@
   (GET "/users/:id/events" [id] (-> id get-user-events))
   (GET "/users/:id/events/following" [id] (-> get-user-following-events))
   (GET "/userPhoto" {params :params} (-> params get-user-photo))
-  (POST "/users/" {params :params} (-> params create-user))
+  (POST "/users" {params :params} (-> params create-user))
   (POST "/users/:id/message" {params :params} (-> params message-user))
   (PATCH "/users/:id" {params :params} (-> params update-user)))
