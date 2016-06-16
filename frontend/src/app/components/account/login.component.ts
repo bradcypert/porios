@@ -14,7 +14,10 @@ import { UserService } from '../../services/user.service';
     ]
 })
 export class LoginComponent {
-    private user: User = new User('', '');
+    private user: any = {
+        'username': '',
+        'password': ''
+    };
     private loginForm: ControlGroup;
 
     public avatar: string;
@@ -26,6 +29,32 @@ export class LoginComponent {
     }
 
     login(){
-        this._userService.login(this.user.name, this.user.avatarSrc);
+        this._userService.login(this.user.username, this.user.password)
+        .subscribe(
+            (data) => {
+                this.loginSuccess(data)
+                this._router.navigate(['Dashboard']);
+            },
+            (err) => {
+                this.loginFailure(err)
+            }
+        );
     }
+
+    clearSession() {
+        sessionStorage.removeItem('uid_token');
+    }
+
+    private loginSuccess(data: any) {   
+        sessionStorage.setItem('uid_token', data._body);    
+    }
+
+    private loginFailure(error: any) {
+        
+    }
+
+    create(){
+        this._userService.create(this.user.username, this.user.password);
+    }
+    
 }

@@ -5,7 +5,10 @@ import 'rxjs/add/operator/map';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 import { User } from '../data/user.component';
-import { CookieService } from '../services/cookie.service';
+import { SessionService } from './session.service';
+import { CookieService } from './cookie.service';
+import { RestService } from './rest.service';
+
 @Injectable()
 export class UserService {
     private verify: any;
@@ -18,37 +21,34 @@ export class UserService {
 
     public currentUser: Subject<User> = new BehaviorSubject<User>(null);
 
-    constructor(private _http: Http, private _cookieService: CookieService) { }
+    constructor( private _sessionService: SessionService, private _restService: RestService, private _cookieService: CookieService) { }
 
     login(username: string, password: string) {
         let data = {
-            username: username,
+            email: username,
             password: password
         }
-        this.verify = this.verifyLogin(data);
+        return this.verify = this.verifyLogin(data);
     }
 
-    verifyLogin(data: Object) {
-        this.response = this.addRequest('', 'json').run();
-        return this.response;
+    create(username: string, password: string) {
+        let data = {
+            email: username,
+            password: password
+        }
+        this._restService.postRequest('users',data)
+            .subscribe(
+                (data) => this.login(username, password),
+                (err) => err
+            )
     }
 
-    addRequest(endpoint: string, method: string, id = 0, data = {}) {
-        let passed = (id !== undefined && id != 0) ? '(' + id + ')' : '';
-        this.request = endpoint;
-        this.method = method;
-        return this;
-    }
-
-    run() {
-        return this._http.get(this.url + this.request + this.method)
-            .toPromise()
-            .then(response => response.json().data)
-            .catch(this.handleError);
+    verifyLogin(data: any) {
+        return this._restService.postRequest('login',data);
     }
 
     validateUser() {
-        return false;
+        return true;
     }
 
     public setCurrentUser(newUser: User): void {

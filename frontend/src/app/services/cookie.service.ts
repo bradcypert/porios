@@ -20,7 +20,7 @@ export class CookieService {
     set(name: string, value: string, expireDays: number, path: string = "") {
         let d: Date = new Date();
         let expires: string = "expires=" + d.toUTCString();
-        
+
         d.setTime(d.getTime() + expireDays * 24 * 60 * 60 * 1000);
         document.cookie = name + "=" + value + "; " + expires + (path.length > 0 ? "; path=" + path : "");
     }

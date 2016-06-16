@@ -1,7 +1,7 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { AppComponent } from './app/app.component';
-import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { HTTP_PROVIDERS, JSONP_PROVIDERS } from '@angular/http';
 
 import { UserService } from './app/services/user.service'; 
@@ -11,6 +11,8 @@ import { CookieService } from './app/services/cookie.service';
 import { PlayerService } from './app/services/audio/player.service';
 import { SoundService } from './app/services/audio/sound.service';
 import { PlaylistService } from './app/services/audio/playlist.service';
+import { RestService } from './app/services/rest.service';
+import { SessionService } from './app/services/session.service';
 
 if (process.env.ENV === 'production') {
   enableProdMode();
@@ -18,10 +20,13 @@ if (process.env.ENV === 'production') {
 
 bootstrap(AppComponent, 
     [ROUTER_DIRECTIVES,
+    ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     JSONP_PROVIDERS,
     CookieService,
     UserService,
     PlayerService,
     SoundService,
-    PlaylistService]);
+    PlaylistService,
+    RestService,
+    SessionService]);
