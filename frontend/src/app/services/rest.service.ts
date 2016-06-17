@@ -15,7 +15,6 @@ export class RestService {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', localStorage.getItem('uid_token'));
 
-        console.log(JSON.stringify(data));
         return this.http.post(this.apiUrl + method, JSON.stringify(data), {headers: headers})
             .map(res => {
                 if(res.status < 200 || res.status >= 300) {
