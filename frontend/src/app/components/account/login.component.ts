@@ -45,7 +45,8 @@ export class LoginComponent {
         sessionStorage.removeItem('uid_token');
     }
 
-    private loginSuccess(data: any) {   
+    private loginSuccess(data: any) {  
+        console.log(data); 
         sessionStorage.setItem('uid_token', data._body);    
     }
 

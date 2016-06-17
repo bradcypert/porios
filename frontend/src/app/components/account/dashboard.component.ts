@@ -19,4 +19,9 @@ export class DashboardComponent {
     
     constructor( private _router: Router, private _userService: UserService, private fb: FormBuilder ) { }
     
+    logout() {
+        this._userService.logout();
+        this._router.parent.navigate(['Account/Login']);
+    }
+
 }

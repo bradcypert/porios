@@ -11,7 +11,6 @@ export class RestService {
 
     postRequest(method: string, data: Object = {}) {
         let headers = new Headers({'Content-Type': 'application/json'});
-        console.log(JSON.stringify(data));
         return this.http.post(this.apiUrl + method, JSON.stringify(data), {headers: headers})
             .map(res => {
                 if(res.status < 200 || res.status >= 300) {

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
+
+import { UserService } from '../services/user.service';
 
 @Component ({
     selector: 'settings',
@@ -9,5 +11,14 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
     ]
 })
 export class SettingsComponent {
+    constructor( private _router: Router, private _userService: UserService ) { }
 
+    ngOnInit() {
+        if (this._userService.validateUser() == false) {
+            console.log('Route Away');
+            this._router.navigate(['Account/Login']);
+        } else {
+
+        }
+    }
 }
