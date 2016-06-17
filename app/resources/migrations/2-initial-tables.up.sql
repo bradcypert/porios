@@ -35,8 +35,15 @@ CREATE TABLE subscriptions
  user_id integer REFERENCES users,
  podcast_id integer REFERENCES podcasts);
 
+CREATE TABLE threads
+(id SERIAL PRIMARY KEY,
+ user1 integer REFERENCES users,
+ user2 integer REFERENCES users);
+
 CREATE TABLE messages
 (id SERIAL primary key,
  recipient integer REFERENCES users,
  sender integer REFERENCES users,
+ thread integer REFERENCES threads,
+ ts timestamp without time zone default (now() at time zone 'utc'),
  message TEXT);

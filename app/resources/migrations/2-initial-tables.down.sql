@@ -4,5 +4,6 @@ DROP TABLE subscriptions;
 DROP TABLE followers;
 DROP TABLE podcasts;
 DROP TABLE messages;
+DROP TABLE threads;
 DROP TYPE genre;
 DROP TYPE event;
