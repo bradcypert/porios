@@ -43,6 +43,12 @@ export class UserService {
             )
     }
 
+    getCurrentUser() {
+        if (localStorage.getItem('uid_token')) {
+            return this._restService.getRequest('users/me');
+        }
+    }
+
     verifyLogin(data: any) {
         return this._restService.postRequest('login',data);
     }

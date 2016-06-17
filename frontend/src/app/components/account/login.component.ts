@@ -42,11 +42,11 @@ export class LoginComponent {
     }
 
     clearSession() {
-        sessionStorage.removeItem('uid_token');
+        localStorage.removeItem('uid_token');
     }
 
     private loginSuccess(data: any) {   
-        sessionStorage.setItem('uid_token', data._body);    
+        localStorage.setItem('uid_token', data._body);    
     }
 
     private loginFailure(error: any) {

@@ -19,4 +19,8 @@ export class DashboardComponent {
     
     constructor( private _router: Router, private _userService: UserService, private fb: FormBuilder ) { }
     
+    ngOnInit() {
+        console.log(this._userService.getCurrentUser());
+    }
+
 }
