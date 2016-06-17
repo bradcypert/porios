@@ -24,4 +24,8 @@ export class DashboardComponent {
         this._router.parent.navigate(['Account/Login']);
     }
 
+    ngOnInit() {
+        console.log(this._userService.getCurrentUser());
+    }
+
 }
