@@ -13,6 +13,9 @@
 (defn check-match [item source]
   (hashers/check item source))
 
+(defn unsign-token [token]
+  (jwt/unsign token secret))
+
 (defn generate-signature [email password]
   (let [user (first (db/get-user-by-email {:email email}))]
     (if (check-match password (:pass user)) 

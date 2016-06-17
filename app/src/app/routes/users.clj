@@ -6,7 +6,7 @@
 
 (defn- get-user
   [^:Integer id]
-  (let [id (Integer/parseInt id)]
+  (let [id (Integer/parseInt (str id))]
     (users/get-user id)))
 
 (defn- get-user-subscriptions
@@ -70,6 +70,7 @@
     (users/get-user-avatar-for-email email)))
 
 (defroutes user-routes
+  (GET "/users/me" {params :params} (-> (:auth-user params) get-user))
   (GET "/users/:id" [id] (-> id get-user))
   (GET "/users/:id/subscriptions" [id] (-> id get-user-subscriptions))
   (GET "/users/:id/followers" [id] (-> id get-user-followers))
