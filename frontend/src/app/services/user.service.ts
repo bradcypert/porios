@@ -23,6 +23,10 @@ export class UserService {
 
     constructor( private _sessionService: SessionService, private _restService: RestService, private _cookieService: CookieService) { }
 
+    logout() {
+        sessionStorage.removeItem('uid_token');
+    }
+
     login(username: string, password: string) {
         let data = {
             email: username,
@@ -43,12 +47,22 @@ export class UserService {
             )
     }
 
+    getCurrentUser() {
+        if (localStorage.getItem('uid_token')) {
+            return this._restService.getRequest('users/me');
+        }
+    }
+
     verifyLogin(data: any) {
         return this._restService.postRequest('login',data);
     }
 
     validateUser() {
-        return true;
+        if (sessionStorage.getItem('uid_token')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public setCurrentUser(newUser: User): void {

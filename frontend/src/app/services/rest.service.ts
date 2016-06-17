@@ -10,8 +10,11 @@ export class RestService {
     constructor ( private http: Http ) { }
 
     postRequest(method: string, data: Object = {}) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        console.log(JSON.stringify(data));
+        let headers = new Headers();
+
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', localStorage.getItem('uid_token'));
+
         return this.http.post(this.apiUrl + method, JSON.stringify(data), {headers: headers})
             .map(res => {
                 if(res.status < 200 || res.status >= 300) {
@@ -23,7 +26,11 @@ export class RestService {
     }
 
     getRequest(method: string) {
-        return this.http.get(this.apiUrl + method)
+        let headers = new Headers();
+
+        headers.append('Authorization', localStorage.getItem('uid_token'));
+        
+        return this.http.get(this.apiUrl + method, {headers: headers})
             .toPromise()
             .then(response => response)
             .catch(this.handleError);

@@ -1,0 +1,58 @@
+.utility-panel {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 10px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 1px solid #34495e;
+}
+.button-default {
+  -webkit-transition: 0.25s ease-out 0.1s color;
+  -moz-transition: 0.25s ease-out 0.1s color;
+  -o-transition: 0.25s ease-out 0.1s color;
+  transition: 0.25s ease-out 0.1s color;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  outline: none;
+  position: relative;
+}
+.show-notifications {
+  position: relative;
+}
+.show-notifications:hover #icon-bell,
+.show-notifications:focus #icon-bell,
+.show-notifications.active #icon-bell {
+  fill: #ecf0f1;
+}
+.show-notifications #icon-bell {
+  fill: #ecf0f1;
+}
+.show-notifications .notifications-count,
+.show-messages .notifications-count {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -moz-background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background: #c0392b;
+  color: #ecf0f1;
+  font: normal 0.85em 'Lato';
+  height: 16px;
+  line-height: 1.3em;
+  position: absolute;
+  right: 2px;
+  text-align: center;
+  top: -2px;
+  width: 16px;
+}
+.show-notifications.active ~ .notifications {
+  opacity: 1;
+  top: 60px;
+}
