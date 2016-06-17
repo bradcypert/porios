@@ -16,7 +16,9 @@
             [buddy.auth.backends.session :refer [session-backend]]
             [buddy.auth.accessrules :refer [restrict]]
             [buddy.auth :refer [authenticated?]]
-            [app.layout :refer [*identity*]])
+            [app.modules.auth :refer [unsign-token]]
+            [app.layout :refer [*identity*]]
+            [clojure.string :refer [split]])
   (:import [javax.servlet ServletContext]))
 
 ; CHECK WITH BRAD BEFORE MODIFYING THIS FILE.
@@ -79,6 +81,21 @@
     (binding [*identity* (get-in request [:session :identity])]
       (handler request))))
 
+(defn map-auth-token-to-user [handler]
+  (fn [request]
+    (try 
+      (let [token (get (:headers request) "authorization")
+            token (last (split token #" "))
+            token (unsign-token token)]
+        (if-let [user-id (:user token)]
+          (let [params (:params request)
+                params (assoc params :auth-user user-id)
+                request (assoc request :params params)]
+            (handler request)
+          (handler request))))
+    (catch Throwable t
+      (handler request)))))
+
 (defn ensure-json-token [handler]
   (fn [request]
     (let [method (:request-method request)
@@ -91,8 +108,8 @@
 
 (defn wrap-auth [handler]
   (-> handler
-      ensure-json-token
       wrap-identity
+      map-auth-token-to-user
       (wrap-authentication (session-backend))))
 
 (defn wrap-base [handler]
