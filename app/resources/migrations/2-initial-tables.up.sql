@@ -46,4 +46,5 @@ CREATE TABLE messages
  sender integer REFERENCES users,
  thread integer REFERENCES threads,
  ts timestamp without time zone default (now() at time zone 'utc'),
+ read boolean default false, 
  message TEXT);
