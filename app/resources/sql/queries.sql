@@ -35,11 +35,40 @@ WHERE id = :id
 SELECT pic_url FROM users
 where lower(email) = lower(:email)
 
--- name: create-message!
+-- name: get-threads-for-user
+-- gets message threads for a given user, offset and limit
+SELECT * FROM threads
+where user1 = :id OR user2 = :id
+LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
+
+-- name: get-thread-for-users
+-- gets message thread for two given users
+SELECT * FROM threads
+WHERE user1 = cast(:u1 as int) OR user2 = cast(:u1 as int)
+AND user1 = cast(:u2 as int) OR user2 = cast(:u2 as int)
+
+-- name: create-thread-for-users<!
+-- creates a new thread for two given users
+INSERT INTO threads
+(user1, user2)
+VALUES (:u1, :u2)
+
+-- name: create-message<!
 -- creates a new message entry between two users with an associated message.
 INSERT INTO messages
-(recipient, sender, message)
-VALUES (:to, :from, :message)
+(recipient, sender, message, thread)
+VALUES (cast(:to as int), cast(:from as int), :message, :thread)
+
+-- name: get-received-messages-for-user
+-- gets all messages received by a given user id
+SELECT * FROM messages
+where recipient = :user
+
+-- name: get-sent-messages-for-user
+-- gets all messages sent by a given user id
+SELECT * FROM messages
+where sender = :user
+
 
 
 

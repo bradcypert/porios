@@ -61,8 +61,16 @@
   [params]
   (let [to-user   (:id params)
         message   (:message params)
-        from-user (:from params)]
-        (users/message-user to-user from-user message)))
+        from-user (:from params)
+        message (users/message-user to-user from-user message)]
+        (if (not-any? nil? [to-user from-user message])
+          (let [message (users/message-user to-user from-user message)]
+            message)
+          (bad-request))))
+
+(defn- get-received-messages-for-user
+  [^:Integer id]
+  (users/get-messages-for-user id :recieved))
 
 (defn- get-user-photo
   [params]

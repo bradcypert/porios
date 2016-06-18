@@ -42,9 +42,26 @@
   [^:Integer to
    ^:Integer from
    ^:String message]
-   (db/create-message! {:to to
-                        :from from
-                        :message message}))
+   (let [thread (first (db/get-thread-for-users {:u1 to
+                                          :u2 from}))]
+     (if (nil? thread)
+       (let [thread (:id (db/create-thread-for-users<! {:u1 to
+                                    :u2 from}))]
+         (db/create-message<! {:to to
+                              :from from
+                              :message message
+                              :thread thread}))
+       (db/create-message<! {:to to
+                            :from from
+                            :message message
+                            :thread (:id thread)}))))
+
+(defn get-messages-for-user
+  [^:Integer id
+   action] 
+  (condp = action
+    :recieved (db/get-received-messages-for-user {:user id})
+    :sent (db/get-sent-messages-for-user {:user id})))
 
 (defn create-user
   "Creates a new user"
