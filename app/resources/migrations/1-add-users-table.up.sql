@@ -8,3 +8,5 @@ CREATE TABLE users
  is_active BOOLEAN,
  age SMALLINT,
  pass VARCHAR(100));
+
+CREATE UNIQUE INDEX lower_email ON users ((lower(email)));

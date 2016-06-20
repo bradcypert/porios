@@ -40,13 +40,14 @@
     (users/get-user-following-events id)))
 
 (defn- create-user
-  [params] ;;TODO: Clojure TypeHint for map?
+  [params]
   (let [first     (:first_name params)
         last      (:last_name params)
         email     (:email params)
         password  (:password params)]
-    (users/create-user first last email password))
-  (ok))
+    (if (users/create-user first last email password)
+      (ok)
+      (bad-request {:error "Unable to create new user. Email already exists."}))))
 
 ;Dangerous (or at least sloppy)?
 (defn- update-user

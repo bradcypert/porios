@@ -66,10 +66,12 @@
 (defn create-user
   "Creates a new user"
   [first-name last-name email password]
-  (db/create-user! {:first_name first-name
+  (try
+    (db/create-user! {:first_name first-name
                     :last_name last-name
                     :email email
-                    :password (auth/encrypt password)}))
+                    :password (auth/encrypt password)})
+    (catch Exception e false)))
 
 ;Dangerous? Or at least sloppy?
 (defn update-user
