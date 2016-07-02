@@ -37,14 +37,17 @@ CREATE TABLE subscriptions
 
 CREATE TABLE threads
 (id SERIAL PRIMARY KEY,
- user1 integer REFERENCES users,
- user2 integer REFERENCES users);
+ created timestamp without time zone default (now() at time zone 'utc'));
+
+CREATE TABLE user_threads
+(id SERIAL PRIMARY KEY,
+ user_id integer REFERENCES users,
+ thread integer REFERENCES threads,
+ last_read timestamp without time zone);
 
 CREATE TABLE messages
 (id SERIAL primary key,
- recipient integer REFERENCES users,
  sender integer REFERENCES users,
  thread integer REFERENCES threads,
  ts timestamp without time zone default (now() at time zone 'utc'),
- read boolean default false, 
  message TEXT);

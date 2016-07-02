@@ -58,21 +58,6 @@
       (ok))
     (catch Exception e (bad-request))))
 
-(defn- message-user
-  [params]
-  (let [to-user   (:id params)
-        message   (:message params)
-        from-user (:from params)
-        message (users/message-user to-user from-user message)]
-        (if (not-any? nil? [to-user from-user message])
-          (let [message (users/message-user to-user from-user message)]
-            message)
-          (bad-request))))
-
-(defn- get-received-messages-for-user
-  [^:Integer id]
-  (users/get-messages-for-user id :recieved))
-
 (defn- get-user-photo
   [params]
   (let [email (:email params)]
@@ -89,5 +74,4 @@
   (GET "/users/:id/events/following" [id] (-> get-user-following-events))
   (GET "/userPhoto" {params :params} (-> params get-user-photo))
   (POST "/users" {params :params} (-> params create-user))
-  (POST "/users/:id/message" {params :params} (-> params message-user))
   (PATCH "/users/:id" {params :params} (-> params update-user)))

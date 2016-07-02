@@ -10,8 +10,11 @@
 (defn encrypt [item]
   (hashers/derive item))
 
+;; TODO: Better try-catch support
 (defn check-match [item source]
-  (hashers/check item source))
+  (if (not (some nil? [item source]))
+    (hashers/check item source)
+    false))
 
 (defn unsign-token [token]
   (jwt/unsign token secret))

@@ -4,6 +4,7 @@
             [app.routes.podcasts :refer [podcast-routes]]
             [app.routes.users :refer [user-routes]]
             [app.routes.login :refer [login-routes]]
+            [app.routes.inbox :refer [inbox-routes]]
             [app.middleware :as middleware]
             [app.db.core :as db]
             [compojure.route :as route]
@@ -46,6 +47,7 @@
     (wrap-routes #'podcast-routes middleware/wrap-csrf)
     (wrap-routes #'user-routes middleware/wrap-csrf)
     (wrap-routes #'login-routes middleware/wrap-csrf)
+    (wrap-routes #'inbox-routes middleware/wrap-csrf)
     (route/not-found
       (:body
         (error-page {:status 404

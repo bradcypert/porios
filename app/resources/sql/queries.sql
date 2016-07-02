@@ -35,41 +35,44 @@ WHERE id = :id
 SELECT pic_url FROM users
 where lower(email) = lower(:email)
 
+
+
+
 -- name: get-threads-for-user
 -- gets message threads for a given user, offset and limit
-SELECT * FROM threads
-where user1 = :id OR user2 = :id
+SELECT * FROM user_threads
+where user_id = :user
 LIMIT cast(:limit as bigint) OFFSET cast(:offset as bigint)
 
--- name: get-thread-for-users
--- gets message thread for two given users
-SELECT * FROM threads
-WHERE user1 = cast(:u1 as int) OR user2 = cast(:u1 as int)
-AND user1 = cast(:u2 as int) OR user2 = cast(:u2 as int)
-
 -- name: create-thread-for-users<!
--- creates a new thread for two given users
-INSERT INTO threads
-(user1, user2)
-VALUES (:u1, :u2)
+-- creates a new thread for two given users, should be called after create-thread<!
+INSERT INTO user_threads
+(user_id, thread)
+VALUES (cast(:user as int), cast(:thread as int))
+
+-- name: create-thread<!
+-- Creates a new thread. Thread should be leveraged by the user table and the messages table to join the two.
+INSERT INTO threads DEFAULT VALUES
 
 -- name: create-message<!
 -- creates a new message entry between two users with an associated message.
 INSERT INTO messages
-(recipient, sender, message, thread)
-VALUES (cast(:to as int), cast(:from as int), :message, :thread)
+(sender, message, thread)
+VALUES (cast(:from as int), :message, cast(:thread as int))
 
--- name: get-received-messages-for-user
--- gets all messages received by a given user id
+-- name: get-messages-for-thread
+-- Gets all messages in the given thread
 SELECT * FROM messages
-where recipient = :user
+where thread = :thread
 
--- name: get-sent-messages-for-user
--- gets all messages sent by a given user id
-SELECT * FROM messages
-where sender = :user
-
-
+-- name: get-inbox-overview-for-user
+-- Gets the most recent threads for a user, finds the last message for those threads.
+SELECT DISTINCT ON (thread)
+* FROM messages m
+WHERE m.thread IN
+  (SELECT u.thread
+	 FROM user_threads u
+	 where u.user_id = 1) ORDER BY thread desc, ts desc;
 
 
 
