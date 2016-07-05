@@ -74,6 +74,12 @@ WHERE m.thread IN
 	 FROM user_threads u
 	 where u.user_id = 1) ORDER BY thread desc, ts desc;
 
+-- name: user-is-on-thread
+-- Returns the user thread for a given user
+SELECT * FROM user_threads
+WHERE thread = cast(:thread as int)
+AND
+user_id = cast(:user as int)
 
 
 -- name: create-podcast!

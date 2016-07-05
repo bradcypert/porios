@@ -22,5 +22,11 @@
                           :message message
                           :thread thread})))
 
-(defn get-messages-for-thread [thread]
-  (db/get-messages-for-thread {:thread thread}))
+(defn get-messages-for-thread 
+  [thread auth-user]
+  (if (= 
+    auth-user 
+    (:user_id (first (db/user-is-on-thread {:user auth-user           
+                                     :thread thread}))))
+      (db/get-messages-for-thread {:thread thread})
+      '()))
