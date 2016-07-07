@@ -24,7 +24,7 @@
 </div>
 
 <div class="podcast-search">
-  <input [(ngModel)]="asyncSelected" [typeahead]="getAsyncData(getContext())"
+  <input [(ngModel)]="asyncSelected" [typeahead]="getAsyncData(getContext())" [typeaheadOptionField]="'name'"
     (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="7"
     placeholder="Find a Podcast" class="form-control">
 </div>

@@ -17,8 +17,6 @@ import { FeedService } from '../../services/feed.service';
 export class ExploreDetailComponent {
     constructor(private _podcastService: PodcastService, private _routeParams: RouteParams, private _feedService: FeedService) { }
 
-    private dummyFeed: string = 'http://www.qdnow.com/grammar.xml';
-
     private podcast: Podcast;
     private feed: any;
     private photo: string = 'http://localhost:3000/src/assets/img/placeholders/dev-tea.png';
@@ -29,19 +27,10 @@ export class ExploreDetailComponent {
             .then((podcast: Podcast) => {
                 this.podcast = podcast;
                 console.log(this.podcast);
-                this.loadFeed(this.dummyFeed);
             });
     }
 
     goBack() {
         window.history.back();
-    }
-    
-    loadFeed(url: string) {
-        this._feedService.getFeed(url)
-            .then((feed: any) => {
-                this.feed = feed.responseData.feed;
-                console.log(this.feed);
-            })
     }
 }

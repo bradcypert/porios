@@ -18,8 +18,11 @@ export class PodcastService {
     }
     
     getPodcast(id: number) {
-        return this.getPodcasts()
-            .then(podcasts => podcasts.filter((podcast: Podcast) => podcast.id === id)[0]);
+        return this._rest.getRequest('/podcasts/'+id)
+            .then(response => (
+                response.json()[0]
+            ))
+            .catch(this.handleError);
     }
     
     private handleError(error: any) {

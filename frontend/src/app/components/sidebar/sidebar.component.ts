@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
 import { TYPEAHEAD_DIRECTIVES } from 'ng2-bootstrap';
 
@@ -19,7 +19,7 @@ export class SidebarComponent {
     private cache: any;
     private prevContext: any;
 
-    constructor(private _podcastService: PodcastService) {
+    constructor(private _router: Router, private _podcastService: PodcastService) {
 
     }
 
@@ -34,13 +34,20 @@ export class SidebarComponent {
 
         this.prevContext = context;
         this.cache = () => this._podcastService.getPodcasts().then(
-            response => {
-                return response;
+            (response: Array<Object>) => {
+                let tmp: Array<Object> = [];
+                let query = new RegExp(context.asyncSelected, 'ig');
+                response.map((c: any) => {
+                    if (query.test(c.name)) {
+                        tmp.push(c);
+                    }
+                })
+                return tmp;
             });
         return this.cache;
     }
 
     public typeaheadOnSelect(e: any): void {
-        console.log(`Selected value: ${e.item}`);
+        this._router.navigate(['ExploreDetail', { id: e.item.id }]);
     }
 }
