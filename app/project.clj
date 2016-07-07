@@ -1,6 +1,6 @@
-(defproject app "0.2.0"
+(defproject app "0.3.0"
 
-  :description "FIXME: write description"
+  :description "Connecting people with podcasts"
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.7.0"]
