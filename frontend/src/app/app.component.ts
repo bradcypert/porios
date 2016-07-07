@@ -14,12 +14,10 @@ import { LoginComponent } from './components/account/login.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PlayerComponent } from './components/player/player.component';
 
-import '../assets/css/styles.css';
-
 @Component({
   selector: 'porios',
   template: require('./app.component.html'),
-  styles: [require('./app.component.css')],
+  styles: [require('../assets/css/styles.scss'),require('./app.component.scss')],
   directives: [ROUTER_DIRECTIVES, SidebarComponent, PlayerComponent],
   providers: [
     ROUTER_PROVIDERS

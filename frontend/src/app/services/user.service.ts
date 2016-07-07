@@ -36,7 +36,7 @@ export class UserService {
     }
 
     update(data: any) {
-        this._restService.patchRequest('users/'+data.id,data)
+        this._restService.patchRequest('/users/'+data.id,data)
             .subscribe(
                 (data) => console.log(data),
                 (err) => err
@@ -48,7 +48,7 @@ export class UserService {
             email: username,
             password: password
         }
-        this._restService.postRequest('users',data)
+        this._restService.postRequest('/users',data)
             .subscribe(
                 (data) => this.login(username, password),
                 (err) => err
@@ -57,12 +57,12 @@ export class UserService {
 
     getCurrentUser() {
         if (localStorage.getItem('uid_token')) {
-            return this._restService.getRequest('users/me');
+            return this._restService.getRequest('/users/me');
         }
     }
 
     verifyLogin(data: any) {
-        return this._restService.postRequest('login',data);
+        return this._restService.postRequest('/login',data);
     }
 
     validateUser() {

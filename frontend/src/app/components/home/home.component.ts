@@ -7,7 +7,7 @@ import { PlaylistService } from '../../services/audio/playlist.service';
 @Component ({
     selector: 'home',
     template: require('./home.component.html'),
-    styles: [require('./home.component.css')],
+    styles: [require('./home.component.scss')],
     directives: [
         ROUTER_DIRECTIVES
     ]

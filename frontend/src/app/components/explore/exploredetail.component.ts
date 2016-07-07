@@ -8,7 +8,7 @@ import { FeedService } from '../../services/feed.service';
 @Component ({
     selector: 'explore',
     template: require('./exploredetail.component.html'),
-    styles: [require('./exploredetail.component.css')],
+    styles: [require('./exploredetail.component.scss')],
     providers: [
         PodcastService,
         FeedService

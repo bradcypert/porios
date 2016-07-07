@@ -8,7 +8,7 @@ import { PodcastService } from '../../services/podcast.service';
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.component.html'),
-    styles: [require('./sidebar.component.css')],
+    styles: [require('./sidebar.component.scss')],
     directives: [ROUTER_DIRECTIVES, TYPEAHEAD_DIRECTIVES]
 })
 export class SidebarComponent {
