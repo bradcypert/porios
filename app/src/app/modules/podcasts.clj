@@ -1,5 +1,6 @@
 (ns app.modules.podcasts
-  (:require [app.db.core :as db]))
+  (:require [app.db.core :as db]
+            [app.services.podcast :as podcast-service]))
 
 (defn get-podcasts
   "Fetches from all podcasts given a limit and an offset."
@@ -10,7 +11,9 @@
 (defn get-podcast
   "Fetches a single podcast by id."
   [^:Integer id]
-  (db/get-podcast {:id id}))
+  (let [podcast (first (db/get-podcast {:id id}))
+        feed (:feed podcast)]
+    (list (assoc podcast :feed (first (:content (podcast-service/parse-feed feed)))))))
 
 (defn get-podcasts-by-genre
   "Fetches from podcasts in a specific genre given a limit and an offset."

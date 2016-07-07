@@ -28,6 +28,7 @@
                  [buddy/buddy-hashers "0.14.0"]
                  [migratus "0.8.7"]
                  [conman "0.2.7"]
+                 [clj-http "2.0.0"]
                  [org.postgresql/postgresql "9.4-1203-jdbc41"]
                  [org.immutant/web "2.1.0"]
                  [test2junit "1.1.3"]]
