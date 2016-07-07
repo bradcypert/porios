@@ -1,8 +1,8 @@
 import { ElementRef, Component, Renderer } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
-import { PlayerService } from '../services/audio/player.service';
-import { PlaylistService } from '../services/audio/playlist.service';
+import { PlayerService } from '../../services/audio/player.service';
+import { PlaylistService } from '../../services/audio/playlist.service';
 
 @Component ({
     selector: 'home',

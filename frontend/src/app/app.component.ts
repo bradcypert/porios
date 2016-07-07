@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
-import { HomeComponent } from './components/home.component';
-import { ExploreComponent } from './components/explore.component';
+import { HomeComponent } from './components/home/home.component';
+import { ExploreComponent } from './components/explore/explore.component';
 import { ExploreDetailComponent } from './components/explore/exploredetail.component';
-import { ConnectComponent } from './components/connect.component';
-import { FavoritesComponent } from './components/favorites.component';
-import { FeedComponent } from './components/feed.component';
-import { MessagesComponent } from './components/messages.component';
-import { SettingsComponent } from './components/settings.component';
-import { AccountComponent } from './components/account.component';
+import { ConnectComponent } from './components/connect/connect.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { FeedComponent } from './components/feed/feed.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { AccountComponent } from './components/account/account.component';
 import { LoginComponent } from './components/account/login.component';
-import { SidebarComponent } from './components/sidebar.component';
-import { PlayerComponent } from './components/player.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { PlayerComponent } from './components/player/player.component';
 
 import '../assets/css/styles.css';
 
@@ -23,7 +23,8 @@ import '../assets/css/styles.css';
   directives: [ROUTER_DIRECTIVES, SidebarComponent, PlayerComponent],
   providers: [
     ROUTER_PROVIDERS
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 @RouteConfig([
   { path: '/', name: 'Home', component: HomeComponent },

@@ -8,6 +8,7 @@ import { FeedService } from '../../services/feed.service';
 @Component ({
     selector: 'explore',
     template: require('./exploredetail.component.html'),
+    styles: [require('./exploredetail.component.css')],
     providers: [
         PodcastService,
         FeedService
@@ -16,13 +17,20 @@ import { FeedService } from '../../services/feed.service';
 export class ExploreDetailComponent {
     constructor(private _podcastService: PodcastService, private _routeParams: RouteParams, private _feedService: FeedService) { }
 
-    podcast: Podcast;
-    feed: any;
+    private dummyFeed: string = 'http://www.qdnow.com/grammar.xml';
+
+    private podcast: Podcast;
+    private feed: any;
+    private photo: string = 'http://localhost:3000/src/assets/img/placeholders/dev-tea.png';
 
     ngOnInit() {
         let id = +this._routeParams.get('id');
         this._podcastService.getPodcast(id)
-            .then((podcast: Podcast) => this.podcast = podcast)
+            .then((podcast: Podcast) => {
+                this.podcast = podcast;
+                console.log(this.podcast);
+                this.loadFeed(this.dummyFeed);
+            });
     }
 
     goBack() {
@@ -31,8 +39,9 @@ export class ExploreDetailComponent {
     
     loadFeed(url: string) {
         this._feedService.getFeed(url)
-            .then((feed: any) => (
-                this.feed = feed.responseData.feed
-            ))
+            .then((feed: any) => {
+                this.feed = feed.responseData.feed;
+                console.log(this.feed);
+            })
     }
 }

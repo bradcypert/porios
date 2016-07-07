@@ -1,0 +1,12 @@
+Set Porios
+<div *ngIf="currentUser">
+    <form (submit)="onSubmit()">
+        <input [(ngModel)]="currentUser.email" type="text" value="{{currentUser.email}}">
+        {{currentUser.email}}
+        <input [(ngModel)]="currentUser.first_name" type="text" value="{{currentUser.first_name}}">
+        {{currentUser.first_name}}
+        <input [(ngModel)]="currentUser.last_name" type="text" value="{{currentUser.last_name}}">
+        {{currentUser.last_name}}
+        <button class="btn btn-primary" type="submit" value="Submit"></button>
+    </form>
+</div>

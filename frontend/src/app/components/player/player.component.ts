@@ -1,13 +1,13 @@
 import { ViewChild, Component, ElementRef, Renderer } from '@angular/core';
 
-import { PlaylistComponent } from './player/playlist.component';
+import { PlaylistComponent } from './playlist.component';
 
-import { TimelineDirective } from '../directives/timeline.directive';
+import { TimelineDirective } from '../../directives/timeline.directive';
 
-import { PlayerService } from '../services/audio/player.service';
-import { PlaylistService } from '../services/audio/playlist.service';
+import { PlayerService } from '../../services/audio/player.service';
+import { PlaylistService } from '../../services/audio/playlist.service';
 
-import { Sound } from '../data/sound.component';
+import { Sound } from '../../data/sound.component';
 
 @Component({
     selector: 'player',

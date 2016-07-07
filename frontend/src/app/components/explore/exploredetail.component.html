@@ -1,28 +1,21 @@
 <div *ngIf="podcast">
-    <aside class="aside">
-        <div class="podcast-logo"><img src="/images/placeholders/dev-tea.png"></div>
-        <div class="container">
-            <div class="button-pair large margin-top-large"><button class="button primary">Subscribe</button><button class="button">Latest Episode</button></div>
-            <h2 class="margin-top">Similar</h2></div>
-    </aside>
-    <article class="article">
-        <div class="container">
-            <h1 class="margin-top-small">{{podcast.name}}</h1>
-            <p>{{podcast.description}}</p>
-            <div class="stats">
-                <div class="stat"><label class="stat-label">Episodes</label><span class="stat-value">44</span></div>
-                <div class="stat"><label class="stat-label">Subscribers</label><span class="stat-value">949</span></div>
-                <div class="stat"><label class="stat-label">Genre</label><span class="stat-value">Crime, Drama</span></div>
-                <div class="stat"><label class="stat-label">Release Date</label><span class="stat-value">Sat Nov 07 2015</span></div>
-            </div>
+    <div class="pageheader">
+        <div class="pageicon"><span [ngStyle]="{'background-image': 'url(' + photo + ')'}"></span></div>
+        <div class="pagetitle">
+            <h1>{{podcast.name}}</h1>
+            <h5>{{podcast.description}}</h5>
         </div>
-    </article>
-    <div class="feed">
-        <button class="btn btn-primary" (click)="loadFeed(podcast.feed)">Load Feed</button>
-        <div *ngIf="feed">
-            <div class *ngFor="let entry of feed.entries">
-                <div class="content" [innerHTML]="entry.content"></div>
-            </div>
+    </div>
+    <div class="maincontent">
+        <div class="episodes" *ngIf="feed">
+            <h5 class="subtitle">
+                Episodes
+            </h5>
+            <ul class="episodes">
+                <li *ngFor="let episode of feed.entries">
+                    {{episode.title}}
+                </li>
+            </ul>
         </div>
     </div>
 </div>

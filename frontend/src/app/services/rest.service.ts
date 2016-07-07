@@ -5,9 +5,25 @@ import { Headers, Http } from '@angular/http';
 export class RestService {
     
     private payload: any;
-    private apiUrl: string = 'http://localhost:9000/';
+    private apiUrl: string = 'http://104.131.175.67:3000';
 
     constructor ( private http: Http ) { }
+
+    patchRequest(method:string, data: Object = {}) {
+        let headers = new Headers();
+
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', localStorage.getItem('uid_token'));
+
+        return this.http.patch(this.apiUrl + method, JSON.stringify(data), {headers: headers})
+            .map(res => {
+                if(res.status < 200 || res.status >= 300) {
+                    throw new Error('This request has failed ' + res.status);
+                } else {
+                    return res
+                }
+            })
+    }
 
     postRequest(method: string, data: Object = {}) {
         let headers = new Headers();

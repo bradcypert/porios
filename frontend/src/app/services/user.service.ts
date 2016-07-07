@@ -35,6 +35,14 @@ export class UserService {
         return this.verify = this.verifyLogin(data);
     }
 
+    update(data: any) {
+        this._restService.patchRequest('users/'+data.id,data)
+            .subscribe(
+                (data) => console.log(data),
+                (err) => err
+            )
+    }
+
     create(username: string, password: string) {
         let data = {
             email: username,
@@ -58,7 +66,7 @@ export class UserService {
     }
 
     validateUser() {
-        if (sessionStorage.getItem('uid_token')) {
+        if (localStorage.getItem('uid_token')) {
             return true;
         } else {
             return false;

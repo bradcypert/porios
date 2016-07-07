@@ -1,14 +1,22 @@
 .utility-panel {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px 10px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-top: 1px solid #34495e;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #34495e;
+}
+.utility-panel .title {
+  color: #ecf0f1;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 300;
+}
+.podcast-search {
+  margin-bottom: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .button-default {
   -webkit-transition: 0.25s ease-out 0.1s color;
@@ -21,6 +29,7 @@
   margin: 0;
   outline: none;
   position: relative;
+  height: 32px;
 }
 .show-notifications {
   position: relative;

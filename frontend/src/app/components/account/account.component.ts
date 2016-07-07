@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
-import { DashboardComponent } from './account/dashboard.component';
-import { LoginComponent } from './account/login.component';
-import { UserService } from '../services/user.service';
+import { DashboardComponent } from './dashboard.component';
+import { LoginComponent } from './login.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'account',

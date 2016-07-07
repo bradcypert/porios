@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
-import { Podcast } from '../data/podcast.component';
-import { PodcastService } from '../services/podcast.service';
+import { Podcast } from '../../data/podcast.component';
+import { PodcastService } from '../../services/podcast.service';
 
 @Component({
     selector: 'explore',
