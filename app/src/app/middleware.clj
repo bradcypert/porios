@@ -55,14 +55,13 @@
 
 ;; disabled in dev to allow testing using API clients
 (defn wrap-csrf [handler]
-  (if (env :dev)
+  (if true
     handler
     (wrap-anti-forgery
-    handler
-    {:error-response
-     (error-page
-       {:status 403
-        :title "Invalid anti-forgery token"})})))
+      handler
+      {:error-response (error-page
+        {:status 403
+         :title "Invalid anti-forgery token"})})))
 
 (defn wrap-formats [handler]
   (wrap-restful-format handler {:formats [:json-kw :transit-json :transit-msgpack]}))
