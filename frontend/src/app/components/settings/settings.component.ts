@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
+import { AnalyticsService } from '../../services/analytics.service';
 import { UserService } from '../../services/user.service';
+import {TitleService} from "../../services/title.service";
 
 @Component ({
     selector: 'settings',
@@ -14,13 +16,16 @@ export class SettingsComponent {
 
     private currentUser: any;
 
-    constructor( private _router: Router, private _userService: UserService ) { }
+    constructor( private _router: Router, private _userService: UserService, private _ga: AnalyticsService, private _title: TitleService ) { }
 
     ngOnInit() {
+        this._title.setTitle('Settings');
+
         if (this._userService.validateUser() == false) {
             console.log('Route Away');
             this._router.navigate(['Account/Login']);
         } else {
+            this._ga.page();
             this._userService.getCurrentUser()
                 .then(
                     (data: any) => {

@@ -4,7 +4,9 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 import { User } from '../../data/user.component';
+import { AnalyticsService } from '../../services/analytics.service';
 import { UserService } from '../../services/user.service';
+import {TitleService} from "../../services/title.service";
 
 @Component ({
     selector: 'login',
@@ -22,9 +24,11 @@ export class LoginComponent {
 
     public avatar: string;
     
-    constructor( private _router: Router, private _userService: UserService, private fb: FormBuilder ) { }
+    constructor( private _router: Router, private _userService: UserService, private fb: FormBuilder, private _ga: AnalyticsService, private _title: TitleService ) { }
     
     ngOnInit() {
+        this._title.setTitle('Login');
+        this._ga.page();
         this.avatar = 'src/assets/img/avatar.png';
     }
 

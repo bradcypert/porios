@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
+import { AnalyticsService } from '../../services/analytics.service';
 import { Podcast } from '../../data/podcast.component';
 import { PodcastService } from '../../services/podcast.service';
+import {TitleService} from "../../services/title.service";
 
 @Component({
     selector: 'explore',
@@ -18,7 +20,7 @@ export class ExploreComponent {
     podcasts: {};
     genres: Array<string>;
 
-    constructor(private _podcastService: PodcastService, private _router: Router) { }
+    constructor(private _podcastService: PodcastService, private _router: Router, private _ga: AnalyticsService, private _title: TitleService) { }
 
     getPodcasts() {
         this._podcastService.getPodcasts()
@@ -51,6 +53,8 @@ export class ExploreComponent {
     }
 
     ngOnInit() {
+        this._title.setTitle('Explore');
+        this._ga.page();
         this.getPodcasts();
     }
 

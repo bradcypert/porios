@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { AnalyticsService } from '../../services/analytics.service';
+import {TitleService} from "../../services/title.service";
 
 @Component ({
     selector: 'feed',
@@ -10,4 +12,10 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 })
 export class FeedComponent {
 
+    constructor(private _ga: AnalyticsService, private _title: TitleService) { }
+
+    ngOnInit() {
+        this._title.setTitle('Feed');
+        this._ga.page();
+    }
 }
