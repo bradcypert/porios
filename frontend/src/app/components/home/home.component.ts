@@ -1,6 +1,7 @@
 import { ElementRef, Component, Renderer } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
+import { AnalyticsService } from '../../services/analytics.service';
 import { PlayerService } from '../../services/audio/player.service';
 import { PlaylistService } from '../../services/audio/playlist.service';
 
@@ -26,7 +27,7 @@ export class HomeComponent {
 
     private pulsar: string = 'red';
 
-    constructor( private _playlistService: PlaylistService, private element: ElementRef, private _playerService: PlayerService, private _renderer: Renderer ) {
+    constructor( private _playlistService: PlaylistService, private element: ElementRef, private _playerService: PlayerService, private _renderer: Renderer, private _ga: AnalyticsService ) {
         this.el = element.nativeElement;
     }
 
@@ -50,6 +51,7 @@ export class HomeComponent {
 
     ngOnInit() {
         this.getColor();
+        this._ga.page();
     }
 
     getColor() { 

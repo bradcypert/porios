@@ -1,10 +1,11 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, provide } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { HTTP_PROVIDERS, JSONP_PROVIDERS } from '@angular/http';
 
-import { UserService } from './app/services/user.service'; 
+import { AnalyticsService } from './app/services/analytics.service';
+import { UserService } from './app/services/user.service';
 import { PodcastService } from './app/services/podcast.service';
 import { MessageService } from './app/services/message.service';
 import { ThreadService } from './app/services/thread.service'; 
@@ -19,11 +20,13 @@ if (process.env.ENV === 'production') {
   enableProdMode();
 }
 
-bootstrap(AppComponent, 
-    [ROUTER_DIRECTIVES,
+bootstrap(AppComponent,
+    [provide(ga, { useValue: window.ga }),
+    ROUTER_DIRECTIVES,
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     JSONP_PROVIDERS,
+    AnalyticsService,
     CookieService,
     UserService,
     PodcastService,
