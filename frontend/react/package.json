@@ -1,0 +1,51 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build:vendor": "gulp compile:vendor",
+    "build:source": "gulp compile:source",
+    "build": "gulp compile",
+    "start": "gulp"
+  },
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browserify": "^12.0.1",
+    "classnames": "^2.2.1",
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-env": "^0.4.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-stylus": "^2.1.1",
+    "gulp-sync": "^0.1.4",
+    "gulp-uglify": "^1.5.1",
+    "history": "^1.14.0",
+    "lodash": "^3.10.1",
+    "main-bower-files": "^2.9.0",
+    "material-ui": "^0.13.4",
+    "morgan": "^1.6.1",
+    "nib": "^1.1.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^2.0.0",
+    "react-tap-event-plugin": "^0.2.1",
+    "stream-series": "^0.1.1",
+    "superagent": "^1.5.0",
+    "tsify": "^0.13.2",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "draft-js": "^0.7.0",
+    "immutable": "^3.8.1",
+    "lodash": "^3.10.1",
+    "react": "^0.14.7",
+    "react-redux": "^4.4.5",
+    "react-router-redux": "^4.0.4",
+    "react-textarea-autosize": "^4.0.2",
+    "redux": "^3.5.2",
+    "redux-immutable": "^3.0.6",
+    "redux-thunk": "^2.1.0",
+    "whatwg-fetch": "^1.0.0"
+  }
+}
