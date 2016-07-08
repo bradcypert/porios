@@ -3,6 +3,7 @@ import { enableProdMode, provide } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { HTTP_PROVIDERS, JSONP_PROVIDERS } from '@angular/http';
+import { Title } from '@angular/platform-browser';
 
 import { AnalyticsService } from './app/services/analytics.service';
 import { UserService } from './app/services/user.service';
@@ -15,6 +16,7 @@ import { SoundService } from './app/services/audio/sound.service';
 import { PlaylistService } from './app/services/audio/playlist.service';
 import { RestService } from './app/services/rest.service';
 import { SessionService } from './app/services/session.service';
+import { TitleService } from './app/services/title.service';
 
 if (process.env.ENV === 'production') {
   enableProdMode();
@@ -26,12 +28,14 @@ bootstrap(AppComponent,
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     JSONP_PROVIDERS,
+    Title,
     AnalyticsService,
     CookieService,
     UserService,
     PodcastService,
     PlayerService,
     SoundService,
+    TitleService,
     PlaylistService,
     RestService,
     SessionService]);

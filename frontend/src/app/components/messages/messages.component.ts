@@ -4,11 +4,13 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import {ChatThreads} from './threads.component';
 import {ChatWindow} from './windows.component';
 
+import { AnalyticsService } from '../../services/analytics.service';
 import { UserService } from '../../services/user.service';
 import { ThreadService } from '../../services/thread.service';
 import { MessageService } from '../../services/message.service';
 
 import {ChatExampleData} from '../../mock/mock-chat';
+import {TitleService} from "../../services/title.service";
 
 @Component({
     selector: 'messages',
@@ -24,9 +26,17 @@ import {ChatExampleData} from '../../mock/mock-chat';
     ]
 })
 export class MessagesComponent {
-    constructor(public messageService: MessageService,
+    constructor(
+        private _ga: AnalyticsService,
+        private _title: TitleService,
+        public messageService: MessageService,
         public threadService: ThreadService,
         public userService: UserService) {
         ChatExampleData.init(messageService, threadService, userService);
+    }
+
+    ngOnInit() {
+        this._title.setTitle('Messages');
+        this._ga.page();
     }
 }

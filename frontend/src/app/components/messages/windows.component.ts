@@ -10,6 +10,8 @@ import { Message } from '../../data/message.component';
 import { UserService } from '../../services/user.service';
 import { ThreadService } from '../../services/thread.service';
 import { MessageService } from '../../services/message.service';
+import {TitleService} from "../../services/title.service";
+import {AnalyticsService} from "../../services/analytics.service";
 
 @Component({
     inputs: ['message'],
@@ -101,7 +103,10 @@ export class ChatWindow implements OnInit {
     draftMessage: Message;
     currentUser: User;
 
-    constructor(public messagesService: MessageService,
+    constructor(
+        private _ga: AnalyticsService,
+        private _title: TitleService,
+        public messagesService: MessageService,
         public threadsService: ThreadService,
         public userService: UserService,
         public el: ElementRef) {
@@ -114,6 +119,7 @@ export class ChatWindow implements OnInit {
 
         this.threadsService.currentThread.subscribe(
             (thread: Thread) => {
+                this._title.setTitle(`${thread.name} | Messages`);
                 this.currentThread = thread;
             });
 

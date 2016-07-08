@@ -4,7 +4,9 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 import { User } from '../../data/user.component';
+import { AnalyticsService } from '../../services/analytics.service';
 import { UserService } from '../../services/user.service';
+import {TitleService} from "../../services/title.service";
 
 @Component ({
     selector: 'dashboard',
@@ -17,7 +19,7 @@ export class DashboardComponent {
     private user: User = new User('', '');
     private loginForm: ControlGroup;
     
-    constructor( private _router: Router, private _userService: UserService, private fb: FormBuilder ) { }
+    constructor( private _router: Router, private _userService: UserService, private fb: FormBuilder, private _ga: AnalyticsService, private _title: TitleService ) { }
     
     logout() {
         this._userService.logout();
@@ -25,6 +27,8 @@ export class DashboardComponent {
     }
 
     ngOnInit() {
+        this._title.setTitle('Account');
+        this._ga.page();
         console.log(this._userService.getCurrentUser());
     }
 
