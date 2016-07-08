@@ -4,6 +4,7 @@ import { RouteParams } from '@angular/router-deprecated';
 import { Podcast } from '../../data/podcast.component';
 import { PodcastService } from '../../services/podcast.service';
 import { FeedService } from '../../services/feed.service';
+import { ParserService } from '../../services/parser.service';
 
 @Component ({
     selector: 'explore',
@@ -11,11 +12,12 @@ import { FeedService } from '../../services/feed.service';
     styles: [require('./exploredetail.component.scss')],
     providers: [
         PodcastService,
-        FeedService
+        FeedService,
+        ParserService
     ]
 })
 export class ExploreDetailComponent {
-    constructor(private _podcastService: PodcastService, private _routeParams: RouteParams, private _feedService: FeedService) { }
+    constructor(private _parserService: ParserService, private _podcastService: PodcastService, private _routeParams: RouteParams, private _feedService: FeedService) { }
 
     private podcast: Podcast;
     private feed: any;

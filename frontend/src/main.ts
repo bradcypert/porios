@@ -1,5 +1,5 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, provide } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { HTTP_PROVIDERS, JSONP_PROVIDERS } from '@angular/http';
@@ -20,7 +20,8 @@ if (process.env.ENV === 'production') {
 }
 
 bootstrap(AppComponent, 
-    [ROUTER_DIRECTIVES,
+    [provide(Window, {useValue: window}),
+    ROUTER_DIRECTIVES,
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     JSONP_PROVIDERS,
