@@ -21,7 +21,7 @@ if (process.env.ENV === 'production') {
 }
 
 bootstrap(AppComponent,
-    [provide(ga, { useValue: window.ga }),
+    [provide(Window, { useValue: window }),
     ROUTER_DIRECTIVES,
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,

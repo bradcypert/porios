@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Jsonp } from '@angular/http';
 
-let xml2json: any;
-
 @Injectable()
 export class FeedService {
         

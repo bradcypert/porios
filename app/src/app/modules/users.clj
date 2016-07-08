@@ -42,20 +42,24 @@
   [first-name last-name email password]
   (try
     (db/create-user! {:first_name first-name
-                    :last_name last-name
-                    :email email
-                    :password (auth/encrypt password)})
+                      :last_name last-name
+                      :email email
+                      :password (auth/encrypt password)})
     (catch Exception e false)))
 
-;Dangerous? Or at least sloppy?
 (defn update-user
   "Updates a user"
-  [request_params]
+  [id first-name last-name password age pic]
   (try
     (do
-      (db/update-user! request_params)
+      (db/update-user! {:id id
+                        :first_name first-name
+                        :last_name last-name
+                        :password (auth/encrypt password)
+                        :age age
+                        :pic_url pic})
       (true))
-    (catch Exception e (false))))
+    (catch Exception e (println e))))
 
 (defn get-user-avatar-for-email
   "Returns a URL pointing the users avatar"

@@ -8,7 +8,9 @@
 (def encryption {:alg :a256kw :enc :a128gcm})
 
 (defn encrypt [item]
-  (hashers/derive item))
+  (if (nil? item) 
+    item
+    (hashers/derive item)))
 
 ;; TODO: Better try-catch support
 (defn check-match [item source]

@@ -49,14 +49,20 @@
       (ok)
       (bad-request {:error "Unable to create new user. Email already exists."}))))
 
-;Dangerous (or at least sloppy)?
+;;TODO: Should only have to pass an id and a map with config options.
 (defn- update-user
   [params]
-  (try
-    (do
-      (users/update-user params)
-      (ok))
-    (catch Exception e (bad-request))))
+  (let [f     (:first_name params)
+        l     (:last_name params)
+        id    (:id params)
+        pass  (:pass params)
+        pic   (:pic_url params)
+        age   (:age params)]
+    (try
+      (do
+        (users/update-user id f l pass age pic)
+        (ok))
+      (catch Exception e (bad-request)))))
 
 (defn- get-user-photo
   [params]

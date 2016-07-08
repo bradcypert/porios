@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import ga = UniversalAnalytics.ga;
 
 @Injectable()
 export class AnalyticsService {
-    constructor(private _ga: ga) {}
+    constructor() {}
 
     page(path?: string, title?: string) {
         console.log('the fuck', arguments);
@@ -15,7 +14,7 @@ export class AnalyticsService {
     }
 
     event(action: string, category: string, label?: string, value?: number) {
-        this._ga('send', {
+        ga('send', {
             hitType: 'event',
             eventCategory: category,
             eventAction: action,
