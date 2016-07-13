@@ -4,10 +4,8 @@
 
 (defn parse-feed
   [feed-url]
-  (-> feed-url
-      (httpclient/get)
-      (:body)
-      (.trim)
-      (.getBytes)
-      (java.io.ByteArrayInputStream.)
-      (xml/parse)))
+  (if (nil? feed-url)
+    feed-url
+    (-> feed-url
+        (httpclient/get)
+        (:body))))

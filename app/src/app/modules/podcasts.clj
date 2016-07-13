@@ -13,7 +13,7 @@
   [^:Integer id]
   (let [podcast (first (db/get-podcast {:id id}))
         feed (:feed podcast)]
-    (list (assoc podcast :feed (first (:content (podcast-service/parse-feed feed)))))))
+    (list (assoc podcast :feed (podcast-service/parse-feed feed)))))
 
 (defn get-podcasts-by-genre
   "Fetches from podcasts in a specific genre given a limit and an offset."
