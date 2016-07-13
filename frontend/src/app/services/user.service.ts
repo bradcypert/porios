@@ -40,8 +40,8 @@ export class UserService {
             'first_name': user.first_name,
             'last_name': user.last_name
         }
-        this._restService.patchRequest('/users/'+user.id,data)
-            .subscribe(
+        this._restService.patchRequest('users/'+user.id,data)
+            .then(
                 (data) => console.log(data),
                 (err) => err
             )
@@ -52,8 +52,8 @@ export class UserService {
             email: username,
             password: password
         }
-        this._restService.postRequest('/users',data)
-            .subscribe(
+        this._restService.postRequest('users',data)
+            .then(
                 (data) => this.login(username, password),
                 (err) => err
             )
@@ -61,12 +61,12 @@ export class UserService {
 
     getCurrentUser() {
         if (localStorage.getItem('uid_token')) {
-            return this._restService.getRequest('/users/me');
+            return this._restService.getRequest('users/me');
         }
     }
 
     verifyLogin(data: any) {
-        return this._restService.postRequest('/login',data);
+        return this._restService.postRequest('login',data);
     }
 
     validateUser() {

@@ -10,7 +10,7 @@ export class PodcastService {
     constructor ( private _http: Http, private _rest: RestService ) { }
     
     getPodcasts() {
-        return this._rest.getRequest('/podcasts')
+        return this._rest.getRequest('podcasts')
             .then(response => (
                 response.json()
             ))
@@ -18,7 +18,7 @@ export class PodcastService {
     }
     
     getPodcast(id: number) {
-        return this._rest.getRequest('/podcasts/'+id)
+        return this._rest.getRequest('podcasts/'+id)
             .then(response => (
                 response.json()[0]
             ))

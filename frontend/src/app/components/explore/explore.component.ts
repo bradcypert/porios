@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
-import { Podcast } from '../../data/podcast.component';
 import { PodcastService } from '../../services/podcast.service';
+import { RestService } from '../../services/rest.service';
 
 @Component({
     selector: 'explore',
@@ -18,17 +18,7 @@ export class ExploreComponent {
     podcasts: {};
     genres: Array<string>;
 
-    constructor(private _podcastService: PodcastService, private _router: Router) { }
-
-    getPodcasts() {
-        this._podcastService.getPodcasts()
-            .then(podcasts => (
-                this.podcasts = this.categorizePodcasts(podcasts)
-            ))
-            .catch(error => (
-                console.error(error)
-            ));
-    }
+    constructor(private _restService: RestService, private _podcastService: PodcastService, private _router: Router) { }
 
     categorizePodcasts(value: Array<any>) {
         if (value) {
@@ -51,10 +41,12 @@ export class ExploreComponent {
     }
 
     ngOnInit() {
-        this.getPodcasts();
+        this._restService.getData('podcasts', (data: any) => {
+            this.podcasts = this.categorizePodcasts(data)
+        });
     }
 
-    exploreDetail(podcast: Podcast) {
+    exploreDetail(podcast: any) {
         let link = ['ExploreDetail', { id: podcast.id }];
         this._router.navigate(link);
     }
