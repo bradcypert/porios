@@ -2,8 +2,16 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import {TitleService} from "./title.service";
 
+const EventTypes = {
+    TOGGLE: 'toggle',
+    CLICK: 'click',
+    SEARCH: 'search'
+};
+
 @Injectable()
 export class AnalyticsService {
+    public static EventTypes = EventTypes;
+
     private _ga: UniversalAnalytics.ga;
 
     constructor(private _window: Window, private _title: TitleService) {

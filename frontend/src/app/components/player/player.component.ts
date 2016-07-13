@@ -8,6 +8,7 @@ import { PlayerService } from '../../services/audio/player.service';
 import { PlaylistService } from '../../services/audio/playlist.service';
 
 import { Sound } from '../../data/sound.component';
+import {AnalyticsService} from "../../services/analytics.service";
 
 @Component({
     selector: 'player',
@@ -27,23 +28,23 @@ export class PlayerComponent {
     private open: boolean = false;
     private el: HTMLElement;
 
-    constructor(private element: ElementRef, private _playerService: PlayerService, private renderer: Renderer, private _playlistService: PlaylistService) {
+    constructor(private element: ElementRef, private _playerService: PlayerService, private renderer: Renderer, private _playlistService: PlaylistService, private _ga: AnalyticsService) {
         this.el = element.nativeElement;
     }
 
     ngOnInit() {
         let tmpsrc = 'http://localhost:3000/src/assets/audio/nsp.mp3';
-        let tmpMeta = 'nsp'
+        let tmpMeta = 'nsp';
         let tmp = new Sound(tmpMeta, tmpsrc);
 
         let tmpsrc2 = 'http://localhost:3000/src/assets/audio/nsp2.mp3';
-        let tmpMeta2 = 'nsp2'
+        let tmpMeta2 = 'nsp2';
         let tmp2 = new Sound(tmpMeta2, tmpsrc2);
 
         this._playlistService.addSound(tmp);
         this._playlistService.addSound(tmp2);
 
-        this.playerClose();
+        this.playerClose(false);
     }
 
     ngAfterViewInit() {
@@ -59,7 +60,7 @@ export class PlayerComponent {
             });
             this.renderer.listen(this.sound, 'pause', () => {
                 this.isPlaying = false;
-            })
+            });
             this.renderer.listen(this.sound, 'ended', () => {
                 this._playlistService.nextSound();
             })
@@ -86,13 +87,27 @@ export class PlayerComponent {
         }
     }
 
-    playerClose() {
+    playerClose(track: boolean = true) {
+        if(track) {
+            this._ga.event({
+                action: AnalyticsService.EventTypes.TOGGLE,
+                category: 'player',
+                label: 'close'
+            });
+        }
+        // TODO: this is brittle. change this to use a pub-sub, or an element reference.
         this.el.parentElement.parentElement.classList.remove('open');
         this.open = false;
     }
 
     playerOpen() {
-        this.el.parentElement.parentElement.classList.add('open')
+        this._ga.event({
+            action: AnalyticsService.EventTypes.TOGGLE,
+            category: 'player',
+            label: 'open'
+        });
+        // TODO: this is brittle. change this to use a pub-sub, or an element reference.
+        this.el.parentElement.parentElement.classList.add('open');
         this.open = true;
     }
 

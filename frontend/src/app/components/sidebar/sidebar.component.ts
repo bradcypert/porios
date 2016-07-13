@@ -4,12 +4,14 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { TYPEAHEAD_DIRECTIVES } from 'ng2-bootstrap';
 
 import { PodcastService } from '../../services/podcast.service';
+import {AnalyticsService} from "../../services/analytics.service";
+import {AnalyticsDirective} from "../../directives/analytics.directive";
 
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.component.html'),
     styles: [require('./sidebar.component.scss')],
-    directives: [ROUTER_DIRECTIVES, TYPEAHEAD_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, TYPEAHEAD_DIRECTIVES, AnalyticsDirective]
 })
 export class SidebarComponent {
     public asyncSelected: string = "";
@@ -19,8 +21,16 @@ export class SidebarComponent {
     private cache: any;
     private prevContext: any;
 
-    constructor(private _router: Router, private _podcastService: PodcastService) {
+    constructor(private _router: Router, private _podcastService: PodcastService, private _ga: AnalyticsService) {
 
+    }
+
+    search(query: string) {
+        this._ga.event({
+            action: AnalyticsService.EventTypes.SEARCH,
+            category: 'sidebar-form',
+            label: query
+        });
     }
 
     public getContext(): any {
@@ -41,7 +51,7 @@ export class SidebarComponent {
                     if (query.test(c.name)) {
                         tmp.push(c);
                     }
-                })
+                });
                 return tmp;
             });
         return this.cache;
