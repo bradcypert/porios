@@ -24,7 +24,7 @@ export class UserService {
     constructor( private _sessionService: SessionService, private _restService: RestService, private _cookieService: CookieService) { }
 
     logout() {
-        sessionStorage.removeItem('uid_token');
+        localStorage.removeItem('uid_token');
     }
 
     login(username: string, password: string) {
@@ -35,8 +35,12 @@ export class UserService {
         return this.verify = this.verifyLogin(data);
     }
 
-    update(data: any) {
-        this._restService.patchRequest('/users/'+data.id,data)
+    update(user: any) {
+        let data = {
+            'first_name': user.first_name,
+            'last_name': user.last_name
+        }
+        this._restService.patchRequest('/users/'+user.id,data)
             .subscribe(
                 (data) => console.log(data),
                 (err) => err
