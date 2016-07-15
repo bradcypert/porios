@@ -4,6 +4,8 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { Podcast } from '../../data/podcast.component';
 import { PodcastService } from '../../services/podcast.service';
 
+import { unique } from '../../utils/arrays';
+
 @Component({
     selector: 'explore',
     template: require('./explore.component.html'),
@@ -34,7 +36,7 @@ export class ExploreComponent {
         if (value) {
 
             this.genres = value.map((p: any) => p.genre);
-            this.genres = this.genres.filter(this.onlyUnique);
+            this.genres = this.genres.filter(unique);
             let groupedPodcasts = {};
 
             this.genres.map((c: any) => {
@@ -57,9 +59,5 @@ export class ExploreComponent {
     exploreDetail(podcast: Podcast) {
         let link = ['ExploreDetail', { id: podcast.id }];
         this._router.navigate(link);
-    }
-
-    onlyUnique(value: any, index: any, self: any) {
-        return self.indexOf(value) === index;
     }
 }
