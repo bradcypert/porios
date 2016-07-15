@@ -34,7 +34,7 @@ export class LoginComponent {
 
     login(){
         this._userService.login(this.user.username, this.user.password)
-        .subscribe(
+        .then(
             (data) => {
                 this.loginSuccess(data)
                 this._router.navigate(['Dashboard']);

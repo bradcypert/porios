@@ -5,6 +5,9 @@ import { AnalyticsService } from '../../services/analytics.service';
 import { Podcast } from '../../data/podcast.component';
 import { PodcastService } from '../../services/podcast.service';
 import {TitleService} from "../../services/title.service";
+import { RestService } from '../../services/rest.service';
+
+import { unique } from '../../utils/arrays';
 
 @Component({
     selector: 'explore',
@@ -20,23 +23,13 @@ export class ExploreComponent {
     podcasts: {};
     genres: Array<string>;
 
-    constructor(private _podcastService: PodcastService, private _router: Router, private _ga: AnalyticsService, private _title: TitleService) { }
-
-    getPodcasts() {
-        this._podcastService.getPodcasts()
-            .then(podcasts => (
-                this.podcasts = this.categorizePodcasts(podcasts)
-            ))
-            .catch(error => (
-                console.error(error)
-            ));
-    }
+    constructor(private _restService: RestService, private _podcastService: PodcastService, private _router: Router, private _ga: AnalyticsService, private _title: TitleService) { }
 
     categorizePodcasts(value: Array<any>) {
         if (value) {
 
             this.genres = value.map((p: any) => p.genre);
-            this.genres = this.genres.filter(this.onlyUnique);
+            this.genres = this.genres.filter(unique);
             let groupedPodcasts = {};
 
             this.genres.map((c: any) => {
@@ -46,7 +39,7 @@ export class ExploreComponent {
                         groupedPodcasts[c].push(p);
                     }
                 })
-            })
+            });
 
             return groupedPodcasts;
         }
@@ -55,15 +48,13 @@ export class ExploreComponent {
     ngOnInit() {
         this._title.setTitle('Explore');
         this._ga.page();
-        this.getPodcasts();
+        this._restService.getData('podcasts', (data: any) => {
+            this.podcasts = this.categorizePodcasts(data)
+        });
     }
 
-    exploreDetail(podcast: Podcast) {
+    exploreDetail(podcast: any) {
         let link = ['ExploreDetail', { id: podcast.id }];
         this._router.navigate(link);
-    }
-
-    onlyUnique(value: any, index: any, self: any) {
-        return self.indexOf(value) === index;
     }
 }
