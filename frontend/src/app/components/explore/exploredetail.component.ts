@@ -34,7 +34,8 @@ export class ExploreDetailComponent {
                 .then((podcast: Podcast) => {
                     this.podcast = podcast;
                     this._title.setTitle(this.podcast.name);
-                    console.log(this.podcast);
+                    this.feed = this._parserService.parseXml(this.podcast.feed);
+                    console.log(this.feed);
                 });
         })
     }

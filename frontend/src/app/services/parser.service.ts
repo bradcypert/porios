@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { xml2json } from '../utils/xml2json';
+
 interface Window {
     DOMParser: any;
     ActiveXObject: any;
@@ -10,7 +12,7 @@ export class ParserService {
 
     public parser: any;
 
-    constructor( private _window: Window ) {
+    constructor(private _window: Window) {
         if (typeof this._window.DOMParser != "undefined") {
             this.parser = function (xmlStr: any) {
                 return (new DOMParser()).parseFromString(xmlStr, "text/xml");
@@ -25,10 +27,10 @@ export class ParserService {
         } else {
             throw new Error("No XML parser found");
         }
-    }   
+    }
 
     parseXml(xmlStr: any) {
-        return this.parser(xmlStr);
+        return JSON.parse(xml2json(this.parser(xmlStr), '  '));
     }
 
 }
