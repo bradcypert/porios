@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Podcast } from '../../data/podcast.component';
 import { AnalyticsService } from '../../services/analytics.service';
 import { PodcastService } from '../../services/podcast.service';
-import { FeedService } from '../../services/feed.service';
-import { ParserService } from '../../services/parser.service';
+import { FeedService, itunesFeed } from '../../services/feed.service';
 import { TitleService } from '../../services/title.service';
 
 @Component ({
@@ -14,12 +13,11 @@ import { TitleService } from '../../services/title.service';
     styles: [require('./exploredetail.component.scss')],
     providers: [
         PodcastService,
-        FeedService,
-        ParserService
+        FeedService
     ]
 })
 export class ExploreDetailComponent {
-    constructor(private _parserService: ParserService, private _podcastService: PodcastService, private _route: ActivatedRoute, private _feedService: FeedService, private _ga: AnalyticsService, private _title: TitleService) { }
+    constructor(private _podcastService: PodcastService, private _route: ActivatedRoute, private _feedService: FeedService, private _ga: AnalyticsService, private _title: TitleService) { }
 
     private sub: any;
     private podcast: Podcast;
@@ -34,8 +32,7 @@ export class ExploreDetailComponent {
                 .then((podcast: Podcast) => {
                     this.podcast = podcast;
                     this._title.setTitle(this.podcast.name);
-                    this.feed = this._parserService.parseXml(this.podcast.feed);
-                    console.log(this.feed);
+                    this.feed = this._feedService.getFeed(this.podcast.feed, itunesFeed);
                 });
         })
     }

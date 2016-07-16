@@ -3,32 +3,10 @@ import { Headers, Http } from '@angular/http';
 
 @Injectable()
 export class RestService {
-    
-    public dataPool: Object = {};
 
     private apiUrl: string = 'http://104.131.175.67:3000/';
 
     constructor ( private http: Http ) { }
-
-    postLoad(domain: string, data: any) {
-        this.dataPool[domain] = data;
-    }
-
-    getData(method: string, callback: Function) {
-        let domain = method.split('/')[0];
-        let params = method.split('/')[1];
-
-        if (this.dataPool[domain]) {
-            this.getRequest(method);
-            callback(this.dataPool[domain]);
-        }
-
-        this.getRequest(method)
-            .then(res => {
-                callback(res.json());
-            });
-        
-    }
 
     patchRequest(method:string, data: Object = {}) {
         let headers = new Headers();
@@ -74,7 +52,6 @@ export class RestService {
         return this.http.get(this.apiUrl + method, {headers: headers})
             .toPromise()
             .then(response => {
-                this.postLoad('podcasts', response.json());
                 return response;
             })
             .catch(this.handleError);

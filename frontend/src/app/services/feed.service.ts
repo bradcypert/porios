@@ -1,24 +1,53 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Jsonp } from '@angular/http';
 
+import { ParserService } from './parser.service';
+
+interface Window {
+    prototype: any;
+}
+
+export class feedAbstract {
+
+    title: string;
+    description: string;
+    episodes: Array<any>;
+
+    constructor(feed: any) {
+
+    }
+}
+
+export class itunesFeed extends feedAbstract {
+
+    constructor(feed: any) {
+        super(feed);
+
+        this.title = feed.rss.channel.title;
+        this.description = feed.rss.channel.description;
+        this.episodes = this.parseEpisodes(feed.rss.channel.item);
+    }
+
+    parseEpisodes(episodes: Array<any>) {
+        let entries: Array<any> = [];
+        for (let episode of episodes) {
+            let entry = {
+                title: episode.title,
+                summary: episode['itunes:summary']
+            }
+            entries.push(entry);
+        }
+        return entries;
+    }
+}
+
 @Injectable()
 export class FeedService {
         
-    constructor ( private _http: Http, private _jsonp: Jsonp ) { }
+    constructor ( private _http: Http, private _parserService: ParserService, private _window: Window ) { }
 
-    getFeed(url: string) {
-        let jspUrl = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSONP_CALLBACK&output=json_xml&q=' + url;
-        return this._jsonp.request(jspUrl)
-            .toPromise()
-            .then(response => {
-                console.log(response);
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-    
-    private handleError(error: any) {
-        console.error('An error occurred: ', error);
-        return Promise.reject(error.message || error);
+    getFeed(xmlStr: any, type: any) {
+        let xmlObj = new type(this._parserService.parseXml(xmlStr));
+        return xmlObj;
     }
 }

@@ -48,9 +48,10 @@ export class ExploreComponent {
     ngOnInit() {
         this._title.setTitle('Explore');
         this._ga.page();
-        this._restService.getData('podcasts', (data: any) => {
-            this.podcasts = this.categorizePodcasts(data)
-        });
+        this._podcastService.getPodcasts()
+            .then(podcasts => {
+                this.podcasts = this.categorizePodcasts(podcasts);
+            });
     }
 
     exploreDetail(podcast: any) {
