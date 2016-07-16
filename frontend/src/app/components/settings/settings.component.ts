@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 import { AnalyticsService } from '../../services/analytics.service';
 import { UserService } from '../../services/user.service';
-import {TitleService} from "../../services/title.service";
+import { TitleService } from "../../services/title.service";
 
 @Component ({
     selector: 'settings',

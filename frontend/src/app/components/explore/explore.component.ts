@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 import { AnalyticsService } from '../../services/analytics.service';
 import { Podcast } from '../../data/podcast.component';
 import { PodcastService } from '../../services/podcast.service';
-import {TitleService} from "../../services/title.service";
+import { TitleService } from "../../services/title.service";
 import { RestService } from '../../services/rest.service';
 
 import { unique } from '../../utils/arrays';
@@ -54,7 +54,7 @@ export class ExploreComponent {
     }
 
     exploreDetail(podcast: any) {
-        let link = ['ExploreDetail', { id: podcast.id }];
+        let link = ['Explore', podcast.id];
         this._router.navigate(link);
     }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { User } from '../../data/user.component';
 import { AnalyticsService } from '../../services/analytics.service';
@@ -23,7 +23,7 @@ export class DashboardComponent {
     
     logout() {
         this._userService.logout();
-        this._router.parent.navigate(['Account/Login']);
+        this._router.navigate(['/Account/Login']);
     }
 
     ngOnInit() {

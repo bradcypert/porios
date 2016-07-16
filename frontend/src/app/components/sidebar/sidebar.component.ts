@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 import { TYPEAHEAD_DIRECTIVES } from 'ng2-bootstrap';
 
 import { PodcastService } from '../../services/podcast.service';
-import {AnalyticsService} from "../../services/analytics.service";
-import {AnalyticsDirective} from "../../directives/analytics.directive";
+import { AnalyticsService } from "../../services/analytics.service";
+import { AnalyticsDirective } from "../../directives/analytics.directive";
 
 @Component({
     selector: 'sidebar',

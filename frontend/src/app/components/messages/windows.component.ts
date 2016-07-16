@@ -10,8 +10,8 @@ import { Message } from '../../data/message.component';
 import { UserService } from '../../services/user.service';
 import { ThreadService } from '../../services/thread.service';
 import { MessageService } from '../../services/message.service';
-import {TitleService} from "../../services/title.service";
-import {AnalyticsService} from "../../services/analytics.service";
+import { TitleService } from "../../services/title.service";
+import { AnalyticsService } from "../../services/analytics.service";
 
 @Component({
     inputs: ['message'],

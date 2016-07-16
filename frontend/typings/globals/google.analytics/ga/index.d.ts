@@ -33,10 +33,6 @@ interface GoogleAnalytics {
     async: boolean;
 }
 
-interface Window {
-    ga: UniversalAnalytics.ga;
-}
-
 declare namespace UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 

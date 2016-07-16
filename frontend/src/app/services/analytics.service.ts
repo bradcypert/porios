@@ -8,6 +8,10 @@ const EventTypes = {
     SEARCH: 'search'
 };
 
+interface Window {
+    ga: any
+}
+
 @Injectable()
 export class AnalyticsService {
     public static EventTypes = EventTypes;

@@ -4,10 +4,10 @@
             <img src="{{avatar}}">
         </div>
         <div class="form-group">
-            <input ngControl="username" #username="ngForm" id="username" placeholder="Username" type="text" class="form-control" [(ngModel)]="user.username" required />
+            <input name="username" #username="ngForm" id="username" placeholder="Username" type="text" class="form-control" [(ngModel)]="user.username" required />
         </div>
         <div class="form-group">
-            <input ngControl="password" #password="ngForm" id="password" placeholder="Password" type="text" class="form-control" [(ngModel)]="user.password" required />
+            <input name="password" #password="ngForm" id="password" placeholder="Password" type="text" class="form-control" [(ngModel)]="user.password" required />
         </div>
         <div class="form-group submitArea">
             <button class="btn btn-primary" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>

@@ -8,7 +8,7 @@ import { PlayerService } from '../../services/audio/player.service';
 import { PlaylistService } from '../../services/audio/playlist.service';
 
 import { Sound } from '../../data/sound.component';
-import {AnalyticsService} from "../../services/analytics.service";
+import { AnalyticsService } from "../../services/analytics.service";
 
 @Component({
     selector: 'player',

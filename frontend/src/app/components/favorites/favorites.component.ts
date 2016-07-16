@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { AnalyticsService } from '../../services/analytics.service';
-import {TitleService} from "../../services/title.service";
+import { TitleService } from "../../services/title.service";
 
 @Component ({
     selector: 'favorites',

@@ -2,7 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 
 import { Sound } from '../../data/sound.component';
 import { PlaylistService } from '../../services/audio/playlist.service';
-import {AnalyticsService} from "../../services/analytics.service";
+import { AnalyticsService } from "../../services/analytics.service";
 
 @Component({
     selector: 'playlist',

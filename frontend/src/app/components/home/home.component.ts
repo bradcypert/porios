@@ -1,5 +1,5 @@
 import { ElementRef, Component, Renderer } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnalyticsService } from '../../services/analytics.service';
 import { PlayerService } from '../../services/audio/player.service';
