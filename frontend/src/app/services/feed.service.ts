@@ -31,26 +31,28 @@ export class itunesFeed extends feedAbstract {
     constructor(feed: any) {
         super(feed);
 
-        this.image = feed.rss.channel['itunes:image']['@href'];
-        this.owner.email = feed.rss.channel['itunes:owner']['itunes:email'];
-        this.owner.name = feed.rss.channel['itunes:owner']['itunes:name'];
-        this.link = feed.rss.channel.link;
+        this.image = feed.rss.channel['itunes:image']['@href'] ? feed.rss.channel['itunes:image']['@href'] : '';
+        if ( feed.rss.channel['itunes:owner'] ) {
+            this.owner.email = feed.rss.channel['itunes:owner']['itunes:email'] ? feed.rss.channel['itunes:owner']['itunes:email'] : '';
+            this.owner.name = feed.rss.channel['itunes:owner']['itunes:name'] ? feed.rss.channel['itunes:owner']['itunes:name'] : '';
+        }
+        this.link = feed.rss.channel.link ? feed.rss.channel.link : '';
         
-        this.title = feed.rss.channel.title;
-        this.description = feed.rss.channel.description;
-        this.copyright = feed.rss.channel.copyright;
+        this.title = feed.rss.channel.title ? feed.rss.channel.title : '';
+        this.description = feed.rss.channel.description ? feed.rss.channel.description : '';
+        this.copyright = feed.rss.channel.copyright ? feed.rss.channel.copyright : '';
         this.parseEpisodes();
     }
 
     parseEpisodes() {
         for (let episode of this.raw.rss.channel.item) {
             let entry = {
-                title: episode.title,
-                subtitle: episode['itunes:subtitle'],
-                summary: episode['itunes:summary'],
-                duration: episode['itunes:duration'],
-                date: episode.pubDate,
-                payload: episode.enclosure['@url']
+                title: episode.title ? episode.title : '',
+                subtitle: episode['itunes:subtitle'] ? episode['itunes:subtitle'] : '',
+                summary: episode['itunes:summary'] ? episode['itunes:summary'] : '',
+                duration: episode['itunes:duration'] ? episode['itunes:duration'] : '',
+                date: episode.pubDate ? episode.pubDate : '',
+                payload: episode.enclosure['@url'] ? episode.enclosure['@url'] : ''
             }
             this.episodes.push(entry);
         }
