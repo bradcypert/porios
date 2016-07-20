@@ -9,12 +9,20 @@ interface Window {
 
 export class feedAbstract {
 
+    raw: any;
+    image: string;
     title: string;
     description: string;
-    episodes: Array<any>;
+    episodes: Array<any> = [];
+    copyright: string;
+    owner = {
+        email: '',
+        name: ''
+    };
+    link: string;
 
     constructor(feed: any) {
-
+        this.raw = feed;
     }
 }
 
@@ -23,21 +31,29 @@ export class itunesFeed extends feedAbstract {
     constructor(feed: any) {
         super(feed);
 
+        this.image = feed.rss.channel['itunes:image']['@href'];
+        this.owner.email = feed.rss.channel['itunes:owner']['itunes:email'];
+        this.owner.name = feed.rss.channel['itunes:owner']['itunes:name'];
+        this.link = feed.rss.channel.link;
+        
         this.title = feed.rss.channel.title;
         this.description = feed.rss.channel.description;
-        this.episodes = this.parseEpisodes(feed.rss.channel.item);
+        this.copyright = feed.rss.channel.copyright;
+        this.parseEpisodes();
     }
 
-    parseEpisodes(episodes: Array<any>) {
-        let entries: Array<any> = [];
-        for (let episode of episodes) {
+    parseEpisodes() {
+        for (let episode of this.raw.rss.channel.item) {
             let entry = {
                 title: episode.title,
-                summary: episode['itunes:summary']
+                subtitle: episode['itunes:subtitle'],
+                summary: episode['itunes:summary'],
+                duration: episode['itunes:duration'],
+                date: episode.pubDate,
+                payload: episode.enclosure['@url']
             }
-            entries.push(entry);
+            this.episodes.push(entry);
         }
-        return entries;
     }
 }
 
@@ -47,6 +63,7 @@ export class FeedService {
     constructor ( private _http: Http, private _parserService: ParserService, private _window: Window ) { }
 
     getFeed(xmlStr: any, type: any) {
+        //console.log(this._parserService.parseXml(xmlStr));
         let xmlObj = new type(this._parserService.parseXml(xmlStr));
         return xmlObj;
     }

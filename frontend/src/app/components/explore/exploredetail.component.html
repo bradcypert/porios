@@ -1,19 +1,21 @@
-<div *ngIf="podcast">
+<div *ngIf="podcast && feed">
     <div class="pageheader">
-        <div class="pageicon"><span [ngStyle]="{'background-image': 'url(' + photo + ')'}"></span></div>
+        <div class="pageicon"><span [ngStyle]="{'background-image': 'url(' + feed.image + ')'}"></span></div>
         <div class="pagetitle">
             <h1>{{podcast.name}}</h1>
-            <h5>{{podcast.description}}</h5>
+            <h5>{{feed.description}}</h5>
         </div>
     </div>
-    <div class="maincontent">
-        <div class="episodes" *ngIf="feed">
-            <h5 class="subtitle">
-                Episodes
-            </h5>
+    <div class="maincontent nopadding">
+        <div>
             <ul class="episodes">
-                <li *ngFor="let episode of feed.entries">
-                    {{episode.title}}
+                <li *ngFor="let episode of feed.episodes" (click)="queuePodcast(episode)">
+                    <div class="title">
+                        {{episode.title}}
+                    </div>
+                    <div class="subtitle">
+                        {{episode.subtitle}}
+                    </div>
                 </li>
             </ul>
         </div>

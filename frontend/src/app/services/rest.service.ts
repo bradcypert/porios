@@ -57,6 +57,14 @@ export class RestService {
             .catch(this.handleError);
     }
 
+    subRequest(method: string) {
+        let headers = new Headers();
+
+        headers.append('Authorization', localStorage.getItem('uid_token'));
+        
+        return this.http.get(this.apiUrl + method, {headers: headers});
+    }
+
     private handleError(error: any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

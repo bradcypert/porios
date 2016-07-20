@@ -1,9 +1,8 @@
 <div class="podcast-list">
     <div *ngFor="let genre of genres" class="podcast-category">
         <ul>
-            <li class="genre">
+            <li [class]="'genre ' + genre">
                 <div class="genre-icon">
-                    <i class="fa fa-graduation-cap"></i>
                 </div>
                 <h2>{{genre}}</h2>
             </li>

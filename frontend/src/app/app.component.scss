@@ -47,6 +47,9 @@
 
 .maincontent {
     padding: 20px;
+    &.nopadding {
+        padding: 0;
+    }
 }
 
 .subtitle {

@@ -1,3 +1,14 @@
 .episodes {
     list-style-type: none;
+    li {
+        padding: 6px 12px;
+        padding-left: 25px;
+        background: #ffffff;
+        .subtitle {
+            margin-bottom: 0;
+        }
+        &:nth-of-type(odd) {
+            background: rgba(236, 240, 241, 0.25);
+        }
+    }
 }

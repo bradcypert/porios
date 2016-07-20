@@ -20,6 +20,7 @@ import { RestService } from './app/services/rest.service';
 import { SessionService } from './app/services/session.service';
 import { TitleService } from './app/services/title.service';
 import { ParserService } from './app/services/parser.service';
+import { LoadingService } from './app/services/loading.service';
 
 if (process.env.ENV === 'production') {
   enableProdMode();
@@ -42,4 +43,5 @@ bootstrap(AppComponent,
     PlaylistService,
     RestService,
     SessionService,
-    ParserService]);
+    ParserService,
+    LoadingService]);

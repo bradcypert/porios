@@ -1,5 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700);
 
+@keyframes bounce {
+  0%, 100%, 80% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -340,7 +349,7 @@ sidebar > ul {
   margin-bottom: 0;
 }
 .podcast-list ul li.genre {
-  background: rgba(210, 51, 20, 1);
+  background: transparent;
   text-transform: capitalize;
   color: #ecf0f1;
   font-weight: 300;
@@ -355,10 +364,37 @@ sidebar > ul {
     align-items: center;
     flex: 1;
     font-size: 50px;
+    &:before {
+      font-family: 'fontawesome';
+    }
   }
   h2 {
     font-size: 18px;
     margin: 0;
+  }
+  &.education {
+    background: rgba(210, 51, 20, 1);
+    .genre-icon {
+      &:before {
+        content: '\f19d';
+      }
+    }
+  }
+  &.technology {
+    background: rgba(52, 152, 219, 1);
+    .genre-icon {
+      &:before {
+        content: '\f0e7';
+      }
+    }
+  }
+  &.arts {
+    background: rgba(39, 174, 96,1.0);
+    .genre-icon {
+      &:before {
+        content: '\f1fc';
+      }
+    }
   }
 }
 .podcast-list ul li .podcast-updates {
@@ -818,3 +854,33 @@ timeline {
 /* End Login Form */
 
 /* End Account Components */
+
+/* Loding Indicator */
+
+.loading-indicator-container {
+  position: fixed;
+  z-index: 10051;
+  width: 100px;
+  top: 40%;
+  left: 50%;
+  margin-left: -55px;
+  text-align: center;
+  .bullet {
+    border-radius: 100%;
+    animation-fill-mode: both;
+    animation: bounce 1.4s infinite ease-in-out;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    margin: 0 5px;
+    background: #2c3e50;
+    &.bullet-one {
+      animation-delay: -0.32s;
+    }
+    &.bullet-two {
+      animation-delay: -0.16s;
+    }
+  }
+}
+
+/* End Loading Indicator */
