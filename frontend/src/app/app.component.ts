@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, NavigationStart, NavigationEnd } from '@angular/router';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { PlayerComponent } from './components/player/player.component';
+import { PlaylistComponent } from './components/player/playlist.component';
 import { LoadingService } from './services/loading.service';
 import { LoadingIndicatorDirective } from './directives/loading-indicator.directive';
 
@@ -10,7 +10,7 @@ import { LoadingIndicatorDirective } from './directives/loading-indicator.direct
   selector: 'porios',
   template: require('./app.component.html'),
   styles: [require('../assets/css/styles.scss'), require('./app.component.scss')],
-  directives: [ROUTER_DIRECTIVES, SidebarComponent, PlayerComponent, LoadingIndicatorDirective],
+  directives: [ROUTER_DIRECTIVES, SidebarComponent, PlaylistComponent, LoadingIndicatorDirective],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {

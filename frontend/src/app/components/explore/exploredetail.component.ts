@@ -51,6 +51,9 @@ export class ExploreDetailComponent {
 
     queuePodcast(podcast: any) {
         let sound = new Sound(podcast.title, podcast.payload);
+        sound.duration = podcast.duration;
+        sound.image = this.feed.image;
+        sound.podcast = this.podcast.name;
         this._playlistService.addSound(sound);
     }
 }

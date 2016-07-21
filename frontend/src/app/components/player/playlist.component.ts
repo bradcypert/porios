@@ -17,7 +17,7 @@ export class PlaylistComponent {
         this.el = element.nativeElement;
     }
 
-    private isOpen: boolean = false;
+    private isOpen: boolean = true;
 
     ngOnInit() {
         this.playlist = this._playlistService.getPlaylist();

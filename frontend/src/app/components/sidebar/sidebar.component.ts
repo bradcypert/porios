@@ -7,11 +7,16 @@ import { PodcastService } from '../../services/podcast.service';
 import { AnalyticsService } from "../../services/analytics.service";
 import { AnalyticsDirective } from "../../directives/analytics.directive";
 
+import { PlayerComponent } from '../player/player.component';
+
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.component.html'),
     styles: [require('./sidebar.component.scss')],
-    directives: [ROUTER_DIRECTIVES, TYPEAHEAD_DIRECTIVES, AnalyticsDirective]
+    directives: [ROUTER_DIRECTIVES, 
+        TYPEAHEAD_DIRECTIVES, 
+        AnalyticsDirective,
+        PlayerComponent]
 })
 export class SidebarComponent {
     public asyncSelected: string = "";

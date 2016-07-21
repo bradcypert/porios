@@ -1,0 +1,43 @@
+#audioplayer {
+    border-top: 1px solid #34495e;
+    .metadata {
+        display: flex;
+        flex-flow: row nowrap;
+        .image {
+            height: 30px;
+            width: 30px;
+            background-size: cover;
+        }
+        .info {
+            padding-left: 5px;
+            padding-right: 5px;
+            .subtitle {
+                margin: 0;
+                line-height: 11px;
+                display: block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 160px;
+            }
+            .title {
+                color: #ecf0f1;
+                display: block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 160px;
+            }
+        }
+    }
+    .nowplaying {
+        display: flex;
+        flex-flow: row nowrap;
+        padding: 15px;
+        padding-bottom: 0;
+        button {
+            margin-left: auto;
+            padding: 0;
+        }   
+    }
+}

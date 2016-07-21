@@ -1,7 +1,5 @@
 import { ViewChild, Component, ElementRef, Renderer } from '@angular/core';
 
-import { PlaylistComponent } from './playlist.component';
-
 import { TimelineDirective } from '../../directives/timeline.directive';
 
 import { PlayerService } from '../../services/audio/player.service';
@@ -13,15 +11,16 @@ import { AnalyticsService } from "../../services/analytics.service";
 @Component({
     selector: 'player',
     template: require('./player.component.html'),
+    styles: [require('./player.component.scss')],
     directives: [
-        TimelineDirective,
-        PlaylistComponent
+        TimelineDirective
     ]
 })
 export class PlayerComponent {
 
-    @ViewChild(PlaylistComponent) playlist: PlaylistComponent;
     @ViewChild(TimelineDirective) timeline: TimelineDirective;
+
+    private soundObject: any;
 
     private isPlaying: boolean = false;
     private sound: HTMLAudioElement;
@@ -37,14 +36,12 @@ export class PlayerComponent {
         let tmpMeta = 'nsp';
         let tmp = new Sound(tmpMeta, tmpsrc);
 
-        let tmpsrc2 = 'http://localhost:3000/src/assets/audio/nsp2.mp3';
-        let tmpMeta2 = 'nsp2';
-        let tmp2 = new Sound(tmpMeta2, tmpsrc2);
-
+        tmp.duration = "3.24";
+        tmp.podcast = "Ninja Sex Party";
+        tmp.image = "https://indypopcon.com/wp-content/uploads/2015/12/Ninja-sex-party.jpg";
         this._playlistService.addSound(tmp);
-        this._playlistService.addSound(tmp2);
 
-        this.playerClose(false);
+        this.soundObject = this._playlistService.getSound();  
     }
 
     ngAfterViewInit() {
@@ -64,6 +61,9 @@ export class PlayerComponent {
             this.renderer.listen(this.sound, 'ended', () => {
                 this._playlistService.nextSound();
             })
+            this.renderer.listen(this.sound, 'loadstart', () => {
+                this.soundObject = this._playlistService.getSound();
+            })
         }
     }
 
@@ -74,48 +74,6 @@ export class PlayerComponent {
         } else {
             this._playlistService.playSound();
             this.isPlaying = true;
-        }
-    }
-
-    togglePlaylist() {
-        if (this.playlist) {
-            if (this.playlist.getState()) {
-                this.playlist.close();
-            } else {
-                this.playlist.open();
-            }
-        }
-    }
-
-    playerClose(track: boolean = true) {
-        if(track) {
-            this._ga.event({
-                action: AnalyticsService.EventTypes.TOGGLE,
-                category: 'player',
-                label: 'close'
-            });
-        }
-        // TODO: this is brittle. change this to use a pub-sub, or an element reference.
-        this.el.parentElement.parentElement.classList.remove('open');
-        this.open = false;
-    }
-
-    playerOpen() {
-        this._ga.event({
-            action: AnalyticsService.EventTypes.TOGGLE,
-            category: 'player',
-            label: 'open'
-        });
-        // TODO: this is brittle. change this to use a pub-sub, or an element reference.
-        this.el.parentElement.parentElement.classList.add('open');
-        this.open = true;
-    }
-
-    togglePlayer() {
-        if (this.open) {
-            this.playerClose();
-        } else {
-            this.playerOpen();
         }
     }
 }
