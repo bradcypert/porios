@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
+        exclude: helpers.root('node_modules'),
         loaders: ['raw-loader', 'sass-loader']
       },
       {
