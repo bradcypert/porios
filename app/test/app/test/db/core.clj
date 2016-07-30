@@ -20,6 +20,6 @@
                {:first_name "Sam"
                 :last_name  "Smith"
                 :email      "sam.smith@example.com"
-                :pass       "pass"})))
+                :password   "pass"})))
     (let [user (first (db/get-user {:id 1}))]
       (is (some? (:email user))))))

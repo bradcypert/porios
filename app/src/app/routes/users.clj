@@ -6,8 +6,10 @@
 
 (defn- get-user
   [^:Integer id]
-  (let [id (Integer/parseInt (str id))]
-    (users/get-user id)))
+  (if (some? id)
+    (let [id (Integer/parseInt (str id))]
+      (users/get-user id))
+    '()))
 
 (defn- get-user-subscriptions
   [^:Integer id]
