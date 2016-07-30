@@ -1,12 +1,48 @@
 <loading-indicator></loading-indicator>
-<div class="porios">
-  <div id="left-nav" class="sidebar">
-    <sidebar></sidebar>
-  </div>
-  <div id="page-wrapper">
-    <div class="main">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div>
-<playlist></playlist>
+<td-layout title="Your Playlist">
+  <menu-items>
+    <a md-list-item *ngFor="let sound of playlist" (click)="setCurrentSound(sound)">
+      <md-icon>play_circle_outline</md-icon>
+      {{sound.name}}
+    </a>
+    <a md-list-item *ngIf="playlist.length == 0">
+      <md-icon>delete_sweep</md-icon>
+      Your Playlist Is Empty!
+    </a>
+  </menu-items>
+  <td-layout-nav logo="" title="Porios">
+  <td-layout-manage-list #list>
+    <list-items>
+      <a md-list-item [routerLink]="['Explore']">
+        <md-icon>folder</md-icon>
+        Explore
+      </a>
+      <a md-list-item [routerLink]="['Favorites']">
+        <md-icon>people</md-icon>
+        Favorites
+      </a>
+      <a md-list-item [routerLink]="['Feed']">
+        <md-icon>star</md-icon>
+        Feed
+      </a>
+      <a md-list-item [routerLink]="['Account/Dashboard']">
+        <md-icon>account_circle</md-icon>
+        Account
+      </a>
+    </list-items>
+    <toolbar-buttons layout="row" layout-align="start center" flex>
+      <span flex></span>
+      <button md-button class="md-icon-button" [routerLink]="['Explore']"><md-icon class="md-24">folder</md-icon></button>
+      <span flex></span>
+      <button md-button class="md-icon-button" [routerLink]="['Favorites']"><md-icon class="md-24">people</md-icon></button>
+      <span flex></span>
+      <button md-button class="md-icon-button" [routerLink]="['Feed']"><md-icon class="md-24">star</md-icon></button>
+      <span flex></span>
+      <button md-button class="md-icon-button" [routerLink]="['Account/Dashboard']"><md-icon class="md-24">account_circle</md-icon></button>
+      <span flex></span>
+    </toolbar-buttons>
+    <router-outlet></router-outlet>
+  </td-layout-manage-list>
+  </td-layout-nav>
+</td-layout>
+<!--<playlist></playlist>-->

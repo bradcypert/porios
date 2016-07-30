@@ -1,12 +1,12 @@
 <md-card>
     <md-card-header class="md-primary">
         <md-card-title>
-            <h2>WELCOME BACK</h2>
+            <h2>NEW USER REGISTRATION</h2>
         </md-card-title>
     </md-card-header>
     <md-divider></md-divider>
     <md-card-content>
-        <form #loginForm="ngForm" class="loginForm">
+        <form #registerForm="ngForm" class="loginForm">
             <md-list>
                 <md-list-item>
                     <md-icon class="user-icon">account_circle</md-icon>
@@ -18,10 +18,7 @@
                     <md-input dividerColor="warn" type="password" placeholder="Password" color="warn" name="password" ngModel required></md-input>
                 </md-list-item>
                 <md-list-item>
-                    <button md-raised-button color="warn" (click)="login(loginForm)" [attr.disabled]="!loginForm.valid ? 'disabled' : null">Login</button>
-                </md-list-item>
-                <md-list-item>
-                    Don't have an account yet?&nbsp;<a [routerLink]="['/Account/Register']">Sign Up</a>
+                    <button md-raised-button color="warn" (click)="register(registerForm)" [attr.disabled]="!registerForm.valid ? 'disabled' : null">Sign Up</button>
                 </md-list-item>
             </md-list>
         </form>

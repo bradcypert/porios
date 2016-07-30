@@ -12,8 +12,8 @@ import { TdLayoutService } from '../services/layout.service';
   directives: [ MdToolbar , MD_SIDENAV_DIRECTIVES, MD_LIST_DIRECTIVES],
   moduleId: module.id,
   selector: 'td-layout-manage-list',
-  styleUrls: [ 'layout-manage-list.component.css' ],
-  templateUrl: 'layout-manage-list.component.html',
+  styles: [ require('./layout-manage-list.component.scss') ],
+  template: require('./layout-manage-list.component.html'),
 })
 export class TdLayoutManageListComponent {
 

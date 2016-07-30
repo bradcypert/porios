@@ -2,6 +2,8 @@ import { Component, Injectable } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
+
 import { AnalyticsService } from '../../services/analytics.service';
 import { Podcast } from '../../data/podcast.component';
 import { PodcastService } from '../../services/podcast.service';
@@ -23,7 +25,8 @@ export class ExploreResolver implements Resolve<any> {
     selector: 'explore',
     template: require('./explore.component.html'),
     directives: [
-        ROUTER_DIRECTIVES
+        ROUTER_DIRECTIVES,
+        MD_CARD_DIRECTIVES
     ],
     providers: [
         PodcastService

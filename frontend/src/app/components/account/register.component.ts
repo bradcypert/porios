@@ -15,8 +15,8 @@ import { UserService } from '../../services/user.service';
 import { TitleService } from "../../services/title.service";
 
 @Component ({
-    selector: 'login',
-    template: require('./login.component.html'),
+    selector: 'register',
+    template: require('./register.component.html'),
     directives: [
         ROUTER_DIRECTIVES,
         MD_CARD_DIRECTIVES,
@@ -27,7 +27,7 @@ import { TitleService } from "../../services/title.service";
         MD_ICON_DIRECTIVES
     ]
 })
-export class LoginComponent {
+export class RegisterComponent {
 
     public avatar: string;
     
@@ -37,6 +37,10 @@ export class LoginComponent {
         this._title.setTitle('Login');
         this._ga.page();
         this.avatar = 'src/assets/img/avatar.png';
+    }
+
+    register(form: any) {
+        
     }
 
     login(form: any){

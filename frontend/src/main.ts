@@ -3,6 +3,10 @@ import { enableProdMode, provide } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { HTTP_PROVIDERS, JSONP_PROVIDERS } from '@angular/http';
 import { Title } from '@angular/platform-browser';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
+
+import { MdIconRegistry } from '@angular2-material/icon';
+import { TD_LAYOUT_PROVIDERS } from './platform/core';
 
 import { AppComponent } from './app/app.component';
 import { appRouterProviders } from './app/app.routes';
@@ -29,6 +33,8 @@ if (process.env.ENV === 'production') {
 bootstrap(AppComponent,
     [provide(Window, { useValue: window }),
     appRouterProviders,
+    TD_LAYOUT_PROVIDERS,
+    MdIconRegistry,
     ROUTER_DIRECTIVES,
     HTTP_PROVIDERS,
     JSONP_PROVIDERS,
@@ -44,4 +50,6 @@ bootstrap(AppComponent,
     RestService,
     SessionService,
     ParserService,
-    LoadingService]);
+    LoadingService,
+    disableDeprecatedForms(),
+    provideForms()]);

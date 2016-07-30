@@ -32,15 +32,6 @@ export class PlayerComponent {
     }
 
     ngOnInit() {
-        let tmpsrc = 'http://localhost:3000/src/assets/audio/nsp.mp3';
-        let tmpMeta = 'nsp';
-        let tmp = new Sound(tmpMeta, tmpsrc);
-
-        tmp.duration = "3.24";
-        tmp.podcast = "Ninja Sex Party";
-        tmp.image = "https://indypopcon.com/wp-content/uploads/2015/12/Ninja-sex-party.jpg";
-        this._playlistService.addSound(tmp);
-
         this.soundObject = this._playlistService.getSound();  
     }
 

@@ -14,8 +14,8 @@ export interface IStepChangeEvent {
   directives: [ TdStepComponent ],
   moduleId: module.id,
   selector: 'td-steps',
-  styleUrls: [ 'steps.component.css' ],
-  templateUrl: 'steps.component.html',
+  styles: [ require('./steps.component.scss') ],
+  template: require('./steps.component.html'),
 })
 export class TdStepsComponent implements OnDestroy, AfterContentInit {
 

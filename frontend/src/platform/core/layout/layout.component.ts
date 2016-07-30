@@ -16,8 +16,8 @@ import { TdLayoutService } from './services/layout.service';
   moduleId: module.id,
   providers: [ TdLayoutService ],
   selector: 'td-layout',
-  styleUrls: [ 'layout.component.css' ],
-  templateUrl: 'layout.component.html',
+  styles: [ require('./layout.component.scss') ],
+  template: require('./layout.component.html'),
 })
 export class TdLayoutComponent implements OnDestroy, AfterViewInit {
 
