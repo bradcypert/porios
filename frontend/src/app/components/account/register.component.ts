@@ -40,7 +40,16 @@ export class RegisterComponent {
     }
 
     register(form: any) {
-        
+        this._userService.register(form.value.username, form.value.password)
+        .then(
+            (data) => {
+                this.loginSuccess(data)
+                this._router.navigate(['/Account/Dashboard']);
+            },
+            (err) => {
+                this.loginFailure(err)
+            }
+        )
     }
 
     login(form: any){
@@ -49,7 +58,7 @@ export class RegisterComponent {
         .then(
             (data) => {
                 this.loginSuccess(data)
-                this._router.navigate(['Dashboard']);
+                this._router.navigate(['/Account/Dashboard']);
             },
             (err) => {
                 this.loginFailure(err)

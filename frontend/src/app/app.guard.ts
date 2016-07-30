@@ -8,11 +8,13 @@ export class AppGuard implements CanActivate {
     constructor( private _router: Router, private _restService: RestService ) {}
 
     canActivate() {
-        return true
-        // return this._restService.subRequest('users/me')
-        //     .map( res => {
-        //         console.log(res);
-        //         return true;
-        //     });
+        return this._restService.subRequest('users/me')
+            .map( res => {
+                if ( res.json().length > 0 ) {
+                    return true;
+                }
+                this._router.navigate(['/Account/Login']);
+                return false;
+            });
     }
 }
