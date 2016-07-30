@@ -4,15 +4,15 @@ INSERT INTO users
 (first_name, last_name, email, pass)
 VALUES (:first_name, :last_name, :email, :password)
 
--- name: update-user!
+-- name: update-user<!
 -- update an existing user record
 UPDATE users SET 
 first_name = COALESCE(:first_name, first_name),
 last_name = COALESCE(:last_name, last_name), 
 pass = COALESCE(:password, pass),
-age = COALESCE(:age, age),
+age = cast(COALESCE(:age, age) as int),
 pic_url = COALESCE(:pic_url, pic_url)
-WHERE id = :id
+WHERE id = cast(:id as int)
 
 -- name: get-user
 -- retrieve a user given the id.

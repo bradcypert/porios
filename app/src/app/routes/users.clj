@@ -54,6 +54,7 @@
 ;;TODO: Should only have to pass an id and a map with config options.
 (defn- update-user
   [params]
+  (print params)
   (let [f     (:first_name params)
         l     (:last_name params)
         id    (:id params)

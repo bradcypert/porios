@@ -52,13 +52,12 @@
   [id first-name last-name password age pic]
   (try
     (do
-      (db/update-user! {:id id
+      (db/update-user<! {:id id
                         :first_name first-name
                         :last_name last-name
                         :password (auth/encrypt password)
                         :age age
-                        :pic_url pic})
-      (true))
+                        :pic_url pic}))
     (catch Exception e (println e))))
 
 (defn get-user-avatar-for-email
