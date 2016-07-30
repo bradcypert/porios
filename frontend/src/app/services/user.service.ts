@@ -36,25 +36,24 @@ export class UserService {
     }
 
     update(user: any) {
-        let data = {
-            'first_name': user.first_name,
-            'last_name': user.last_name
-        }
-        this._restService.patchRequest('users/'+user.id,data)
+        console.log(user);
+        this._restService.patchRequest('users/'+user.id,user)
             .then(
                 (data) => console.log(data),
                 (err) => err
             )
     }
 
-    create(username: string, password: string) {
+    register(username: string, password: string) {
         let data = {
             email: username,
             password: password
         }
-        this._restService.postRequest('users',data)
+        return this._restService.postRequest('users',data)
             .then(
-                (data) => this.login(username, password),
+                (data) => {
+                    return this.login(username, password)
+                },
                 (err) => err
             )
     }

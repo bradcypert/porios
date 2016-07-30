@@ -12,8 +12,8 @@ import { TdLayoutService } from '../services/layout.service';
   directives: [ MdToolbar , MD_SIDENAV_DIRECTIVES, MdIcon, MdButton ],
   moduleId: module.id,
   selector: 'td-layout-nav',
-  styleUrls: [ 'layout-nav.component.css' ],
-  templateUrl: 'layout-nav.component.html',
+  styles: [ require('./layout-nav.component.scss') ],
+  template: require('./layout-nav.component.html'),
 })
 export class TdLayoutNavComponent {
 

@@ -16,8 +16,8 @@ export enum StepState {
   directives: [ MdIcon, MD_LIST_DIRECTIVES, TdToggleDirective ],
   moduleId: module.id,
   selector: 'td-step',
-  styleUrls: [ 'step.component.css' ],
-  templateUrl: 'step.component.html',
+  styles: [ require('./step.component.scss') ],
+  template: require('./step.component.html'),
 })
 export class TdStepComponent {
 

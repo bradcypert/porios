@@ -1,4 +1,4 @@
-<div id="playlistSidebar" [class.active]="isOpen">
+<!--<div id="playlistSidebar" [class.active]="isOpen">
     <ul>
         <li *ngFor="let sound of playlist" (click)="setCurrentSound(sound)">
             <a class="thumbnail">
@@ -11,4 +11,8 @@
             </div>
         </li>
     </ul>
-</div>
+</div>-->
+<a md-list-item *ngFor="let sound of playlist" (click)="setCurrentSound(sound)">
+    <md-icon>folder</md-icon>
+    {{sound.name}}
+</a>

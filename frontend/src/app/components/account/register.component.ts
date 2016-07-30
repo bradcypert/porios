@@ -15,8 +15,8 @@ import { UserService } from '../../services/user.service';
 import { TitleService } from "../../services/title.service";
 
 @Component ({
-    selector: 'login',
-    template: require('./login.component.html'),
+    selector: 'register',
+    template: require('./register.component.html'),
     directives: [
         ROUTER_DIRECTIVES,
         MD_CARD_DIRECTIVES,
@@ -27,7 +27,7 @@ import { TitleService } from "../../services/title.service";
         MD_ICON_DIRECTIVES
     ]
 })
-export class LoginComponent {
+export class RegisterComponent {
 
     public avatar: string;
     
@@ -39,13 +39,26 @@ export class LoginComponent {
         this.avatar = 'src/assets/img/avatar.png';
     }
 
+    register(form: any) {
+        this._userService.register(form.value.username, form.value.password)
+        .then(
+            (data) => {
+                this.loginSuccess(data)
+                this._router.navigate(['/Account/Dashboard']);
+            },
+            (err) => {
+                this.loginFailure(err)
+            }
+        )
+    }
+
     login(form: any){
         console.log(form);
         this._userService.login(form.value.username, form.value.password)
         .then(
             (data) => {
                 this.loginSuccess(data)
-                this._router.navigate(['Dashboard']);
+                this._router.navigate(['/Account/Dashboard']);
             },
             (err) => {
                 this.loginFailure(err)

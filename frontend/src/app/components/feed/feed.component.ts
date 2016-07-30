@@ -3,11 +3,16 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { AnalyticsService } from '../../services/analytics.service';
 import { TitleService } from "../../services/title.service";
 
+import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
+import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button';
+
 @Component ({
     selector: 'feed',
     template: require('./feed.component.html'),
     directives: [
-        ROUTER_DIRECTIVES
+        ROUTER_DIRECTIVES,
+        MD_CARD_DIRECTIVES,
+        MD_BUTTON_DIRECTIVES
     ]
 })
 export class FeedComponent {

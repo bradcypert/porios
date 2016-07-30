@@ -21,8 +21,8 @@ export enum LoadingType {
   ],
   moduleId: module.id,
   selector: 'td-loading',
-  styleUrls: [ 'loading.component.css' ],
-  templateUrl: 'loading.component.html',
+  styles: [ require('./loading.component.scss') ],
+  template: require('./loading.component.html'),
 })
 export class TdLoadingComponent {
 

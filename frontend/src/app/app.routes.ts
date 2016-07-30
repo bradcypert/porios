@@ -1,6 +1,6 @@
 import { provideRouter, RouterConfig } from '@angular/router';
 
-import { accountRoutes } from './components/account/account.routes';
+import { accountRoutes, accountProviders } from './components/account/account.routes';
 import { connectRoutes } from './components/connect/connect.routes';
 import { exploreRoutes, exploreProviders } from './components/explore/explore.routes';
 import { favoritesRoutes } from './components/favorites/favorites.routes';
@@ -25,5 +25,6 @@ export const routes: RouterConfig = [
 export const appRouterProviders = [
   provideRouter(routes),
   exploreProviders,
+  accountProviders,
   AppGuard
 ];

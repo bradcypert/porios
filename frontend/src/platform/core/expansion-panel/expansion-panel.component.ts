@@ -10,8 +10,8 @@ import { TdToggleDirective } from '../directives/toggle/toggle.directive';
   directives: [ TdToggleDirective, MdIcon, MD_LIST_DIRECTIVES ],
   moduleId: module.id,
   selector: 'td-expansion-panel',
-  styleUrls: [ 'expansion-panel.component.css' ],
-  templateUrl: 'expansion-panel.component.html',
+  styles: [ require('./expansion-panel.component.scss') ],
+  template: require('./expansion-panel.component.html'),
 })
 export class TdExpansionPanelComponent {
 

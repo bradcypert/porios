@@ -9,8 +9,8 @@ import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
   directives: [ MdToolbar , MD_LIST_DIRECTIVES, MD_CARD_DIRECTIVES ],
   moduleId: module.id,
   selector: 'td-layout-card-over',
-  styleUrls: [ 'layout-card-over.component.css' ],
-  templateUrl: 'layout-card-over.component.html',
+  styles: [ require('./layout-card-over.component.scss') ],
+  template: require('./layout-card-over.component.html'),
 })
 export class TdLayoutCardOverComponent {
 
