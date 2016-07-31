@@ -2,12 +2,18 @@
 <td-layout title="Your Playlist">
   <menu-items>
     <a md-list-item *ngFor="let sound of playlist" (click)="setCurrentSound(sound)">
-      <md-icon>play_circle_outline</md-icon>
-      {{sound.name}}
+      <img md-list-avatar src="{{sound.image}}" alt="{{sound.podcast}}">
+      <h3 md-line>{{sound.name}}</h3>
+      <p md-line>
+        {{sound.duration}}
+        <span class="playlistActions">
+          <md-icon (click)="removeSound($event, sound)">delete</md-icon>
+        </span>     
+      </p>
     </a>
     <a md-list-item *ngIf="playlist.length == 0">
-      <md-icon>delete_sweep</md-icon>
-      Your Playlist Is Empty!
+      <md-icon md-list-avatar>delete_sweep</md-icon>
+      <h3 md-line>Your Playlist Is Empty!</h3>
     </a>
   </menu-items>
   <td-layout-nav logo="" title="Porios">

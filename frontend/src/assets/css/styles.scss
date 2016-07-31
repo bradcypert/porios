@@ -881,6 +881,14 @@ timeline {
 
 /* Platform Styles */
 
+md-nav-list {
+  a[md-list-item] {
+    [md-line] {
+      overflow-y: hidden;
+    }
+  }
+}
+
 md-toolbar {
   &.md-primary {
     background-color: #8BC34A !important;

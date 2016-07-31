@@ -16,8 +16,16 @@ export class PlaylistService {
     constructor( private _playerService: PlayerService ) { }
 
     addSound(sound: Sound) {
-        this.playlist.push(sound);
-        this.currentSound = this.playlist.indexOf(sound);
+        if (!this.containsSound(sound, this.playlist)) {
+            this.playlist.push(sound);
+            this.currentSound = this.playlist.indexOf(sound);
+        }
+    }
+
+    removeSound(sound: Sound) {
+        if (this.containsSound(sound, this.playlist)) {
+            this.playlist.splice(this.playlist.indexOf(sound), 1);
+        }
     }
 
     nextSound() {
@@ -66,6 +74,16 @@ export class PlaylistService {
             this.currentSound = this.playlist.indexOf(sound);
             this.playSound();
         }
+    }
+
+    containsSound(sound: Sound, list: Array<any>) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].src === sound.src) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

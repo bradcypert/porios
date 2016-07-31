@@ -49,4 +49,10 @@ export class AppComponent {
   setCurrentSound(sound: Sound) {
     this._playlistService.setCurrentSound(sound);
   }
+
+  removeSound(event: Event, sound: Sound) {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    this._playlistService.removeSound(sound);
+  }
 }
