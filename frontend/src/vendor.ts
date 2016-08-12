@@ -6,6 +6,9 @@ import '@angular/common';
 import '@angular/http';
 import '@angular/router';
 import '@angular/forms';
+// Platform
+import './app/platform/core';
+import './app/platform/file-upload';
 // RxJS
 import 'rxjs';
 // Bootstrap

@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef, ChangeDetectionStrategy } from '@angular/core';
-import { FORM_DIRECTIVES } from '@angular/common';
 
 import { Observable } from 'rxjs';
 
@@ -58,8 +57,7 @@ export class ChatMessage implements OnInit {
 
 @Component({
     selector: 'chat-window',
-    directives: [ChatMessage,
-        FORM_DIRECTIVES],
+    directives: [ChatMessage],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <div class="panel panel-default">
