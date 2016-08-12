@@ -891,20 +891,20 @@ md-nav-list {
 
 md-toolbar {
   &.md-primary {
-    background-color: #8BC34A !important;
+    background-color: #FF5722 !important;
   }
 }
 
 md-sidenav {
   &.md-sidenav-left {
     .list {
-      background-color: #fff !important;
+      background-color: #263238 !important;
       md-nav-list {
         a[md-list-item] {
           .md-list-item {
-            color: #333;
+            color: #fff;
             md-icon {
-              color: #333;
+              color: #fff;
             }
           }
         }
