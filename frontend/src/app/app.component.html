@@ -19,6 +19,14 @@
   <td-layout-nav logo="" title="Porios">
   <td-layout-manage-list #list>
     <list-items>
+      <md-list-item *ngIf="podcasts.length > 0">
+        <td-autocomplete itemText="display"
+          placeholder = "Search..."
+          [items]="podcasts"
+          [(selectedItem)]="selectedItem"
+          [(searchText)]="searchText">
+        </td-autocomplete>
+      </md-list-item>
       <a md-list-item [routerLink]="['Explore']">
         <md-icon>folder</md-icon>
         Explore

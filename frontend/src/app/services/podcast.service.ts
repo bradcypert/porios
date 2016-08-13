@@ -16,7 +16,7 @@ export class PodcastService {
             ))
             .catch(this.handleError);
     }
-    
+
     getPodcast(id: number) {
         return this._rest.getRequest('podcasts/'+id)
             .then(response => (

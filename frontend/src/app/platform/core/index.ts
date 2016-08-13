@@ -56,6 +56,7 @@ export { TdExpansionPanelComponent } from './expansion-panel/expansion-panel.com
 
 export { TdToggleDirective } from './directives/toggle/toggle.directive';
 export { TdFadeDirective } from './directives/fade/fade.directive';
+export { TdAutoCompleteDirective } from './directives/autocomplete/autocomplete.directive';
 
 /**
  * PIPES

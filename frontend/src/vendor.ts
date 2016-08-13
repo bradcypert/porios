@@ -14,6 +14,8 @@ import 'rxjs';
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.min.css';
+// NG2 Bootstrap
+import 'ng2-bootstrap';
 // Lodash
 import 'lodash';
 // Font Awesome

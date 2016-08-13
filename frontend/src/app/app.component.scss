@@ -58,3 +58,27 @@
     color: #999;
     margin-bottom: 5px;
 }
+
+td-autocomplete {
+    .md-input-wrapper {
+        .md-input-table {
+            .md-input-infix {
+                input {
+                    color: #fff;
+                }
+                label {
+                    color: #fff;
+                    &.md-focused {
+                        color: #FF5722;
+                    }
+                }
+            }
+        }
+        .md-input-underline {
+            border-color: #fff;
+            .md-input-ripple {
+                background-color: #FF5722;
+            }
+        }
+    }
+}
