@@ -1,5 +1,5 @@
 CREATE TYPE genre AS ENUM
-('arts','government','science and medicine', 'business', 'health', 'culture', 'comedy', 'family', 'sports', 'education', 'music', 'technology', 'hobbies', 'religion', 'tv');
+('arts','government','science and medicine', 'business', 'health', 'culture', 'comedy', 'family', 'sports', 'education', 'music', 'technology', 'hobbies', 'religion', 'tv', 'news and politics', 'relationships');
 
 CREATE TYPE event AS ENUM
 ('subscribed', 'commented');
