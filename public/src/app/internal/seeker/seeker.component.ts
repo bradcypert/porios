@@ -48,6 +48,18 @@ export class SeekerComponent {
         console.log('Star');
     }
 
+    public setVolume(event: number) {
+        let volume = event / 100;
+
+        if (volume > 1) {
+            volume = 1;
+        } else if (volume < 0) {
+            volume = 0;
+        }
+
+        this._audioService.setVolume(volume);
+    }
+
     private _setProgress(event: Event) {
         let duration = this._audio.duration * 1000;
         let timeStamp = event.timeStamp;

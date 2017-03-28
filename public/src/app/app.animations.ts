@@ -1,13 +1,13 @@
 import {
   animate,
-  AnimationEntryMetadata,
+  AnimationTriggerMetadata,
   state,
   style,
   transition,
   trigger
-} from '@angular/core';
+} from '@angular/animations';
 
-export const fadeAnimation: AnimationEntryMetadata =
+export const fadeAnimation: AnimationTriggerMetadata =
   trigger('routeAnimation', [
     state('*',
       style({
@@ -27,7 +27,7 @@ export const fadeAnimation: AnimationEntryMetadata =
     ]),
   ]);
   
-export const slideInLeftAnimation: AnimationEntryMetadata =
+export const slideInLeftAnimation: AnimationTriggerMetadata =
   trigger('routeAnimation', [
     state('*',
       style({
@@ -50,7 +50,7 @@ export const slideInLeftAnimation: AnimationEntryMetadata =
     ]),
   ]);
 
-export const slideInRightAnimation: AnimationEntryMetadata =
+export const slideInRightAnimation: AnimationTriggerMetadata =
   trigger('routeAnimation', [
     state('*',
       style({
@@ -73,7 +73,7 @@ export const slideInRightAnimation: AnimationEntryMetadata =
     ]),
   ]);
 
-export const slideInDownAnimation: AnimationEntryMetadata =
+export const slideInDownAnimation: AnimationTriggerMetadata =
   trigger('routeAnimation', [
     state('*',
       style({
@@ -95,3 +95,18 @@ export const slideInDownAnimation: AnimationEntryMetadata =
       })),
     ]),
   ]);
+  
+export function FadeInOutAnimation(duration: number = 150): AnimationTriggerMetadata {
+  return trigger('fadeInOut', [
+    state('0', style({
+      opacity: '0',
+      display: 'none',
+    })),
+    state('1',  style({
+      opacity: '*',
+      display: '*',
+    })),
+    transition('0 => 1', animate(duration + 'ms ease-in')),
+    transition('1 => 0', animate(duration + 'ms ease-out')),
+  ]);
+}

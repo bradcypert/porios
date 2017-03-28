@@ -12,25 +12,36 @@ seeker {
         .seeker-button {
             color: white;
             margin: 0 8px;
-            &.large {
-                height: 48px;
-                width: 48px;
-                line-height: 48px;
-                .mat-button-wrapper {
-                    line-height: 46px;
-                    md-icon {
-                        height: 48px;
-                        width: 48px;
-                        line-height: 48px;
-                        font-size: 48px;
-                    }
-                }
-            }
             &:first-of-type {
                 margin-left: 0;
             }
             &:last-of-type {
                 margin-right: 0;
+            }
+        }
+    }
+}
+
+volume {
+    .volume-container {
+        display: block;
+        position: relative;
+        .slider-container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 100%;
+            background: #343D46;
+            border-radius: 3px;
+            width: 48px;
+            height: 136px;
+            padding: 8px 0;
+        }
+        button[md-icon-button] {
+            .mat-button-wrapper {
+                md-icon.mat-icon {
+                    font-size: 24px;
+                }
             }
         }
     }

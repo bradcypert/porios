@@ -43,29 +43,43 @@ span.spacer {
   left: 0;
 }
 
-.tabs {
-      color: white;
-      > md-tab-group {
-        > .mat-tab-header {
-          background: #343D46;
-          border: none;
-          .mat-tab-label {
-            opacity: 1;
-          }
+button[md-icon-button].large {
+    height: 48px;
+    width: 48px;
+    line-height: 48px;
+    .mat-button-wrapper {
+        line-height: 46px;
+        md-icon {
+            height: 48px;
+            width: 48px;
+            line-height: 48px;
+            font-size: 48px;
         }
-        > .mat-tab-body-wrapper {
-          padding: 8px 0;
-          h4 {
-            font-weight: 100;
-          }
-          .detail-container {
-            background: #343D46;
-            padding: 8px;
-            .subtitle {
-              font-size: 12px;
-              font-weight: 300;
-            }
-          }
+    }
+}
+.tabs {
+  color: white;
+  > md-tab-group {
+    > .mat-tab-header {
+      background: #343D46;
+      border: none;
+      .mat-tab-label {
+        opacity: 1;
+      }
+    }
+    > .mat-tab-body-wrapper {
+      padding: 8px 0;
+      h4 {
+        font-weight: 100;
+      }
+      .detail-container {
+        background: #343D46;
+        padding: 8px;
+        .subtitle {
+          font-size: 12px;
+          font-weight: 300;
         }
       }
     }
+  }
+}
