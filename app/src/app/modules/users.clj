@@ -64,3 +64,23 @@
   "Returns a URL pointing the users avatar"
   [email]
   (db/get-user-avatar-for-email {:email email}))
+
+(defn get-favorites-for-user
+  "Gets a list of favorited podcasts for a user-id"
+  [^:Integer id]
+  (db/get-user-favorites {:user_id id}))
+
+(defn add-favorite-for-user
+  "Adds a favorited podcast for a user-id"
+  [^:Integer id
+   ^:Integer pid]
+  (db/add-user-favorite {:user_id id
+                         :podcast_id pid}))
+
+(defn remove-favorite-for-user
+  "Removes a favorited podcast for a user-id"
+  [^:Integer id
+   ^:Integer pid]
+  (db/delete-user-favorite {:user_id id
+                            :podcast_id pid}))
+

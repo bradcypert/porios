@@ -292,3 +292,24 @@ WHERE u.id IN
 -- gets subscriber count for a given podcast id
 SELECT COUNT(*) FROM subscriptions
 WHERE podcast_id = :podcast_id
+
+
+
+
+
+
+--name: get-user-favorites
+-- gets favorites for a user
+SELECT * FROM favorites
+WHERE (user_id = :user_id)
+
+--name: add-user-favorite
+-- adds a new favorite for a user
+INSERT INTO favorites
+(user_id, podcast_id)
+VALUES (:user_id, :podcast_id)
+
+--name: delete-user-favorite
+-- deletes a favorite for a user
+DELETE FROM favorites
+WHERE user_id = :user_id AND podcast_id = :podcast_id
