@@ -1,0 +1,24 @@
+<div layout-fill layout="column" layout-align="center center">
+  <form class="register-container" layout="column" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div layout="row" layout-align="center center">
+      <img class="logo" src="assets/img/angular-logo.png" />
+    </div>
+    <span class="spacing"></span>
+    <md-input-container>
+      <input mdInput placeholder="First Name" type="text" formControlName="firstName" />
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Last Name" type="text" formControlName="lastName" />
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Email" type="text" formControlName="email" />
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Password" type="password" formControlName="password" />
+    </md-input-container>
+    <span class="spacing"></span>
+    <button class="button" md-raised-button color="primary" type="submit">
+      Register
+    </button>
+  </form>
+</div>

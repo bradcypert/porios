@@ -1,0 +1,35 @@
+<td-layout-card-over>
+    <div layout="row" layout-align="start center">
+        <div>
+            <md-card-title>Porios</md-card-title>
+        </div>
+    </div>
+    <md-divider></md-divider>
+    <md-nav-list hide-gt-sm>
+        <template let-item let-last="last" ngFor [ngForOf]="items">
+            <a md-list-item [routerLink]="[item.route]">
+                <md-icon md-list-avatar> {{item.icon}} </md-icon>
+                <h3 md-line> {{item.title}} </h3>
+                <p md-line> {{item.description}} </p>
+            </a>
+            <md-divider *ngIf="!last" md-inset></md-divider>
+        </template>
+    </md-nav-list>
+    <div layout="row" layout-wrap hide-xs hide-sm class="push-sm">
+        <template let-item let-last="last" ngFor [ngForOf]="items">
+            <div flex-md="50" flex-gt-md="25" layout="column">
+                <md-card href [routerLink]="[item.route]" class="md-card-colored" flex>
+                    <md-toolbar class="bgc-{{item.color}} " layout="column" layout-align="center center" layout-padding>
+                        <md-icon class="md-icon-font-xl tc-white">{{item.icon}}</md-icon>
+                    </md-toolbar>
+                    <md-card-content>
+                        <div layout="column" layout-padding>
+                            <div class="md-subhead">{{item.title}}</div>
+                            <div class="md-caption tc-grey-600"> {{item.description}} </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </template>
+    </div>
+</td-layout-card-over>

@@ -1,0 +1,45 @@
+@import '../styles/default-theme';
+
+.td-snackbar {
+    display: flex;
+    padding: 24px;
+    min-width: 288px;
+    max-width: 568px;
+    margin: 0 auto;
+    align-items: center;
+    background-color: rgba($td-primary, 0.10);
+    position: relative;
+    td-snackbar-title {
+
+    }   
+    td-snackbar-actions {
+
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: $td-primary;
+    }
+    &.success {
+        background-color: rgba($td-secondary, 0.10);
+        &:before {
+            background-color: $td-secondary;
+        }
+    }
+    &.info {
+        background-color: rgba($td-accent, 0.10);
+        &:before {
+            background-color: $td-accent;
+        }
+    }
+    &.warn {
+        background-color: rgba($td-warn, 0.10);
+        &:before {
+            background-color: $td-warn;
+        }
+    }
+}

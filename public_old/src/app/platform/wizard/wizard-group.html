@@ -1,0 +1,37 @@
+<div class="td-wizard-header" role="tablist"
+     (keydown)="handleKeydown($event)">
+  <div class="td-wizard-scrolltab td-left">
+    <button (click)="scrollLeft($event)"><md-icon>keyboard_arrow_left</md-icon></button>
+  </div>
+  <div class="td-wizard-scrolltab td-right">
+    <button (click)="scrollRight($event)"><md-icon>keyboard_arrow_right</md-icon></button>
+  </div>
+  <div class="td-wizard-scrollcontainer">
+    <div class="td-wizard-label" role="tab" td-wizard-label-wrapper
+        *ngFor="let wizardStep of _wizardSteps; let i = index"
+        [id]="_getWizardStepLabelId(i)"
+        [tabIndex]="selectedIndex == i ? 0 : -1"
+        [attr.aria-controls]="_getWizardStepContentId(i)"
+        [attr.aria-selected]="selectedIndex == i"
+        [class.td-wizard-active]="selectedIndex == i"
+        [class.td-wizard-disabled]="wizardStep.disabled"
+        [class.td-wizard-invalid]="wizardStep.state == 'invalid'"
+        [class.td-wizard-complete]="wizardStep.state == 'complete'"
+        (click)="focusIndex = selectedIndex = i">
+      <template [portalHost]="wizardStep.label"></template>
+    </div>
+    <td-wizard-progress></td-wizard-progress>
+  </div>
+</div>
+<div class="td-wizard-body-wrapper">
+  <div class="td-wizard-body"
+       role="wizardpanel"
+       *ngFor="let wizardStep of _wizardSteps; let i = index"
+       [id]="_getWizardStepContentId(i)"
+       [class.td-wizard-active]="selectedIndex == i"
+       [attr.aria-labelledby]="_getWizardStepLabelId(i)">
+    <template [ngIf]="selectedIndex == i">
+      <template [portalHost]="wizardStep.content"></template>
+    </template>
+  </div>
+</div>

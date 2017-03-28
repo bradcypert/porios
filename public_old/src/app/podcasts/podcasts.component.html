@@ -1,0 +1,16 @@
+<td-layout-podcast-list #list title="Porios">
+    <div list-items>
+        <md-grid-list cols="2">
+            <template let-item let-last="last" ngFor [ngForOf]="podcasts">
+                <md-grid-tile 
+                    class="list-item"
+                    [routerLink]="['/Podcasts/' + item.id + '']"> 
+                    {{item.name}} 
+                </md-grid-tile>
+            </template>
+        </md-grid-list>
+    </div>
+    <md-card>
+        <router-outlet></router-outlet>
+    </md-card>
+</td-layout-podcast-list>

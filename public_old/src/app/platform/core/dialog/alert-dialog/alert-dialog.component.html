@@ -1,0 +1,11 @@
+<td-dialog>
+	<td-dialog-title *ngIf="title" [title]="title"></td-dialog-title>
+	<td-dialog-content>
+		{{message}}
+	</td-dialog-content>
+	<td-dialog-actions>
+		<button md-button class="md-primary" (click)="close()">
+			<span>{{closeButton}}</span>
+		</button> 
+	</td-dialog-actions>
+</td-dialog>

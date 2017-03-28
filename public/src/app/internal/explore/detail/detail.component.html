@@ -1,0 +1,25 @@
+<md-list>
+  <template ngFor let-episode [ngForOf]="dummyEpisodes">
+    <md-list-item layout="row" layout-align="start center" (click)="onClick(episode)">
+        <div class="pointer"></div>
+        <div class="date" layout="column" layout-align="start center">
+            <div class="month">
+                Mar
+            </div>
+            <div class="day">
+                23
+            </div>
+        </div>
+        <span class="spacer"></span>
+        <h4>{{episode.title}}</h4>
+        <span flex></span>
+        <h5>57 Minutes</h5>
+        <span class="spacer"></span>
+        <button md-icon-button [ngSwitch]="episode.playing">
+            <md-icon *ngSwitchCase="false">play_arrow</md-icon>
+            <md-icon *ngSwitchCase="true">pause</md-icon>
+        </button>
+    </md-list-item>
+    <md-divider></md-divider>
+  </template>
+</md-list>

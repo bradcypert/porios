@@ -1,0 +1,12 @@
+@import '~@angular/material/core/theming/all-theme';
+
+@include mat-core();
+
+$primary: mat-palette($mat-red, 500, 100, 800);
+$accent: mat-palette($mat-deep-orange, 500);
+$warn: mat-palette($mat-blue);
+$porios-app-theme: mat-light-theme($primary, $accent, $warn);
+
+$background: map-get($porios-app-theme, background);
+
+@include angular-material-theme($porios-app-theme);

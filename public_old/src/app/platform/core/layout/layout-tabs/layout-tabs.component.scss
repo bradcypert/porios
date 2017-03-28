@@ -1,0 +1,74 @@
+@import '../../styles/variables';
+@import '../../styles/shadows';
+@import '../../styles/default-theme';
+
+/*
+** :host /deep/ is used to style child elements on the Shadow Dom
+*/
+
+:host /deep/ {
+    [tabs] {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        a {
+            width: 118px;
+            height: 95px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: -1px;
+            border: 1px solid $md-gray-light;
+            border-radius: 4px 4px 0 0;
+            margin-right: 8px;
+            background: $md-default;
+            text-align: center;
+            i {
+                font-size: 50px;
+                color: $md-gray-light; 
+            }
+            span {
+                line-height: 1;
+                color: $md-gray-light;
+                &.label {
+                    display: flex;
+                    height: 30px;
+                    align-items: center;
+                }
+            }
+            &.active {
+                border-bottom: none;
+                i {
+                    color: $td-primary;
+                }
+                span {
+                    color: $td-primary;
+                }
+            }
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+    .td-tabs-content {
+        padding: 16px;
+        border: 1px solid $md-gray-light;
+        md-tab-group {
+            .md-tab-header {
+                .md-tab-label {
+                    opacity: 1;
+                    border: 1px solid #e2e0e0;
+                    border-bottom: none;
+                    &.md-tab-active {
+                        color: $td-primary;
+                    }
+                }
+            }
+            .md-tab-body-wrapper {
+                padding-top: 16px;
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+@import '../../core/styles/variables';
+@import '../../core/styles/default-theme';
+
+.td-wizard-label-icon {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    color: #00AFF0;
+    > md-icon {
+        font-size: 40px;
+        background-color: #00AFF0;
+        border-radius: 50%;
+        padding: 10px;
+        box-sizing: content-box;
+        color: $md-default;
+        position: relative;
+        margin-bottom: 8px;
+        &:after {
+            font-family: 'Material Icons';
+            content: '\E5CA';
+            position: absolute;
+            font-size: 14px;
+            top: 1px;
+            right: 1px; 
+            color: $md-default;
+            background-color: $td-primary;
+            border-radius: 50%;
+            box-sizing: content-box;
+            padding: 2px;
+        }
+    }
+}
+
+.td-wizard-invalid {
+    .td-wizard-label-icon {
+        > md-icon {
+            background-color: red;
+        }
+    }
+}

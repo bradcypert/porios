@@ -1,0 +1,7 @@
+md-divider {
+  border-top-color: rgba(0, 0, 0, 0.12) !important;
+
+  &[md-inset] {
+    margin-left: 72px;
+  }
+}

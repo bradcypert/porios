@@ -1,0 +1,37 @@
+<div layout="column">
+    <md-progress-bar
+        color="warn"
+        [mode]="determinate"
+        [value]="progress">
+    </md-progress-bar>
+    <div class="controls" layout="row" layout-align="center center" layout-fill>
+        <button md-icon-button (click)="replay()" class="seeker-button">
+            <md-icon>
+                replay
+            </md-icon>
+        </button>
+        <button md-icon-button (click)="skipPrevious()" class="seeker-button">
+            <md-icon>
+                skip_previous
+            </md-icon>
+        </button>
+        <button md-icon-button (click)="play()" class="seeker-button large" [ngSwitch]="episode.playing">
+            <md-icon *ngSwitchCase="false">
+                play_arrow
+            </md-icon>
+            <md-icon *ngSwitchCase="true">
+                pause
+            </md-icon>
+        </button>
+        <button md-icon-button (click)="skipNext()" class="seeker-button">
+            <md-icon>
+                skip_next
+            </md-icon>
+        </button>
+        <button md-icon-button (click)="star()" class="seeker-button">
+            <md-icon>
+                star_border
+            </md-icon>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,164 @@
+@import 'variables';
+@import 'default-theme';
+
+/* :host /deep/ lets shadowdom style child elements */
+html {
+    md-list-actions {
+        display: flex;
+        margin-top: 8px;
+    }
+    md-toolbar,
+    [md-raised-button],
+    [md-fab], 
+    [md-mini-fab] {
+        &.md-primary {
+            background-color: $td-primary;
+        }
+        &.md-accent {
+            background-color: $td-accent;
+        }
+        &.md-secondary {
+            background-color: $td-secondary;
+            color: white;
+        }
+    }
+    [md-fab], 
+    [md-mini-fab] {
+        background-color: #ffffff;
+        color: black;
+        &.md-warn {
+            background-color: $td-warn;
+            color: #ffffff;
+        }
+    }
+    .md-radio-checked .md-radio-inner-circle,
+    .md-checkbox-checked .md-checkbox-background {
+        background-color: $td-accent;
+    }
+    .md-radio-checked  {
+        .md-radio-outer-circle {
+            border-color: $td-accent;
+        }
+    }
+    [md-button],
+    [md-icon-button] {
+        &.md-primary {
+            color: $td-primary;
+        }
+        &.md-secondary {
+            color: $td-secondary;
+        }
+        &.md-accent {
+            color: $td-accent;
+        }
+    }
+    [md-button]:hover {
+        &.md-primary::after {
+            background-color: $td-primary-opacity;
+        }
+        &.md-secondary::after {
+            background-color: $td-secondary-opacity;
+        }
+        &.md-accent::after{
+            background-color: $td-accent-opacity;
+        }
+    }
+    md-icon[color='primary'] {
+        color: $td-primary;
+    }
+    md-icon[color='secondary'] {
+        color: $td-secondary;
+    }
+    md-icon[color='accent'] {
+        color: $td-accent;
+    }
+    md-icon[color='warn'] {
+        color: $td-warn;
+    }
+    .md-radio-focused,
+    .md-checkbox-focused {
+        .md-ink-ripple {
+            background-color: $td-accent-opacity;
+        }
+    }
+    .md-input-placeholder.md-focused {
+        color: $td-primary !important;
+    }
+    .md-progress-bar-fill::after,
+    .md-input-underline .md-input-ripple {
+        background-color: $td-primary !important;
+    }
+    .md-progress-bar-buffer {
+        background-color: $td-primary-opacity !important;
+    }
+    md-progress-bar[color='secondary'] {
+        .md-progress-bar-fill::after,
+        .md-input-underline .md-input-ripple {
+            background-color: $td-secondary !important;
+        }
+        .md-progress-bar-buffer {
+            background-color: $td-secondary-opacity !important;
+        }
+    }
+    md-progress-bar[color='accent'] {
+        .md-progress-bar-fill::after,
+        .md-input-underline .md-input-ripple {
+            background-color: $td-accent !important;
+        }
+        .md-progress-bar-buffer {
+            background-color: $td-accent-opacity !important;
+        }
+    }
+    md-progress-bar[color='warn'] {
+        .md-progress-bar-fill::after,
+        .md-input-underline .md-input-ripple {
+            background-color: $td-warn !important;
+        }
+        .md-progress-bar-buffer {
+            background-color: $td-warn-opacity !important;
+        }
+    }
+    md-progress-circle,
+    md-spinner {
+        path {
+            stroke: $td-primary;
+        }
+        &[color='accent'] {
+            path {
+                stroke: $td-accent;
+            }
+        }
+        &[color='warn'] {
+            path {
+                stroke: $td-warn;
+            }
+        }
+    }
+    md-ink-bar {
+        background-color: $td-primary !important;
+    }
+    .md-tab-label:focus {
+        background-color: $td-primary-opacity !important;
+    }
+    md-slide-toggle {
+        &.md-checked {
+            .md-slide-toggle-thumb {
+                background-color: $td-accent;
+            }
+            .md-slide-toggle-bar {
+                background-color: $td-accent-opacity;
+            }
+        }
+        &.md-slide-toggle-focused {
+            .md-ink-ripple {
+                background-color: $td-accent-opacity;
+            }
+        }
+    }
+    md-slider {
+        .md-slider-track-fill, .md-slider-thumb::after {
+            background-color: $td-accent;
+            border-color: $td-accent;
+        }
+    }
+}

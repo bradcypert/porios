@@ -1,0 +1,104 @@
+@import '../../styles/variables'; 
+@import '../../styles/default-theme'; 
+ 
+:host /deep/ { 
+    .layout-nav { 
+        > md-toolbar { 
+            &:first-of-type { 
+                background: $td-primary; 
+                padding: 10px 0; 
+                min-height: 83px;
+                &.md-whiteframe-z1 { 
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); 
+                    z-index: 1; 
+                } 
+                .md-toolbar-layout {
+                    md-toolbar-row { 
+                        button[md-icon-button] { 
+                            display: none; 
+                            md-icon { 
+                                color: $md-default-dark; 
+                            } 
+                        } 
+                        md-icon { 
+                            max-width: 257px; 
+                            flex: 1; 
+                            background-size: contain !important; 
+                            background-position: center !important; 
+                            height: 100%; 
+                            background-repeat: no-repeat !important; 
+                        } 
+                        nav-content { 
+                            flex: 1; 
+                            display: flex; 
+                            .userloggedinfo { 
+                                color: $md-default-dark; 
+                                margin-left: auto; 
+                                max-height: 64px; 
+                                display: flex; 
+                                flex-flow: row nowrap; 
+                                align-items: center; 
+                                padding-right: 25px; 
+                                img { 
+                                    height: 64px; 
+                                    margin-right: 10px; 
+                                    background: $md-default-dark; 
+                                    border-radius: 50%; 
+                                } 
+                                .userinfo { 
+                                    .userrole { 
+                                        font-size: 12px; 
+                                        padding-top: 2px; 
+                                        padding-bottom: 2px; 
+                                    } 
+                                } 
+                            } 
+                        } 
+                    } 
+                }
+            } 
+            + md-toolbar { 
+                background-color: $td-primary-light; 
+                color: $md-default-dark; 
+                min-height: 50px; 
+                md-toolbar-row { 
+                    height: 50px; 
+                    button { 
+                        .md-button-wrapper { 
+                            display: flex; 
+                            flex-flow: row nowrap; 
+                            align-items: center; 
+                            md-icon { 
+                                margin-right: 8px; 
+                            } 
+                        } 
+                    } 
+                } 
+            } 
+        } 
+        .content {
+            overflow: auto;
+        }
+    } 
+} 
+ 
+@media (max-width: 599px) { 
+    :host /deep/ { 
+        .layout-nav { 
+            > md-toolbar { 
+                &:first-of-type { 
+                    .md-toolbar-layout {
+                        md-toolbar-row { 
+                            button[md-icon-button] { 
+                                display: block; 
+                            } 
+                        } 
+                    }
+                } 
+                + md-toolbar { 
+                    display: none; 
+                } 
+            } 
+        } 
+    } 
+}

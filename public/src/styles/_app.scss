@@ -1,0 +1,28 @@
+@import 'theme';
+
+.clickable {
+    cursor: pointer;
+}
+
+span.spacer {
+    width: 8px;
+}
+
+.main-content,
+.main-content md-sidenav-container {
+    height: calc(100% - 64px);
+    max-height: calc(100% - 64px);
+    overflow-y: auto;
+    background: transparent;
+    md-sidenav {
+        width: 240px;
+    }
+}
+
+.date {
+    font-size: 10px;
+    line-height: 1.4;
+    .month {
+        color: mat-color($accent);
+    }
+}

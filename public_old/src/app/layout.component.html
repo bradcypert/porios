@@ -1,0 +1,14 @@
+<td-layout #layout title="Porios">
+    <md-nav-list menu-items>
+        <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
+            <md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
+    </md-nav-list>
+    <td-layout-nav title="Porios">
+        <div toolbar-content layout="row" layout-align="center center" flex>
+            <span flex></span>
+            <a md-icon-button md-tooltip="Home"><md-icon>flash_on</md-icon></a>
+            <a md-icon-button md-tooltip="Home"><md-icon>flash_on</md-icon></a>
+        </div>
+        <router-outlet></router-outlet>
+    </td-layout-nav>
+</td-layout>

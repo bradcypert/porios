@@ -1,0 +1,228 @@
+@import 'variables';
+@import 'default-theme';
+
+// Overall app layout height
+md-sidenav-layout > md-content {
+  height: 100%;
+  overflow: hidden;
+}
+
+md-content {
+
+  display: block;
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &[md-scroll-y] {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  &[md-scroll-x] {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  &[md-scroll-xy] {
+  }
+
+  // For iOS allow disabling of momentum scrolling
+  // @see issue #2640.
+
+  &.autoScroll {
+    -webkit-overflow-scrolling: auto;
+  }
+
+}
+
+// Theme
+
+md-divider {
+    &.md-divider-space {
+        margin: 16px 0;
+    }
+}
+
+md-content {
+  color: md-color($md-foreground, text);
+  background-color: md-color($md-background, 200);
+}
+
+.maincontent {
+    display: flex;
+    flex-flow: row;
+}
+
+.maincontent .focus {
+    flex: 5;
+}
+
+.maincontent .aside {
+    flex: 2;
+    margin-left: 20px;
+}
+
+h4 input, h4 select {
+	background-color: $td-primary;
+	border: 1px solid $md-default-dark;
+	padding: 0;
+}
+
+.pageheader {
+    padding: 20px;
+    border-bottom: 1px solid $md-default-dark;
+    position: relative;
+    min-height: 68px;
+    background: $md-default;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.pageicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    padding: 10px;
+    color: $td-primary;
+    border: 3px solid $td-primary;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.pagetitle {
+    margin-left: 15px;
+    padding-top: 5px;
+}
+
+.pagetitle h5 {
+    text-transform: uppercase;
+    font-size: 11px;
+    color: $md-gray;
+    margin: 0;
+}
+
+.pagetitle h1 {
+    font-size: 32px;
+    margin-left: -2px;
+    color: $td-primary;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.pageactions {
+    margin-left: auto;
+}
+
+.dropdown-menu li a {
+    cursor: pointer;
+}
+
+.chart {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.subtitle {
+    text-transform: uppercase;
+    font-size: 11px;
+    color: $md-gray;
+    margin-bottom: 5px;
+}
+
+.actions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    clear: both;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.actions li {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    position: relative;
+}
+
+.actions li a {
+    display: block;
+    width: 90px;
+    height: auto;
+    background: $td-secondary;
+    color: $md-default-dark;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.25s ease-in-out;
+}
+.actions li a div.actionableCount {
+    background-color: $td-warn;;
+	border: 1px solid $md-default;
+	border-radius: 20px;
+	color: $md-default;
+	width: 23px;
+	padding: 4px;
+	float: right;
+	margin-top: -12px;
+	margin-right: -4px;
+	text-align: center;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.actions li a:hover {
+    opacity: 0.8;
+}
+
+.actions li .action-icon {
+    display: block;
+    width: 24px;
+    min-height: 49px;
+    padding: 15px 0 10px 0;
+    margin: 0 auto;
+    font-size: 24px;
+    text-align: center;
+}
+
+.actions li .action-label {
+    display: block;
+    padding: 0 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 5px;
+	height: 25px;
+}
+
+.widgettitle {
+    background: $td-primary;
+    color: $md-default-dark;
+    padding: 12px 15px;
+    font-size: 14px;
+    margin: 0;
+    margin-top: 20px;
+}
+
+.widgetcontent {
+    color: $md-gray;
+    padding: 0;
+    background: $md-default-dark;
+    border: 2px solid $td-primary;
+    border-top: 0;
+    margin-bottom: 20px;
+}
+
+.td-input-title {
+    padding-top: 8px;
+    margin-bottom: 8px;
+}
+
+.spacer {
+    width: 8px;
+}
+
+td-step-actions {
+    padding: 3px;
+}

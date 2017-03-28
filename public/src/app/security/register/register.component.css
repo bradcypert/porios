@@ -1,0 +1,18 @@
+.register-container {
+    width: 400px;
+    background: white;
+    padding: 16px 32px;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+}
+
+.button {
+    margin: 8px 0;
+}
+
+.spacing {
+    height: 32px;
+}

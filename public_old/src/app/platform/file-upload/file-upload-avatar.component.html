@@ -1,0 +1,40 @@
+<div>
+  <div *ngIf="!files">
+    <button md-raised-button
+            color="#4078ad"
+			(ngModelChange)="uploadPressed()"
+            [multiple]="multiple"
+            [disabled]="disabled"
+            (keyup.enter)="fileBrowse.click()"
+            (click)="fileBrowse.click()"
+            (fileDrop)="files = $event; uploadPressed()"
+            tdFileDrop>
+      <label>
+        <md-icon>camera</md-icon> Drag a file here
+      </label>
+    </button>
+    <input #fileBrowse
+           class="md-file-upload-input"
+           type="file"
+		   (ngModelChange)="uploadPressed()"
+           [attr.accept]="accept"
+           [(ngModel)]="files"
+           [multiple]="multiple"
+           [disabled]="disabled"
+           tdFileSelect>
+  </div>
+  <div *ngIf="files" layout="row">
+    <button #fileUpload
+            md-raised-button
+            [color]="defaultColor"
+            (keyup.delete)="cancel()"
+            (keyup.backspace)="cancel()"
+            (keyup.escape)="cancel()"
+            (click)="cancel()">
+      <label>
+        <md-icon>file_upload</md-icon>
+        {{ files.name }} {{ files.length }} <span *ngIf="files.length">files selected</span>
+      </label>
+    </button>
+  </div>
+</div>

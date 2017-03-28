@@ -1,0 +1,28 @@
+@import 'theme';
+
+explore-detail {
+    .mat-list {
+        .mat-list-item {
+            .mat-list-item-content {
+                padding-left: 32px;
+                cursor: pointer;
+                .pointer {
+                    content: '';
+                    height: 12px;
+                    width: 12px;
+                    position: absolute;
+                    left: 10px;
+                    border-radius: 50%;
+                    background: mat-color($accent);
+                    opacity: 0;
+                    transition: opacity 0.25s ease-in-out;
+                }
+                &:hover {
+                    .pointer {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}

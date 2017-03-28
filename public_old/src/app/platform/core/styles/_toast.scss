@@ -1,0 +1,60 @@
+@import "./variables";
+@import "./shadows";
+@import "./default-theme";
+@import "./theme";
+@import "./typography";
+
+@keyframes zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.td-toast {
+  min-width: 300px;
+  min-height: 48px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  opacity: 0;
+  transition: $swift-ease-out;
+  transform: scale(0.2);
+
+  .toastMessage {
+    animation-name: zoom;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;    
+
+    min-width: 300px;
+    min-height: 48px;
+
+    padding: 0 24px;
+    margin-top: 8px;
+
+    background-color: $md-gray-dark;
+    box-shadow: $whiteframe-shadow-13dp;
+
+    div {
+      color: $md-default;
+      padding: 14px 0;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.md-active {
+    opacity: 1;
+    transform: perspective(1px) scale(1.0);
+  }
+}

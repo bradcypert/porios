@@ -1,0 +1,15 @@
+<td-dialog>
+	<td-dialog-title *ngIf="title" [title]="title"></td-dialog-title>
+	<td-dialog-content>
+		{{message}}
+		<form #form="ngForm" layout="row" flex>
+			<md-input [(ngModel)]="value" name="value" required flex></md-input>
+		</form>
+	</td-dialog-content>
+	<td-dialog-actions>
+		<button md-button (click)="cancel()">{{cancelButton}}</button>
+		<button md-button color="primary" [disabled]="!form.valid" (click)="accept()">
+			<span>{{acceptButton}}</span>
+		</button>
+	</td-dialog-actions>
+</td-dialog>

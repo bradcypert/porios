@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+
+body {
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+porios {
+    background: url('../assets/img/top_bkg.jpg');
+    background-size: 100% 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}

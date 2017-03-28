@@ -1,0 +1,56 @@
+account {
+  .account {
+    padding: 8px;
+    .bio {
+      color: white;
+      .avatar {
+        width: 200px;
+        height: 230px;
+        background: #343D46;
+        border-radius: 6px;  
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          height: 80%;
+        }
+      }
+      h3 {
+        font-weight: 100;
+      }
+    }
+    .details {
+      color: white;
+      > md-tab-group {
+        > .mat-tab-header {
+          background: #343D46;
+          border: none;
+          .mat-tab-label {
+            opacity: 1;
+          }
+        }
+        > .mat-tab-body-wrapper {
+          padding: 8px 0;
+          h4 {
+            font-weight: 100;
+          }
+          .detail-container {
+            background: #343D46;
+            padding: 8px;
+            .subtitle {
+              font-size: 12px;
+              font-weight: 300;
+            }
+          }
+        }
+      }
+    }
+  }
+  .section {
+    font-weight: 100;
+    font-size: 16px;
+    margin-top: .75rem;
+    margin-bottom: .5rem;
+  }
+}

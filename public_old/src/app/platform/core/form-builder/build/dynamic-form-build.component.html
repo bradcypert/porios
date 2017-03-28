@@ -1,0 +1,11 @@
+<div class="td-dynamic-form-container">
+  <div class="td-dynamic-form-add-badge">
+    <md-icon (click)="addNewQuestion()">add</md-icon>
+  </div>
+  <td-expansion-panel *ngFor="let question of questions" [label]="question.name" 
+    [icon]="'remove_circle'" (iconCallback)="removeQuestion(question)" class="form-row" [dragula]="'dynamic-form-builder'">
+    <div class="md-padding">
+      <dfb-question [question]="question"></dfb-question>
+    </div>
+  </td-expansion-panel>
+</div>
