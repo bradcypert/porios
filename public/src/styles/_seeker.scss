@@ -1,0 +1,37 @@
+@import 'theme';
+
+seeker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 69px;
+    background-color: rgba(mat-color($primary), 0.6);
+    .controls {
+        height: 64px;
+        .seeker-button {
+            color: white;
+            margin: 0 8px;
+            &.large {
+                height: 48px;
+                width: 48px;
+                line-height: 48px;
+                .mat-button-wrapper {
+                    line-height: 46px;
+                    md-icon {
+                        height: 48px;
+                        width: 48px;
+                        line-height: 48px;
+                        font-size: 48px;
+                    }
+                }
+            }
+            &:first-of-type {
+                margin-left: 0;
+            }
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+}
