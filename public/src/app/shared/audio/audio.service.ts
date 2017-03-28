@@ -17,17 +17,31 @@ export interface IAudioEvent {
     episode: PodcastEpisode;
 }
 
+export interface ITimeEvent {
+    timeStamp: number;
+}
+
 @Injectable()
 export class AudioService {
 
     public audioChange: EventEmitter<IAudioEvent> = new EventEmitter();
+    public timeUpdate: EventEmitter<ITimeEvent> = new EventEmitter();
 
     get src() {
         return this._audioObject.src;
     }
 
     private _episode: PodcastEpisode = new PodcastEpisode();
-    private _audioObject: HTMLAudioElement = new Audio();
+    private _audioObject: HTMLAudioElement;
+
+    constructor() {
+        this._audioObject = new Audio();
+        this._audioObject.ontimeupdate = (timeEvent: Event) => {
+            this.timeUpdate.emit({
+                timeStamp: this._audioObject.currentTime
+            });
+        };
+    }
 
     public toggle() {
         if (this._audioObject.paused) {
@@ -83,6 +97,18 @@ export class AudioService {
     public setVolume(level: number) {
         if (this._audioObject.volume !== level) {
             this._audioObject.volume = level;
+        }
+    }
+
+    public seekTo(time: number) {
+        let duration = this._audioObject.duration;
+
+        if (time > 0 || time <= duration) {
+            this.pause();
+            this._audioObject.currentTime = time;
+            this.play();
+        } else {
+            console.error('Invalid Time');
         }
     }
 

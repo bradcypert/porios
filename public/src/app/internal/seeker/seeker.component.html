@@ -5,37 +5,51 @@
         [value]="progress">
     </md-progress-bar>
     <div class="controls" layout="row" layout-align="start center" layout-fill>
-        <span flex></span>
-        <button md-icon-button (click)="replay()" class="seeker-button">
-            <md-icon>
-                replay
-            </md-icon>
-        </button>
-        <button md-icon-button (click)="skipPrevious()" class="seeker-button">
-            <md-icon>
-                skip_previous
-            </md-icon>
-        </button>
-        <button md-icon-button (click)="play()" class="seeker-button large" [ngSwitch]="episode.playing">
-            <md-icon *ngSwitchCase="false">
-                play_arrow
-            </md-icon>
-            <md-icon *ngSwitchCase="true">
-                pause
-            </md-icon>
-        </button>
-        <button md-icon-button (click)="skipNext()" class="seeker-button">
-            <md-icon>
-                skip_next
-            </md-icon>
-        </button>
-        <button md-icon-button (click)="star()" class="seeker-button">
-            <md-icon>
-                star_border
-            </md-icon>
-        </button>
-        <span flex></span>
-        <volume (change)="setVolume($event)"></volume>
-        <span class="spacer"></span>
+        <div flex="33" class="seeker-container">
+            <span class="spacer"></span>
+            <div layout="row" layout-align="center center">
+                <md-slider
+                    flex
+                    (change)="seek($event)"
+                    [value]="progress">
+                </md-slider>
+            </div>
+            <span class="spacer"></span>
+        </div>
+        <div flex="33" layout="row" layout-align="center center">
+            <button md-icon-button (click)="replay()" class="seeker-button">
+                <md-icon>
+                    replay
+                </md-icon>
+            </button>
+            <button md-icon-button (click)="skipPrevious()" class="seeker-button">
+                <md-icon>
+                    skip_previous
+                </md-icon>
+            </button>
+            <button md-icon-button (click)="play()" class="seeker-button large" [ngSwitch]="episode.playing">
+                <md-icon *ngSwitchCase="false">
+                    play_arrow
+                </md-icon>
+                <md-icon *ngSwitchCase="true">
+                    pause
+                </md-icon>
+            </button>
+            <button md-icon-button (click)="skipNext()" class="seeker-button">
+                <md-icon>
+                    skip_next
+                </md-icon>
+            </button>
+            <button md-icon-button (click)="star()" class="seeker-button">
+                <md-icon>
+                    star_border
+                </md-icon>
+            </button>
+        </div>
+        <div flex="33" layout="row" layout-align="end center">
+            <span class="spacer"></span>
+            <volume (change)="setVolume($event)"></volume>
+            <span class="spacer"></span>
+        </div>
     </div>
 </div>
