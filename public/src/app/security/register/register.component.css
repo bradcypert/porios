@@ -16,3 +16,12 @@
 .spacing {
     height: 32px;
 }
+
+.return-link {
+    color: white;
+    padding: 8px 0;
+    text-align: right;
+    font-weight: 300;
+    font-size: 12px;
+    cursor: pointer;
+}

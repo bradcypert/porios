@@ -1,6 +1,7 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  HostBinding
 } from '@angular/core';
 import {
   FormBuilder,
@@ -12,13 +13,19 @@ import {
   User,
   UserService
 } from '../../shared';
+import { slideInLeftAnimation } from '../../app.animations';
 
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
-  styleUrls: [ './register.component.css' ]
+  styleUrls: [ './register.component.css' ],
+  animations: [ slideInLeftAnimation ]
 })
 export class RegisterComponent implements OnInit {
+
+  @HostBinding('@routeAnimation') public routeAnimation: boolean = true;
+  @HostBinding('class.route-animation') public classAnimation: boolean = true;
+
   public user: User = new User();
   public registerForm: FormGroup;
 

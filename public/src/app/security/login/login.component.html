@@ -1,18 +1,29 @@
 <div layout-fill layout="column" layout-align="center center">
-  <form class="login-container" layout="column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div layout="row" layout-align="center center">
-      <img class="logo" src="assets/img/angular-logo.png" />
+  <div layout="column">
+    <form class="login-container" layout="column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div layout="row" layout-align="center center">
+        <img class="logo" src="assets/img/angular-logo.png" />
+      </div>
+      <span class="spacing"></span>
+      <md-input-container>
+        <input mdInput placeholder="Email" type="text" formControlName="email" />
+      </md-input-container>
+      <md-input-container>
+        <input mdInput placeholder="Password" type="password" formControlName="password" />
+      </md-input-container>
+      <span class="spacing"></span>
+      <button class="button" md-raised-button color="primary" type="submit">
+        Login
+      </button>
+      <button class="button" md-raised-button type="button" [routerLink]="['/Register']">
+        Register
+      </button>
+    </form>
+    <div layout="row">
+      <span flex></span>
+      <div class="return-link" [routerLink]="['/Welcome']">
+        Return Home
+      </div>
     </div>
-    <span class="spacing"></span>
-    <md-input-container>
-      <input mdInput placeholder="Email" type="text" formControlName="email" />
-    </md-input-container>
-    <md-input-container>
-      <input mdInput placeholder="Password" type="password" formControlName="password" />
-    </md-input-container>
-    <span class="spacing"></span>
-    <button class="button" md-raised-button color="primary" type="submit">
-      Login
-    </button>
-  </form>
+  </div>
 </div>
