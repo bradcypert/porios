@@ -1,0 +1,20 @@
+@import 'theme';
+
+// Sidenav
+.sidenav {
+    background: #343D46;
+    .mat-list {
+        padding-top: 0;
+        .mat-list-item {
+            cursor: pointer;
+            color: whitesmoke;
+            border-left: 6px solid transparent;
+            &.active {
+                border-left-color: mat-color($primary);
+            }
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

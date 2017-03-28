@@ -1,7 +1,22 @@
 <div layout-fill layout="column">
-  <in-navbar></in-navbar>
+  <in-navbar class="mat-elevation-z1" style="z-index: 1;"></in-navbar>
   <div class="main-content">
-    <router-outlet></router-outlet>
+    <md-sidenav-container>
+      <md-sidenav class="sidenav" mode="side" opened="true">
+        <md-list>
+          <md-list-item layout="row" layout-align="start center" [routerLink]="['/Explore']" [routerLinkActive]="['active']">
+            <md-icon>
+              explore
+            </md-icon>
+            <span class="spacer"></span>
+            <h4>
+              Explore
+            </h4>
+          </md-list-item>
+        </md-list>
+      </md-sidenav>
+      <router-outlet></router-outlet>
+    </md-sidenav-container>
   </div>
   <seeker></seeker>
 </div>
