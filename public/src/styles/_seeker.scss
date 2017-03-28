@@ -9,6 +9,9 @@ seeker {
     background-color: rgba(mat-color($primary), 0.6);
     .controls {
         height: 64px;
+        .seeker-container {
+            padding: 0 16px;
+        }
         .seeker-button {
             color: white;
             margin: 0 8px;

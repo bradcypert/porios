@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
+import { MdSliderChange } from '@angular/material';
+
 import { Subscription } from 'rxjs';
 
-import { IAudioEvent, AudioService } from '../../shared/audio';
+import { IAudioEvent, ITimeEvent, AudioService } from '../../shared/audio';
 import { PodcastEpisode } from '../../shared/podcast';
 
 @Component({
@@ -22,9 +24,9 @@ export class SeekerComponent {
         this._subscriptions.push(_audioService.audioChange.subscribe((event: IAudioEvent) => {
             this.episode = event.episode;
             this._audio = event.audio;
-            this._audio.ontimeupdate = (timeEvent: Event) => {
-                this._setProgress(timeEvent);
-            };
+        }));
+        this._subscriptions.push(_audioService.timeUpdate.subscribe((event: ITimeEvent) => {
+            this._setProgress(event);
         }));
     }
 
@@ -48,6 +50,21 @@ export class SeekerComponent {
         console.log('Star');
     }
 
+    public seek(event: MdSliderChange) {
+        let percent = event.value / 100;
+        let duration = this._audio.duration;
+        
+        if (percent > 1) {
+            percent = 1;
+        } else if (percent < 0) {
+            percent = 0;
+        }
+
+        let time = duration * percent;
+
+        this._audioService.seekTo(time);
+    }
+
     public setVolume(event: number) {
         let volume = event / 100;
 
@@ -60,10 +77,10 @@ export class SeekerComponent {
         this._audioService.setVolume(volume);
     }
 
-    private _setProgress(event: Event) {
-        let duration = this._audio.duration * 1000;
+    private _setProgress(event: ITimeEvent) {
+        let duration = this._audio.duration;
         let timeStamp = event.timeStamp;
-        this.progress = timeStamp / duration;
+        this.progress = (timeStamp / duration) * 100;
     }
 
 }
