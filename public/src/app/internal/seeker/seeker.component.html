@@ -4,7 +4,8 @@
         [mode]="determinate"
         [value]="progress">
     </md-progress-bar>
-    <div class="controls" layout="row" layout-align="center center" layout-fill>
+    <div class="controls" layout="row" layout-align="start center" layout-fill>
+        <span flex></span>
         <button md-icon-button (click)="replay()" class="seeker-button">
             <md-icon>
                 replay
@@ -33,5 +34,8 @@
                 star_border
             </md-icon>
         </button>
+        <span flex></span>
+        <volume (change)="setVolume($event)"></volume>
+        <span class="spacer"></span>
     </div>
 </div>

@@ -80,4 +80,10 @@ export class AudioService {
         }
     }
 
+    public setVolume(level: number) {
+        if (this._audioObject.volume !== level) {
+            this._audioObject.volume = level;
+        }
+    }
+
 }

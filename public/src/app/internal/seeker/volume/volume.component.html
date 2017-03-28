@@ -1,0 +1,13 @@
+<div class="volume-container" (mouseenter)="showVolume()" (mouseleave)="hideVolume()" >
+  <div class="slider-container" [@fadeInOut]="display">
+    <md-slider vertical thumbLabel tickInterval="1" [value]="volume" (change)="setVolume($event)"></md-slider>
+  </div>
+  <button md-icon-button type="button" class="large" (click)="toggleMute()" [ngSwitch]="isMuted">
+    <md-icon *ngSwitchCase="false">
+      volume_up
+    </md-icon>
+    <md-icon *ngSwitchCase="true">
+      volume_off
+    </md-icon>
+  </button>
+</div>
