@@ -1,0 +1,51 @@
+@import '~@angular/material/core/theming/all-theme';
+
+@include md-core();
+
+@import 'palette';
+
+// Person creating a theme writes variables like this:
+// $md-is-dark-theme: false !default;
+
+// $md-primary: md-palette($md-orange, 700, 100, 800, $md-contrast-palettes) !default;
+// $md-accent: md-palette($md-light-blue, 500, 300, 700, $md-contrast-palettes) !default;
+// $md-background: md-palette($md-grey, 500, 0, 600, $md-contrast-palettes) !default;
+// $md-warn: md-palette($md-red, 500, 100, 700, $md-contrast-palettes) !default;
+// $md-foreground: if($md-is-dark-theme, $md-dark-theme-foreground, $md-light-theme-foreground) !default;
+
+$md-is-dark-theme: false !default;
+
+$md-primary: md-palette($md-blue, 700, 100, 800) !default;
+$md-secondary: md-palette($md-green, 700, 100, 800) !default;
+$md-accent: md-palette($md-green, 500, 300, 700) !default;
+$md-background: md-palette($md-grey, 500, 0, 600) !default;
+$md-warn: md-palette($md-red, 500, 100, 700) !default;
+$md-foreground: if($md-is-dark-theme, $md-dark-theme-foreground, $md-light-theme-foreground) !default;
+
+$td-primary: #396B9A;
+$td-primary-light: lighten($td-primary, 5);
+$td-primary-opacity: rgba($td-primary, 0.25);
+$td-secondary: #6A9C5F;
+$td-secondary-light: lighten($td-secondary, 5);
+$td-secondary-opacity: rgba($td-secondary, 0.25);
+$td-accent: #E2872E;
+$td-accent-light: lighten($td-accent, 5);
+$td-accent-opacity: rgba($td-accent, 0.25);
+$td-warn: #E84747;
+$td-warn-light: lighten($td-warn, 5);
+$td-warn-opacity: rgba($td-warn, 0.25);
+
+$md-default: #FFFFFF;
+$md-default-dark: #ECF0F1;
+
+$md-gray: #959D9F;
+$md-gray-light: #e2e0e0;
+$md-gray-dark: #232323;
+
+// Palette Definition
+$primary: md-palette($td-blue, 500, 400, 600);
+$accent: md-palette($td-orange, A200, A100, A400);
+$warn: md-palette($td-red);
+$theme: md-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);

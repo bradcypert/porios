@@ -1,0 +1,63 @@
+<div>
+    <div *ngIf="!file" layout="row">
+        <button class="upload-input"
+            flex
+            md-raised-button
+            [disabled]="disabled"
+            (keyup.enter)="fileBrowse.click()"
+            (click)="fileBrowse.click()"
+            (fileDrop)="file = $event"
+            tdFileDrop> 
+            <label>   
+                <md-icon>attachment</md-icon>Choose a File...
+            </label>
+        </button>
+        <span class="spacer"></span>
+        <button #fileUpload 
+            md-raised-button
+            [color]="defaultColor">
+            <label>   
+                <md-icon>file_upload</md-icon>
+                Upload File
+            </label>
+        </button>
+        <input #fileBrowse 
+            class="md-file-upload-input" 
+            type="file"
+            [attr.accept]="accept"                
+            [(ngModel)]="file"
+            [multiple]="false" 
+            [disabled]="disabled"
+            tdFileSelect>
+    </div>
+    <div *ngIf="file" layout="row">
+        <button class="upload-input"
+            flex
+            md-raised-button
+            [disabled]="disabled"
+            (keyup.delete)="cancel()"
+            (keyup.backspace)="cancel()"
+            (keyup.escape)="cancel()"
+            (fileDrop)="file = $event"
+            tdFileDrop> 
+            <label>   
+                {{ file.name }}
+            </label>
+        </button>
+        <button md-icon-button class="td-file-cancel"
+            [color]="cancelColor"            
+            (click)="cancel()">
+            <md-icon>cancel</md-icon>
+        </button>
+        <span class="spacer"></span>
+        <button #fileUpload 
+            md-raised-button
+            [color]="activeColor"
+            (click)="uploadPressed()">
+            <label>   
+                <md-icon>file_upload</md-icon>
+                Upload File
+            </label>
+        </button>
+    </div>
+</div>

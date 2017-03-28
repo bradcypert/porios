@@ -1,0 +1,34 @@
+<div layout="row" layout-fill>
+    <div class="loginField" flex>
+        <div class="content" flex>
+            <h1>Register an Account.</h1>
+            <br>
+            <p>
+                Porios is an application designed to connect you with your favorite podcasts.
+            </p>
+            <br>
+            <br>
+            <form #loginForm="ngForm" class="form" layout="column">
+                <div layout="row">
+                    <md-input placeholder="First Name" name="first_name" ngModel required></md-input>
+                    <span flex></span>
+                    <md-input placeholder="Last Name" name="last_name" ngModel required></md-input>
+                </div>
+                <div layout="row">
+                    <md-input placeholder="Email" name="email" ngModel required></md-input>
+                    <span flex></span>
+                    <md-input placeholder="Password" name="password" type="password" ngModel required></md-input>
+                </div>
+            </form>
+            <div class="formActions" layout="row">
+                <span flex></span>
+                <button md-button [routerLink]="['/Login/']">Already have an account?</button>
+                <span class="spacer"></span>
+                <button [disabled]="loginForm.invalid" md-raised-button color="primary" (click)="onSubmitEvent(loginForm)">Sign In</button>
+            </div>
+        </div>
+    </div>
+    <div class="loginJumbo" flex>
+        <md-icon>mic</md-icon>
+    </div>
+</div>

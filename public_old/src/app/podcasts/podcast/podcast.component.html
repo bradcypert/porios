@@ -1,0 +1,39 @@
+<div *ngIf="podcast && meta && episodes">
+    <md-card-title> 
+        <md-list>
+            <md-list-item>
+                <img md-list-avatar [src]="meta.image.url" [alt]="meta.title">
+                <h3 md-line> {{meta.title}} </h3>
+            </md-list-item>
+        </md-list>
+    </md-card-title>
+    <md-card-subtitle> {{meta.description}} </md-card-subtitle>
+    <md-divider></md-divider>
+    <md-card-content>
+        <div layout-gt-md="row">
+            <div flex-gt-md="50">
+                <md-list>
+                    <template let-episode let-last="last" ngFor [ngForOf]="episodes">
+                        <md-list-item>
+                            <md-icon md-list-avatar> 
+                                <i class="material-icons"> 
+                                    {{ isPlaying(episode) ? 'pause_circle_outline' : 'play_circle_outline' }}
+                                </i> 
+                            </md-icon>
+                            <h3 md-line (click)="toggle(episode)"> {{episode.title}} </h3>
+                            <p md-line>
+                                <span> {{episode.pubDate | date:'medium'}} </span>
+                            </p>
+                        </md-list-item>
+                    </template>
+                </md-list>
+            </div>
+        </div>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions layout="row">
+        <a md-button [routerLink]="'/layouts'">Back to Overview</a>
+        <span flex></span>
+        <a md-button color="accent" [routerLink]="'/layouts/card-over'">Card Over</a>
+    </md-card-actions>
+</div>

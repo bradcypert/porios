@@ -1,0 +1,11 @@
+<div>
+  <!--<label [attr.for]="question.id">{{question.name}}</label>-->
+  <div>
+    <td-input [(ngModel)]="question.name" [title]="'Field Name'"></td-input>
+    <td-select [title]="'Field Type'" [(ngModel)]="question.fieldType">
+      <td-select-item [value]="'text'" [text]="'Text'"></td-select-item>
+      <td-select-item [value]="'dropdown'" [text]="'Dropdown'"></td-select-item>
+      <td-select-item [value]="'textarea'" [text]="'Text Area'"></td-select-item>
+    </td-select>
+  </div> 
+</div>

@@ -1,0 +1,7 @@
+@import '../styles/variables';
+@import '../styles/shadows';
+
+/deep/ md-toolbar {
+  box-shadow: $md-shadow-bottom-z-1;
+  z-index: 1;
+}

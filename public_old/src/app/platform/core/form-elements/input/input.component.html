@@ -1,0 +1,8 @@
+<div class="td-input">
+    <div class="td-input-title" *ngIf="title">
+        {{title}}
+    </div>
+    <div>
+        <input [(ngModel)]="value" [placeholder]="placeholder" [required]="required" [pattern]="pattern" [type]="type" [disabled]="disabled">
+    </div>
+</div>

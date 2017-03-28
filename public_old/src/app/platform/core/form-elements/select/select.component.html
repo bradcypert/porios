@@ -1,0 +1,11 @@
+<div class="td-select-title" *ngIf="title">
+    {{title}}
+</div>
+
+<button md-button [md-menu-trigger-for]="menu" class="td-select">
+    {{ getValueText(value) ? getValueText(value) : title }} <md-icon>more_vert</md-icon>
+</button>
+
+<md-menu #menu="mdMenu">
+    <ng-content></ng-content>
+</md-menu>

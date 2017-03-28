@@ -1,0 +1,208 @@
+@import '../core/styles/variables';
+@import '../core/styles/default-theme';
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+// The top section of the view; contains the tab labels
+.td-wizard-header {
+  position: relative;
+  display: block;
+    .td-wizard-scrolltab {
+      display: none;
+    }
+  &.td-wizard-header-scroll {
+    cursor: move;
+    .td-wizard-scrolltab {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 36px;
+      height: 35px;
+      vertical-align: middle;
+      display: inline-block;
+      z-index: 3;
+      button {
+        border: 0;
+        outline: 0;
+        font-family: 'Material Icons';
+        font-size: 24px;
+        line-height: 1;
+        display: block;
+        width: 35px;
+        height: 35px;
+        background: #FFF;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+      }
+      &.td-left {
+        padding-left: 1px;
+        left: 0;
+        button {
+
+        }
+      }
+      &.td-right {
+        padding-right: 1px;
+        right: 0;
+        button {
+
+        }
+      }
+    }
+  }
+  .td-wizard-scrollcontainer {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+}
+
+// Wraps each tab label 
+.td-wizard-label {
+  padding: 0 12px;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: currentColor;
+  min-width: 160px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  &:focus {
+    outline: none;
+    opacity: 1;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    top: 30px;
+    left: 50%;
+    width: 50%;
+    background: whitesmoke;
+    z-index: -1;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    top: 30px;
+    right: 50%;
+    width: 50%;
+    background: whitesmoke;
+    z-index: -1;
+  }
+  &:first-of-type {
+    &:before {
+      content: none;
+    }
+  }
+  &:last-of-type {
+    &:after {
+      content: none;
+    }
+  }
+}
+
+.td-wizard-disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+// The bottom section of the view; contains the tab bodies 
+.td-wizard-body-wrapper {
+  position: relative;
+  overflow: hidden;
+  flex-grow: 1;
+  display: flex;
+}
+
+// Wraps each tab body 
+.td-wizard-body {
+  display: none;
+  overflow: auto;
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-shrink: 1;
+  &.td-wizard-active {
+    display: block;
+  }
+}
+
+// The colored bar that underlines the active tab 
+td-wizard-progress {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  transition: 350ms ease-out;
+  background: limegreen;
+}
+
+.td-wizard-label-icon {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  color: #00AFF0;
+    > md-icon {
+      font-size: 40px;
+      background-color: #00AFF0;
+      border-radius: 50%;
+      padding: 10px;
+      box-sizing: content-box;
+      color: $md-default;
+      position: relative;
+      margin-bottom: 8px;
+      &:after {
+        font-family: 'Material Icons';
+        content: '\E86C';
+        position: absolute;
+        font-size: 18px;
+        top: -2px;
+        right: -3px; 
+        color: $td-primary;
+      }
+  }
+}
+
+.td-wizard-invalid {
+  .td-wizard-label-icon {
+    > md-icon {
+      background-color: md-color($td-red, 500);
+      &:after {
+        content: '\E002';
+        color: md-color($td-red, 600);
+      }
+    }
+  }
+}
+
+.td-wizard-complete {
+  .td-wizard-label-icon {
+    > md-icon {
+      background-color: md-color($td-green, 500);
+      &:after {
+        content: '\E86C';
+        color: md-color($td-green, 600);
+      }
+    }
+  }
+}
+
+.td-wizard-disabled {
+  .td-wizard-label-icon {
+    > md-icon {
+      background-color: $md-gray;
+      &:after {
+        content: '\E15C';
+        color: $md-gray-dark;
+      }
+    }
+  }
+}
