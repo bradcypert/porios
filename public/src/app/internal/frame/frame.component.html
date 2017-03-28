@@ -4,14 +4,10 @@
     <md-sidenav-container>
       <md-sidenav class="sidenav" mode="side" opened="true">
         <md-list>
-          <md-list-item layout="row" layout-align="start center" [routerLink]="['/Explore']" [routerLinkActive]="['active']">
-            <md-icon>
-              explore
-            </md-icon>
+          <md-list-item layout="row" layout-align="start center" *ngFor="let item of menuItems" [routerLink]="[item.url]" [routerLinkActive]="['active']">
+            <md-icon> {{ item.icon }} </md-icon>
             <span class="spacer"></span>
-            <h4>
-              Explore
-            </h4>
+            <h4> {{ item.title }} </h4>
           </md-list-item>
         </md-list>
       </md-sidenav>

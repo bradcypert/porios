@@ -1,14 +1,14 @@
 import { Component, Directive, Injectable, Type } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import * as Account from './account';
+import * as Security from './security';
 import * as External from './external';
 import * as Internal from './internal';
 import * as Shared from './shared';
 
 export const COMPONENTS: Array<Type<Component | Directive>> = [
-    Account.LoginComponent,
-    Account.RegisterComponent,
+    Security.LoginComponent,
+    Security.RegisterComponent,
     External.ExternalFrameComponent,
     External.ExternalNavbarComponent,
     External.WelcomeComponent,
@@ -17,6 +17,7 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
     Internal.ExploreComponent,
     Internal.ExploreDetailComponent,
     Internal.SeekerComponent,
+    Internal.AccountComponent,
 ];
 
 export const PROVIDERS: Array<Type<Injectable>> = [
@@ -36,12 +37,10 @@ export const ROUTES: Routes = [
                 data: Internal.ExploreDetailResolver
             } },
         ] },
+        { path: 'Account', component: Internal.AccountComponent },
     ] },
-    { path: 'Account', children: [
-        { path: '', redirectTo: 'Login', pathMatch: 'full' },
-        { path: 'Login', component: Account.LoginComponent },
-        { path: 'Register', component: Account.RegisterComponent },
-    ] },
+    { path: 'Login', component: Security.LoginComponent },
+    { path: 'Register', component: Security.RegisterComponent },
     { path: 'Welcome', component: External.ExternalFrameComponent, children: [
         { path: '', component: External.WelcomeComponent },
     ] },
