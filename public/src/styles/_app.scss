@@ -19,11 +19,19 @@ span.spacer {
     }
 }
 
+.page-content {
+    padding: 8px;
+    box-sizing: border-box;
+}
+
 .date {
     font-size: 10px;
     line-height: 1.4;
     .month {
         color: mat-color($accent);
+    }
+    .day {
+        color: white;
     }
 }
 
@@ -48,4 +56,30 @@ button[md-icon-button].large {
             font-size: 48px;
         }
     }
+}
+.tabs {
+  color: white;
+  > md-tab-group {
+    > .mat-tab-header {
+      background: #343D46;
+      border: none;
+      .mat-tab-label {
+        opacity: 1;
+      }
+    }
+    > .mat-tab-body-wrapper {
+      padding: 8px 0;
+      h4 {
+        font-weight: 100;
+      }
+      .detail-container {
+        background: #343D46;
+        padding: 8px;
+        .subtitle {
+          font-size: 12px;
+          font-weight: 300;
+        }
+      }
+    }
+  }
 }

@@ -20,32 +20,6 @@ account {
         font-weight: 100;
       }
     }
-    .details {
-      color: white;
-      > md-tab-group {
-        > .mat-tab-header {
-          background: #343D46;
-          border: none;
-          .mat-tab-label {
-            opacity: 1;
-          }
-        }
-        > .mat-tab-body-wrapper {
-          padding: 8px 0;
-          h4 {
-            font-weight: 100;
-          }
-          .detail-container {
-            background: #343D46;
-            padding: 8px;
-            .subtitle {
-              font-size: 12px;
-              font-weight: 300;
-            }
-          }
-        }
-      }
-    }
   }
   .section {
     font-weight: 100;

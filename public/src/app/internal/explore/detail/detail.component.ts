@@ -1,6 +1,7 @@
 import {
   Component,
-  Injectable
+  Injectable,
+  HostBinding
 } from '@angular/core';
 import {
   Router,
@@ -16,6 +17,7 @@ import {
   PodcastService
 } from '../../../shared/podcast';
 import { AudioService } from '../../../shared/audio';
+import { slideInLeftAnimation } from '../../../app.animations';
 
 @Injectable()
 export class ExploreDetailResolver implements Resolve<any> {
@@ -33,9 +35,13 @@ export class ExploreDetailResolver implements Resolve<any> {
 @Component({
   selector: 'explore-detail',
   templateUrl: './detail.component.html',
-  styleUrls: [ './detail.component.css' ]
+  styleUrls: [ './detail.component.css' ],
+  animations: [ slideInLeftAnimation ]
 })
 export class ExploreDetailComponent {
+
+  @HostBinding('@routeAnimation') public routeAnimation: boolean = true;
+  @HostBinding('class.route-animation') public classAnimation: boolean = true;
 
   /* tslint:disable */
   public podcast: Podcast = new Podcast();
