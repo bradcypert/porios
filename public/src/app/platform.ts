@@ -19,6 +19,8 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
     Internal.SeekerComponent,
     Internal.VolumeComponent,
     Internal.AccountComponent,
+    Shared.GroupArrayPipe,
+    Shared.SearchPipe,
 ];
 
 export const PROVIDERS: Array<Type<Injectable>> = [
