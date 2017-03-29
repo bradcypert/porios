@@ -23,6 +23,7 @@ export class ExploreComponent implements OnInit {
   @HostBinding('@routeAnimation') public routeAnimation: boolean = true;
   @HostBinding('class.route-animation') public classAnimation: boolean = true;
 
+  public search: string = '';
   public podcasts: Podcast[] = [];
 
   constructor( private _podcastService: PodcastService, private _router: Router ) {

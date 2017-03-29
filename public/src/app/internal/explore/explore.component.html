@@ -1,14 +1,85 @@
-<div class="podcast-grid" layout-wrap="wrap" layout="row" layout-align="space-between center">
-    <div class="podcast" *ngFor="let podcast of podcasts" (click)="goTo(podcast)">
-        <div layout="column" layout-fill layout-align="center center">
-            <div class="podcast-image">
-                <div class="image-container">
-                    <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg" />
-                </div>
-            </div>
-            <div class="podcast-name" layout="column" layout-align="center center">
-                {{ podcast.name }}
-            </div>
-        </div>
+<div layout="row" layout-align="start center">
+  <md-button-toggle-group #group="mdButtonToggleGroup" value="grid">
+    <md-button-toggle value="grid">
+      <md-icon>view_comfy</md-icon>
+    </md-button-toggle>
+    <md-button-toggle value="list">
+      <md-icon>reorder</md-icon>
+    </md-button-toggle>
+  </md-button-toggle-group>
+  <span flex></span>
+  <md-input-container class="podcast-search">
+    <input mdInput placeholder="Search..." [(ngModel)]="search" />
+    <div mdSuffix>
+      <md-icon>
+        search
+      </md-icon>
     </div>
+  </md-input-container>
 </div>
+<div class="podcast-grid" layout-wrap="nowrap" layout="column" layout-align="center start" *ngIf="group.value === 'grid'">
+  <template ngFor let-podcastGroup [ngForOf]="podcasts | myGroupArray: 5">
+    <div class="podcast-row" layout="row" layout-align="start center">
+      <div class="podcast" *ngFor="let podcast of podcastGroup | mySearchPipe:search:'name'" (click)="goTo(podcast)">
+        <div layout="column" layout-fill layout-align="center center">
+          <div class="podcast-image">
+            <div class="image-container">
+              <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg" />
+            </div>
+          </div>
+          <div class="podcast-name" layout="column" layout-align="center center">
+            {{ podcast.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
+<md-list class="podcast-list" *ngIf="group.value === 'list'">
+  <md-divider></md-divider>
+  <md-list-item class="header">
+    <div layout="row" layout-align="start center" flex>
+      <div flex="50" class="image-padding">
+        Podcast Name
+      </div>
+      <div flex>
+        Category
+      </div>
+      <div flex layout="column" layout-align="start center">
+        Updated
+      </div>
+    </div>
+  </md-list-item>
+  <md-divider></md-divider>
+  <template ngFor let-podcast [ngForOf]="podcasts | mySearchPipe:search:'name'">
+    <md-list-item class="podcast" (click)="goTo(podcast)">
+      <div layout="row" layout-align="start center" flex>
+        <div flex="50" layout="row" layout-align="start center">
+          <div class="podcast-image">
+            <div class="image-container">
+              <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg" />
+            </div>
+          </div>
+          <span class="spacer"></span>
+          <div class="podcast-name">
+            {{ podcast.name }}
+          </div>
+        </div>
+        <div flex>
+          Education
+        </div>
+        <div flex>
+          <div class="date" layout="column" layout-align="start center">
+            <div class="month">
+              Mar
+            </div>
+            <div class="day">
+              23
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+  </template>
+</md-list>
