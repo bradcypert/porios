@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import {
+    Component,
+    HostBinding
+} from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { MdSliderChange } from '@angular/material';
 
 import { Subscription } from 'rxjs';
+
+import { SlideInBottomAnimation } from '../../app.animations';
 
 import { IAudioEvent, ITimeEvent, AudioService } from '../../shared/audio';
 import { PodcastEpisode } from '../../shared/podcast';
@@ -11,10 +16,13 @@ import { PodcastEpisode } from '../../shared/podcast';
 @Component({
     selector: 'seeker',
     templateUrl: './seeker.component.html',
-    styleUrls: [ './seeker.component.css' ]
+    styleUrls: [ './seeker.component.css' ],
+    animations: [ SlideInBottomAnimation() ]
 })
 export class SeekerComponent {
     
+    @HostBinding('@slideInBottom') public showSeeker: boolean = false;
+
     public episode: PodcastEpisode = new PodcastEpisode();
     public progress: number = 0;
     public timeStamp: string = '0:00:00 / 0:00:00';
@@ -25,8 +33,13 @@ export class SeekerComponent {
 
     constructor( private _audioService: AudioService ) {
         this._subscriptions.push(_audioService.audioChange.subscribe((event: IAudioEvent) => {
-            this.episode = event.episode;
-            this._audio = event.audio;
+            if (event.audio && event.episode) {
+                this.showSeeker = true;
+                this.episode = event.episode;
+                this._audio = event.audio;
+            } else {
+                this.showSeeker = false;
+            }
         }));
         this._subscriptions.push(_audioService.timeUpdate.subscribe((event: ITimeEvent) => {
             this._setProgress(event);
@@ -55,6 +68,10 @@ export class SeekerComponent {
     }
 
     public seek(event: MdSliderChange) {
+        if (!this._audio) {
+            return;
+        }
+
         let percent = event.value / 100;
         let duration = this._audio.duration;
         
@@ -82,12 +99,20 @@ export class SeekerComponent {
     }
 
     private _setProgress(event: ITimeEvent) {
+        if (!this._audio) {
+            return;
+        }
+
         let duration = this._audio.duration;
         let timeStamp = event.timeStamp;
         this.progress = (timeStamp / duration) * 100;
     }
 
     private _setTimeStamp(event: ITimeEvent) {
+        if (!this._audio) {
+            return;
+        }
+
         let duration = new Date(this._audio.duration * 1000).toISOString();
         let current = new Date(event.timeStamp * 1000).toISOString();
 

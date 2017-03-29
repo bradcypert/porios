@@ -96,6 +96,21 @@ export const slideInDownAnimation: AnimationTriggerMetadata =
     ]),
   ]);
   
+export function SlideInBottomAnimation(duration: number = 150): AnimationTriggerMetadata {
+  return trigger('slideInBottom', [
+    state('0', style({
+      opacity: '0',
+      display: 'none',
+    })),
+    state('1',  style({
+      opacity: '*',
+      display: '*',
+    })),
+    transition('0 => 1', animate(duration + 'ms ease-in')),
+    transition('1 => 0', animate(duration + 'ms ease-out')),
+  ]);
+}
+
 export function FadeInOutAnimation(duration: number = 150): AnimationTriggerMetadata {
   return trigger('fadeInOut', [
     state('0', style({
