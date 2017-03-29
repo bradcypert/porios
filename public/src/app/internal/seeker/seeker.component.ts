@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { MdSliderChange } from '@angular/material';
 
@@ -16,7 +17,9 @@ export class SeekerComponent {
     
     public episode: PodcastEpisode = new PodcastEpisode();
     public progress: number = 0;
+    public timeStamp: string = '0:00:00 / 0:00:00';
 
+    private _datePipe: DatePipe = new DatePipe('en-US');
     private _subscriptions: Subscription[] = [];
     private _audio: HTMLAudioElement;
 
@@ -27,6 +30,7 @@ export class SeekerComponent {
         }));
         this._subscriptions.push(_audioService.timeUpdate.subscribe((event: ITimeEvent) => {
             this._setProgress(event);
+            this._setTimeStamp(event);
         }));
     }
 
@@ -81,6 +85,13 @@ export class SeekerComponent {
         let duration = this._audio.duration;
         let timeStamp = event.timeStamp;
         this.progress = (timeStamp / duration) * 100;
+    }
+
+    private _setTimeStamp(event: ITimeEvent) {
+        let duration = new Date(this._audio.duration * 1000).toISOString();
+        let current = new Date(event.timeStamp * 1000).toISOString();
+
+        this.timeStamp = current.substr(11, 8) + ' / ' + duration.substr(11, 8);
     }
 
 }
