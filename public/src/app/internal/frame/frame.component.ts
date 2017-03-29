@@ -9,6 +9,11 @@ export class InternalFrameComponent {
 
   public menuItems: any[] = [
     {
+      url: '/Playing',
+      title: 'Now Playing',
+      icon: 'queue_music'
+    },
+    {
       url: '/Explore',
       title: 'Explore',
       icon: 'explore'

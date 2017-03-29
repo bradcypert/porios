@@ -16,6 +16,7 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
     Internal.InternalNavbarComponent,
     Internal.ExploreComponent,
     Internal.ExploreDetailComponent,
+    Internal.PlayingComponent,
     Internal.SeekerComponent,
     Internal.VolumeComponent,
     Internal.AccountComponent,
@@ -34,6 +35,7 @@ export const PROVIDERS: Array<Type<Injectable>> = [
 export const ROUTES: Routes = [
     { path: '', component: Internal.InternalFrameComponent, children: [
         { path: '', redirectTo: 'Explore', pathMatch: 'full' },
+        { path: 'Playing', component: Internal.PlayingComponent },
         { path: 'Explore', children: [
             { path: '', component: Internal.ExploreComponent },
             { path: ':id', component: Internal.ExploreDetailComponent, resolve: { 

@@ -43,6 +43,10 @@ span.spacer {
   left: 0;
 }
 
+md-divider.mat-divider {
+    border-top-color: rgba(1000, 1000, 1000, 0.12);
+}
+
 button[md-icon-button].large {
     height: 48px;
     width: 48px;
