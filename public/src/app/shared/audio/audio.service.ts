@@ -146,7 +146,7 @@ export class AudioService {
     }
 
     this.seekTo(0);
-    this._audioObject.pause();
+    this.pause();
   }
 
 }
