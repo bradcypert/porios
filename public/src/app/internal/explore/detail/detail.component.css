@@ -4,3 +4,10 @@ md-list md-list-item {
 md-divider {
     border-top-color: rgba(1000, 1000, 1000, 0.12)
 }
+.title {
+    word-wrap: break-word;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 80%;
+}

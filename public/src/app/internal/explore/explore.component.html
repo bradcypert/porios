@@ -18,7 +18,7 @@
   </md-input-container>
 </div>
 <div class="podcast-grid" layout-wrap="nowrap" layout="column" layout-align="center start" *ngIf="group.value === 'grid'">
-  <template ngFor let-podcastGroup [ngForOf]="podcasts | myGroupArray: 6">
+  <template ngFor let-podcastGroup [ngForOf]="podcasts | mySearchPipe:search:'name' | myGroupArray: 6">
     <div class="podcast-row" layout="row" layout-align="start center">
       <div class="podcast" *ngFor="let podcast of podcastGroup | mySearchPipe:search:'name'" (click)="goTo(podcast)">
         <div layout="column" layout-fill layout-align="center center">
