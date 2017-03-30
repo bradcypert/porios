@@ -6,12 +6,14 @@ import {
   URLSearchParams
 } from '@angular/http';
 
+import { LoadingService } from '../loading';
+
 import { Config } from '../config';
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: Http) {
+  constructor ( private _http: Http, private _loadingService: LoadingService ) {
 
   }
 
@@ -21,8 +23,13 @@ export class ApiService {
     headers.append('Authorization', Config.token);
     let options = new RequestOptions({ headers });
     data = this._transformRequest(data);
+    this._loadingService.toggleLoader(true);
 
-    return this.http.patch(Config.apiUrl + method, data, options)
+    return this._http.patch(Config.apiUrl + method, data, options)
+      .map((res) => {
+        this._loadingService.toggleLoader(false);
+        return res;
+      })
       .catch(this._handleError);
   }
 
@@ -32,8 +39,13 @@ export class ApiService {
     headers.append('Authorization', Config.token);
     let options = new RequestOptions({ headers });
     data = this._transformRequest(data);
+    this._loadingService.toggleLoader(true);
 
-    return this.http.post(Config.apiUrl + method, data, options)
+    return this._http.post(Config.apiUrl + method, data, options)
+      .map((res) => {
+        this._loadingService.toggleLoader(false);
+        return res;
+      })
       .catch(this._handleError);
   }
 
@@ -41,8 +53,13 @@ export class ApiService {
     let headers = new Headers();
     headers.append('Authorization', Config.token);
     let options = new RequestOptions({ headers });
+    this._loadingService.toggleLoader(true);
     
-    return this.http.get(Config.apiUrl + method, options)
+    return this._http.get(Config.apiUrl + method, options)
+      .map((res) => {
+        this._loadingService.toggleLoader(false);
+        return res;
+      })
       .catch(this._handleError);
   }
 
@@ -57,6 +74,7 @@ export class ApiService {
   }
 
   private _handleError(error: any) {
+    this._loadingService.toggleLoader(false);
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
