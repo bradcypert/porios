@@ -11,6 +11,10 @@ export class UserService {
 
     }
 
+    public whoami() {
+        return this._api.getRequest('users/me');
+    }
+
     public login(user: User) {
         let data = {
             email: user.email,

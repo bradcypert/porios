@@ -7,7 +7,7 @@ export class Podcast {
   public name: string;
   public releaseDate: string;
 
-  constructor(podcast?: Podcast) {
+  constructor(podcast?: any) {
     if (podcast) {
       this.active = podcast.active;
       this.description = podcast.description;
@@ -15,7 +15,7 @@ export class Podcast {
       this.genre = podcast.genre;
       this.id = podcast.id;
       this.name = podcast.name;
-      this.releaseDate = podcast.releaseDate;
+      this.releaseDate = podcast.release_date;
     }
   }
 }
@@ -26,7 +26,7 @@ export class PodcastFeed {
   public items: PodcastEpisode[];
   public logo: string;
   public title: string;
-  constructor(feed?: PodcastFeed) {
+  constructor(feed?: any) {
     if (feed) {
       this.copyright = feed.copyright;
       this.description = feed.description;
@@ -49,11 +49,11 @@ export class PodcastEpisode {
   public playing?: boolean = false;
   public loaded?: boolean = false;
 
-  constructor(episode?: PodcastEpisode) {
+  constructor(episode?: any) {
     if (episode) {
       this.description = episode.description;
       this.duration = episode.duration;
-      this.publishedDate = episode.publishedDate;
+      this.publishedDate = episode.published_date;
       this.title = episode.title;
       this.url = episode.url;
       this.playing = false;

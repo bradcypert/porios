@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   @HostBinding('@routeAnimation') public routeAnimation: boolean = true;
   @HostBinding('class.route-animation') public classAnimation: boolean = true;
 
-  public user: User = new User('porios@porios.com', '12345');
+  public user: User = new User();
   public loginForm: FormGroup;
 
   constructor(
@@ -40,6 +40,9 @@ export class LoginComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.user.email = 'porios@porios.com';
+    this.user.password = '12345';
+    
     this.loginForm = this._fb.group({
       email: this.user.email,
       password: this.user.password
@@ -52,7 +55,7 @@ export class LoginComponent implements OnInit {
 
     this._userService.login(this.user).subscribe(
       (res: Response) => {
-        Config.token = res.toString();
+        Config.token = 'Bearer ' + <any> res.text();
         this._router.navigate(['/Explore']);
       },
       (err) => {
