@@ -31,7 +31,8 @@
                  [clj-http "2.0.0"]
                  [org.postgresql/postgresql "9.4-1203-jdbc41"]
                  [org.immutant/web "2.1.0"]
-                 [test2junit "1.1.3"]]
+                 [test2junit "1.1.3"]
+                 [org.clojars.freemarmoset/feedparser-clj "0.6.1"]]
 
   :min-lein-version "2.0.0"
   :uberjar-name "app.jar"
