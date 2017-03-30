@@ -5,13 +5,12 @@
         <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg" />
       </div>
       <div class="detail-container" layout="column" flex>
+        <span flex></span>
         <div class="title">
-          Grammar Girl
+          {{ podcast.name }}
         </div>
         <div class="description">
-          Grammar Girl provides short, friendly tips to improve your writing. Whether English is your first language or your second
-          language, these grammar, punctuation, style, and business tips will make you a better and more successful writer.
-          Grammar Girl is a Quick and Dirty Tips podcast. To download podcast episodes not shown here, visit QuickandDirtyTips.com
+          {{ podcast.feed.description }}
         </div>
       </div>
       <div class="action-container" layout="column">
@@ -37,7 +36,7 @@
     <md-tab-group>
       <md-tab label="Episodes">
         <md-list>
-          <template ngFor let-episode [ngForOf]="dummyEpisodes">
+          <template ngFor let-episode [ngForOf]="podcast.feed.items">
             <md-list-item layout="row" layout-align="start center" (click)="onClick(episode)">
               <div class="pointer"></div>
               <div class="date" layout="column" layout-align="start center">

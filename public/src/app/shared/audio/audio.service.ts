@@ -9,11 +9,13 @@ import {
 } from 'rxjs';
 
 import {
+  Podcast,
   PodcastEpisode
 } from '../podcast/podcast';
 
 export interface IAudioEvent {
   audio: HTMLAudioElement;
+  podcast: Podcast;
   episode: PodcastEpisode;
 }
 
@@ -27,10 +29,17 @@ export class AudioService {
   public audioChange: EventEmitter<IAudioEvent> = new EventEmitter();
   public timeUpdate: EventEmitter<ITimeEvent> = new EventEmitter();
 
-  get src() {
+  get src(): string {
     return this._audioObject.src;
   }
+  get podcast(): Podcast {
+    return this._podcast;
+  }
+  get episode(): PodcastEpisode {
+    return this._episode;
+  }
 
+  private _podcast: Podcast = new Podcast();
   private _episode: PodcastEpisode = new PodcastEpisode();
   private _audioObject: HTMLAudioElement;
 
@@ -68,6 +77,7 @@ export class AudioService {
       this._audioObject.play();
       this.audioChange.emit({
         audio: this._audioObject,
+        podcast: this._podcast,
         episode: this._episode
       });
       this._episode.playing = true;
@@ -83,30 +93,39 @@ export class AudioService {
       this._audioObject.pause();
       this.audioChange.emit({
         audio: this._audioObject,
+        podcast: this._podcast,
         episode: this._episode
       });
       this._episode.playing = false;
     }
   }
 
-  public load(episode: PodcastEpisode) {
+  public load(podcast: Podcast, episode: PodcastEpisode) {
     if (!this._audioObject) {
       return;
     }
 
     let src = episode.url;
-    let fileType = (/[.]/.exec(src)) ? /[^.]+$/.exec(src) : undefined;
+    let urlEnding = (/[.]/.exec(src)) ? /[^.]+$/.exec(src) : undefined;
+    let fileType: string;
+    if (/.+?(?=\?)/.exec(urlEnding[0])) {
+      fileType = /.+?(?=\?)/.exec(urlEnding[0])[0];
+    } else {
+      fileType = urlEnding[0];
+    }
     let fileTypes = {
       'mp3': 'audio/mpeg',
       'ogg': 'audio/ogg',
       'mp4': 'audio/mp4'
     };
-    let canPlay = this._audioObject.canPlayType(fileTypes[fileType[0]]);
+    let canPlay = this._audioObject.canPlayType(fileTypes[fileType]);
 
     if (!canPlay || canPlay === '') {
       console.error('Invalid File Type');
     } else {
+      this.pause();
       this._audioObject.src = src;
+      this._podcast = podcast;
       this._episode = episode;
       episode.loaded = true;
       episode.playing = true;

@@ -27,7 +27,11 @@ export class ExploreDetailResolver implements Resolve<any> {
   }
   
   public resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
-    return this._podcastService.get(1);
+    let id = route.params['id'];
+    
+    if (id) {
+      return this._podcastService.get(id);
+    }
   }
 
 };
@@ -45,18 +49,15 @@ export class ExploreDetailComponent {
 
   /* tslint:disable */
   public podcast: Podcast = new Podcast();
-  public dummyEpisodes: PodcastEpisode[] = [
-    new PodcastEpisode('Test Episode', 'http://www.podtrac.com/pts/redirect.mp3/media.blubrry.com/grammargirl/traffic.libsyn.com/grammar/gg_561.mp3'),
-  ];
   /* tslint:enable */
 
   constructor( private _route: ActivatedRoute, private _audioService: AudioService ) {
-    this.podcast = _route.snapshot.data['data'].json();
+    this.podcast = new Podcast( _route.snapshot.data['data'].json()[0] );
   }
 
   public onClick(episode: PodcastEpisode) {
     if (this._audioService.src !== episode.url) {
-      this._audioService.load(episode);
+      this._audioService.load(this.podcast, episode);
     } else {
       this._audioService.toggle();
     }

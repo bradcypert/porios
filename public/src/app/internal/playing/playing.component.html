@@ -1,16 +1,12 @@
-<div layout="column" layout-align="start center" layout-fill>
+<div layout="column" layout-align="start center" layout-fill *ngIf="podcast">
   <div class="image">
     <div class="image-container">
       <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg" />
     </div>
   </div>
   <div class="section details">
-    <h2> Grammar Girl </h2>
-    <p>
-      You'll get fun and friendly doses of writing advice in three short chunks: a Quick and Dirty Tip, a meaty middle, and a final tidbit.
-      Grammar Girl covers everything from punctuation and grammar to style and voice.
-      QuickandDirtyTips.com
-    </p>
+    <h2> {{ podcast.name }} </h2>
+    <p> {{ podcast.description }} </p>
   </div>
   <div class="section related">
     <md-list>

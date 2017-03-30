@@ -113,7 +113,12 @@ export class SeekerComponent {
             return;
         }
 
-        let duration = new Date(this._audio.duration * 1000).toISOString();
+        let duration: string;
+        if (this._audio.duration) {
+            duration = new Date(this._audio.duration * 1000).toISOString();
+        } else {
+            duration = new Date(0).toISOString();
+        }
         let current = new Date(event.timeStamp * 1000).toISOString();
 
         this.timeStamp = current.substr(11, 8) + ' / ' + duration.substr(11, 8);

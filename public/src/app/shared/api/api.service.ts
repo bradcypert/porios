@@ -21,7 +21,7 @@ export class ApiService {
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', Config.token);
 
-    return this.http.patch(Config.apiUrl + method, JSON.stringify(data), headers)
+    return this.http.patch(Config.apiUrl + method, data, headers)
       .catch(this._handleError);
   }
 
@@ -31,7 +31,7 @@ export class ApiService {
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', Config.token);
 
-    return this.http.post(Config.apiUrl + method, JSON.stringify(data), headers)
+    return this.http.post(Config.apiUrl + method, data, headers)
       .catch(this._handleError);
   }
 

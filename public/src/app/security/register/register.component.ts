@@ -8,6 +8,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {
   User,
@@ -29,8 +30,11 @@ export class RegisterComponent implements OnInit {
   public user: User = new User();
   public registerForm: FormGroup;
 
-  constructor( private _fb: FormBuilder, private _userService: UserService ) {
-
+  constructor(
+    private _fb: FormBuilder,
+    private _userService: UserService,
+    private _router: Router
+  ) {
   }
 
   public ngOnInit() {
@@ -50,7 +54,7 @@ export class RegisterComponent implements OnInit {
 
     this._userService.register(this.user).subscribe(
       (res) => {
-        console.log(res);
+        this._router.navigate(['/Login']);
       },
       (err) => {
         this._handleError(err);

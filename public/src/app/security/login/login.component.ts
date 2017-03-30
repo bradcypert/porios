@@ -8,12 +8,15 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {
   User,
   UserService
 } from '../../shared';
 import { slideInLeftAnimation } from '../../app.animations';
+
+import { Config } from '../../shared/config';
 
 @Component({
   selector: 'login',
@@ -26,11 +29,14 @@ export class LoginComponent implements OnInit {
   @HostBinding('@routeAnimation') public routeAnimation: boolean = true;
   @HostBinding('class.route-animation') public classAnimation: boolean = true;
 
-  public user: User = new User('Brad.Cypert@gmail.com', 'test');
+  public user: User = new User('porios@porios.com', '12345');
   public loginForm: FormGroup;
 
-  constructor( private _fb: FormBuilder, private _userService: UserService ) {
-
+  constructor(
+    private _fb: FormBuilder,
+    private _userService: UserService,
+    private _router: Router
+  ) {
   }
 
   public ngOnInit() {
@@ -45,8 +51,9 @@ export class LoginComponent implements OnInit {
     this.user.password = this.loginForm.value['password'];
 
     this._userService.login(this.user).subscribe(
-      (res) => {
-        console.log(res);
+      (res: Response) => {
+        Config.token = res.toString();
+        this._router.navigate(['/Explore']);
       },
       (err) => {
         this._handleError(err);

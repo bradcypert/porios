@@ -7,8 +7,6 @@ import * as Internal from './internal';
 import * as Shared from './shared';
 
 export const COMPONENTS: Array<Type<Component | Directive>> = [
-    Security.LoginComponent,
-    Security.RegisterComponent,
     External.ExternalFrameComponent,
     External.ExternalNavbarComponent,
     External.WelcomeComponent,
@@ -20,12 +18,15 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
     Internal.SeekerComponent,
     Internal.VolumeComponent,
     Internal.AccountComponent,
+    Security.LoginComponent,
+    Security.RegisterComponent,
     Shared.GroupArrayPipe,
     Shared.SearchPipe,
 ];
 
 export const PROVIDERS: Array<Type<Injectable>> = [
     Internal.ExploreDetailResolver,
+    Security.AuthGuard,
     Shared.ApiService,
     Shared.AudioService,
     Shared.PodcastService,
@@ -33,17 +34,23 @@ export const PROVIDERS: Array<Type<Injectable>> = [
 ];
 
 export const ROUTES: Routes = [
-    { path: '', component: Internal.InternalFrameComponent, children: [
-        { path: '', redirectTo: 'Explore', pathMatch: 'full' },
-        { path: 'Playing', component: Internal.PlayingComponent },
-        { path: 'Explore', children: [
-            { path: '', component: Internal.ExploreComponent },
-            { path: ':id', component: Internal.ExploreDetailComponent, resolve: { 
-                data: Internal.ExploreDetailResolver
-            } },
-        ] },
-        { path: 'Account', component: Internal.AccountComponent },
-    ] },
+    { path: '', 
+        component: Internal.InternalFrameComponent,
+        canActivate: [
+            Security.AuthGuard
+            ], 
+        children: [
+            { path: '', redirectTo: 'Explore', pathMatch: 'full' },
+            { path: 'Playing', component: Internal.PlayingComponent },
+            { path: 'Explore', children: [
+                { path: '', component: Internal.ExploreComponent },
+                { path: ':id', component: Internal.ExploreDetailComponent, resolve: { 
+                    data: Internal.ExploreDetailResolver
+                } },
+            ] },
+            { path: 'Account', component: Internal.AccountComponent },
+        ] 
+    },
     { path: 'Login', component: Security.LoginComponent },
     { path: 'Register', component: Security.RegisterComponent },
     { path: 'Welcome', component: External.ExternalFrameComponent, children: [
