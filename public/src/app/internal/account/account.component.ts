@@ -29,8 +29,8 @@ export class AccountComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this._userService.whoami().subscribe((res: Response) => {
-      this.user = new User(res.json()[0]);
+    this._userService.whoami().subscribe((resUser: User) => {
+      this.user = resUser;
       console.log(this.user);
     });
   }

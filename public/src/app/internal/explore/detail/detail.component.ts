@@ -51,16 +51,24 @@ export class ExploreDetailComponent {
   public podcast: Podcast = new Podcast();
   /* tslint:enable */
 
-  constructor( private _route: ActivatedRoute, private _audioService: AudioService ) {
+  constructor(
+    private _route: ActivatedRoute,
+    private _audioService: AudioService,
+    private _podcastService: PodcastService
+  ) {
     this.podcast = new Podcast( _route.snapshot.data['data'].json()[0] );
   }
 
-  public onClick(episode: PodcastEpisode) {
+  public listen(podcast: Podcast, episode: PodcastEpisode) {
     if (this._audioService.src !== episode.url) {
       this._audioService.load(this.podcast, episode);
     } else {
       this._audioService.toggle();
     }
+  }
+
+  public subscribe(podcast: Podcast) {
+    this._podcastService.subscribe(podcast);
   }
 
 }

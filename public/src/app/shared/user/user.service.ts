@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { Config } from '../config';
 import { ApiService } from '../api';
 import { User } from './user';
@@ -11,8 +13,10 @@ export class UserService {
 
     }
 
-    public whoami() {
-        return this._api.getRequest('users/me');
+    public whoami(): Observable<User> {
+        return this._api.getRequest('users/me').map((res: Response) => {
+            return new User(res.json()[0]);
+        });
     }
 
     public login(user: User) {

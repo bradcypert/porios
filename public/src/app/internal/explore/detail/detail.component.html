@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="action-container" layout="column">
-        <button md-icon-button mdTooltip="Subscribe">
+        <button md-icon-button mdTooltip="Subscribe" (click)="subscribe(podcast)">
           <md-icon>
             favorite_border
           </md-icon>
@@ -37,7 +37,7 @@
       <md-tab label="Episodes">
         <md-list>
           <template ngFor let-episode [ngForOf]="podcast.feed.items">
-            <md-list-item layout="row" layout-align="start center" (click)="onClick(episode)">
+            <md-list-item layout="row" layout-align="start center" (click)="listen(podcast, episode)">
               <div class="pointer"></div>
               <div class="date" layout="column" layout-align="start center">
                 <div class="month">

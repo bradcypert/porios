@@ -1,0 +1,44 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.loading-overlay {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.loading-overlay.opening {
+    animation-name: fadeIn;
+    animation-duration: 250ms;
+    animation-direction: forwards;
+}
+
+.loading-overlay.opened {
+    z-index: 1;
+    opacity: 1;
+}
+
+.loading-overlay.closing {
+    animation-name: fadeOut;
+    animation-duration: 250ms;
+    animation-direction: forwards;
+}

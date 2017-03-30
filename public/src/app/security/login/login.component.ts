@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
     this._userService.login(this.user).subscribe(
       (res: Response) => {
-        Config.token = 'Bearer ' + <any> res.text();
+        Config.token = <any> res.text();
         this._router.navigate(['/Explore']);
       },
       (err) => {

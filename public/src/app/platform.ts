@@ -20,6 +20,7 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
     Internal.AccountComponent,
     Security.LoginComponent,
     Security.RegisterComponent,
+    Shared.LoadingComponent,
     Shared.GroupArrayPipe,
     Shared.SearchPipe,
 ];
@@ -29,6 +30,7 @@ export const PROVIDERS: Array<Type<Injectable>> = [
     Security.AuthGuard,
     Shared.ApiService,
     Shared.AudioService,
+    Shared.LoadingService,
     Shared.PodcastService,
     Shared.UserService,
 ];
