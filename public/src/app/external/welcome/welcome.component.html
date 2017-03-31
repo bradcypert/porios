@@ -1,0 +1,35 @@
+<div layout-fill layout="column" layout-align="center center">
+  <div class="logo">
+    <div class="logo-container">
+      <img src="assets/img/angular-logo.png" />
+    </div>
+  </div>
+  <h1>
+    Connecting
+    <br />
+    people through
+    <br />
+    podcasts
+  </h1>
+  <h2>
+    Discover new interests and new people
+    <br />
+    while doing what you love
+  </h2>
+  <button md-raised-button color="warn">
+    Get Started
+  </button>
+  <div layout="row">
+    <button md-raised-button color="warn" (click)="put()">
+      Put
+    </button>
+    <span class="spacer"></span>
+    <button md-raised-button color="warn" (click)="get()">
+      Get
+    </button>
+    <span class="spacer"></span>
+    <button md-raised-button color="warn" (click)="destroy()">
+      Destroy
+    </button>
+  </div>
+</div>

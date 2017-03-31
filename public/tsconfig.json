@@ -22,6 +22,7 @@
       "hammerjs",
       "jasmine",
       "node",
+      "pouchdb",
       "source-map",
       "uglify-js",
       "webpack"

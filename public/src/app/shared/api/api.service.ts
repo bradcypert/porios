@@ -6,6 +6,7 @@ import {
   URLSearchParams
 } from '@angular/http';
 
+import { DBService } from '../db';
 import { LoadingService } from '../loading';
 
 import { Config } from '../config';
@@ -13,8 +14,11 @@ import { Config } from '../config';
 @Injectable()
 export class ApiService {
 
-  constructor ( private _http: Http, private _loadingService: LoadingService ) {
-
+  constructor (
+    private _http: Http,
+    private _db: DBService,
+    private _loadingService: LoadingService
+  ) {
   }
 
   public patchRequest(method: string, data: Object = {}) {

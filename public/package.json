@@ -68,6 +68,7 @@
     "http-server": "^0.9.0",
     "ie-shim": "^0.1.0",
     "jasmine-core": "^2.5.2",
+    "pouchdb": "^6.1.2",
     "reflect-metadata": "^0.1.9",
     "rxjs": "5.0.2",
     "zone.js": "^0.8.4"
@@ -77,6 +78,7 @@
     "@types/hammerjs": "^2.0.33",
     "@types/jasmine": "^2.2.34",
     "@types/node": "^7.0.0",
+    "@types/pouchdb": "^5.4.28",
     "@types/selenium-webdriver": "~2.53.39",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.0.27",

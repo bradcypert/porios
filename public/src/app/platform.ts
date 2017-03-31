@@ -30,6 +30,7 @@ export const PROVIDERS: Array<Type<Injectable>> = [
     Security.AuthGuard,
     Shared.ApiService,
     Shared.AudioService,
+    Shared.DBService,
     Shared.LoadingService,
     Shared.PodcastService,
     Shared.UserService,
