@@ -4,7 +4,8 @@ import {
 } from '@angular/core';
 import {
   RouterModule,
-  PreloadAllModules
+  PreloadAllModules,
+  UrlSerializer
 } from '@angular/router';
 import {
   FormsModule,
@@ -21,6 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Bootstrap Component
 import { AppComponent } from './app.component';
+
+// Serializer
+import { LowerCaseUrlSerializer } from './shared/utils/serializer';
 
 // Components, Providers, Routes
 import {
@@ -42,6 +46,10 @@ import '../styles/styles.scss';
   ],
   providers: [
     PROVIDERS,
+    {
+      provide: UrlSerializer,
+      useClass: LowerCaseUrlSerializer
+    },
   ],
   imports: [
     BrowserModule,

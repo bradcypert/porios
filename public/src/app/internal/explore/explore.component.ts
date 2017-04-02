@@ -42,7 +42,7 @@ export class ExploreComponent implements OnInit {
   }
 
   public goTo(podcast: Podcast) {
-    this._router.navigate(['/Explore/' + podcast['id']]);
+    this._router.navigate(['/explore/' + podcast['id']]);
   }
 
   private _handleError(err: any) {

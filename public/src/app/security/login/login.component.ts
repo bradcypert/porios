@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     this._userService.login(this.user).subscribe(
       (res: Response) => {
         Config.token = <any> res.text();
-        this._router.navigate(['/Explore']);
+        this._router.navigate(['/explore']);
       },
       (err) => {
         this._handleError(err);

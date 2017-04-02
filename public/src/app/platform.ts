@@ -1,4 +1,9 @@
-import { Component, Directive, Injectable, Type } from '@angular/core';
+import {
+    Component,
+    Directive,
+    Injectable,
+    Type
+} from '@angular/core';
 import { Routes } from '@angular/router';
 
 import * as Security from './security';
@@ -43,20 +48,20 @@ export const ROUTES: Routes = [
             Security.AuthGuard
             ], 
         children: [
-            { path: '', redirectTo: 'Explore', pathMatch: 'full' },
-            { path: 'Playing', component: Internal.PlayingComponent },
-            { path: 'Explore', children: [
+            { path: '', redirectTo: 'explore', pathMatch: 'full' },
+            { path: 'playing', component: Internal.PlayingComponent },
+            { path: 'explore', children: [
                 { path: '', component: Internal.ExploreComponent },
                 { path: ':id', component: Internal.ExploreDetailComponent, resolve: { 
                     data: Internal.ExploreDetailResolver
                 } },
             ] },
-            { path: 'Account', component: Internal.AccountComponent },
+            { path: 'account', component: Internal.AccountComponent },
         ] 
     },
-    { path: 'Login', component: Security.LoginComponent },
-    { path: 'Register', component: Security.RegisterComponent },
-    { path: 'Welcome', component: External.ExternalFrameComponent, children: [
+    { path: 'login', component: Security.LoginComponent },
+    { path: 'register', component: Security.RegisterComponent },
+    { path: 'welcome', component: External.ExternalFrameComponent, children: [
         { path: '', component: External.WelcomeComponent },
     ] },
 ];

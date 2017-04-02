@@ -4,4 +4,4 @@
 Run `npm install`
 
 ## Development Server
-Run `npm start`. Navigate to http://localhost:3000/Explore.
+Run `npm start`. Navigate to http://localhost:3000/explore.

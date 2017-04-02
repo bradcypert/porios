@@ -5,3 +5,4 @@ export * from './loading';
 export * from './pipes';
 export * from './podcast';
 export * from './user';
+export * from './utils';
