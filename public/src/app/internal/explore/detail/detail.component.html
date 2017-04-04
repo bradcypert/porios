@@ -33,8 +33,8 @@
   </div>
 
   <div class="tabs">
-    <md-tab-group>
-      <md-tab label="Episodes">
+    <md-tab-group (selectChange)="onSelectChange($event)">
+      <md-tab label="Episodes" #episodesTab>
         <md-list>
           <template ngFor let-episode [ngForOf]="podcast.feed.items">
             <md-list-item layout="row" layout-align="start center" (click)="listen(podcast, episode)">

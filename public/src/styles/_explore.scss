@@ -140,6 +140,22 @@ explore-detail {
             }
         }
     }
+    .tabs {
+        max-height: calc(100% - 152px);
+        height: 100%;
+        position: relative;
+        md-tab-group {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            .mat-tab-body-wrapper {
+                max-height: calc(100% - 44px);
+                overflow-y: auto;
+            }
+        }
+    }
     .mat-list {
         .mat-list-item {
             .mat-list-item-content {
