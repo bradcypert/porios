@@ -23,6 +23,7 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
     Internal.SeekerComponent,
     Internal.VolumeComponent,
     Internal.AccountComponent,
+    Internal.AccountEditComponent,
     Security.LoginComponent,
     Security.RegisterComponent,
     Shared.LoadingComponent,
@@ -32,6 +33,7 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
 
 export const PROVIDERS: Array<Type<Injectable>> = [
     Internal.ExploreDetailResolver,
+    Internal.AccountEditResolver,
     Security.AuthGuard,
     Shared.ApiService,
     Shared.AudioService,
@@ -56,7 +58,12 @@ export const ROUTES: Routes = [
                     data: Internal.ExploreDetailResolver
                 } },
             ] },
-            { path: 'account', component: Internal.AccountComponent },
+            { path: 'account', children: [
+                { path: '', component: Internal.AccountComponent },
+                { path: 'edit', component: Internal.AccountEditComponent, resolve: {
+                    data: Internal.AccountEditResolver
+                } },
+            ] },
         ] 
     },
     { path: 'login', component: Security.LoginComponent },

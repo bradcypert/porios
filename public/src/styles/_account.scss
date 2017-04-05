@@ -1,5 +1,7 @@
-account {
-  .account {
+account,
+account-edit {
+  .account,
+  .account-edit {
     padding: 8px;
     .bio {
       color: white;
@@ -26,5 +28,9 @@ account {
     font-size: 16px;
     margin-top: .75rem;
     margin-bottom: .5rem;
+  }
+  .edit-form {
+    color: white;
+    background: #343D46;
   }
 }

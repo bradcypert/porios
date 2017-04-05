@@ -1,0 +1,65 @@
+<div class="account-edit" layout="row" layout-fill>
+  <div>
+    <div layout="column" class="bio">
+      <div class="avatar">
+        <img src="assets/img/avatar.png" />
+      </div>
+    </div>
+  </div>
+  <span class="spacer"></span>
+  <div flex layout="column">
+    <md-card class="edit-form">
+      <div class="section">
+        Update Account Details
+      </div>
+      <form [formGroup]="editForm">
+        <div layout="row">
+          <md-input-container flex class="dark">
+            <input mdInput placeholder="First Name" formControlName="firstName" />
+          </md-input-container>
+          <span class="spacer"></span>
+          <md-input-container flex class="dark">
+            <input mdInput placeholder="Last Name" formControlName="lastName" />
+          </md-input-container>
+        </div>
+        <div layout="row" layout-align="start center">
+          <md-input-container flex class="dark">
+            <input mdInput placeholder="Password" type="password" formControlName="password" #password />
+          </md-input-container>
+          <span class="spacer"></span>
+          <span flex></span> 
+        </div>
+        <div layout="row" *ngIf="password.value !== ''">
+          <div layout="column" flex>
+            <div layout="row" layout-align="start center">
+              Strength:
+              <span class="spacer"></span>
+              <md-progress-bar
+                [color]="primary"
+                [mode]="determinate"
+                [value]="passwordScore">
+              </md-progress-bar>
+            </div>
+            <ul class="nopadding">
+              <li *ngFor="let suggestion of passwordSuggestions">
+                {{ suggestion }}
+              </li>
+            </ul>
+          </div>
+          <span class="spacer"></span>
+          <span flex></span>
+        </div>
+      </form>
+      <span class="spacer"></span>
+      <div layout="row" layout-align="end center">
+        <button md-raised-button color="primary">
+          Submit
+        </button>
+        <span class="spacer"></span>
+        <button md-raised-button class="dark">
+          Cancel
+        </button>
+      </div>
+    </md-card>
+  </div>
+</div>

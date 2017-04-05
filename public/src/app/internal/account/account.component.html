@@ -7,6 +7,11 @@
       <span class="section">
         {{ user.firstName + ' ' + user.lastName }}
       </span>
+      <span layout="row">
+        <button md-raised-button flex [routerLink]="['/account/edit']" class="dark">
+          Edit Profile
+        </button>
+      </span>
     </div>
   </div>
   <span class="spacer"></span>

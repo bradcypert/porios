@@ -6,6 +6,7 @@
 
 span.spacer {
     width: 8px;
+    height: 8px;
 }
 
 .main-content,
@@ -47,6 +48,10 @@ md-divider.mat-divider {
     border-top-color: rgba(1000, 1000, 1000, 0.12);
 }
 
+button[md-raised-button].dark {
+    color: black;
+}
+
 button[md-icon-button].large {
     height: 48px;
     width: 48px;
@@ -61,6 +66,18 @@ button[md-icon-button].large {
         }
     }
 }
+
+md-input-container.dark {
+    .mat-input-placeholder-wrapper {
+        .mat-input-placeholder:not(.mat-focused) {
+            color: rgba(255, 255, 255, 1);
+        }
+    }
+    .mat-input-underline {
+        border-color: rgba(255, 255, 255, 1);
+    }
+}
+
 .tabs {
   color: white;
   > md-tab-group {
