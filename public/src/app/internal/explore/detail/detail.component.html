@@ -12,6 +12,9 @@
         <div class="description">
           {{ podcast.feed.description }}
         </div>
+        <div class="copyright">
+          {{ podcast.feed.copyright }}
+        </div>
       </div>
       <div class="action-container" layout="column">
         <button md-icon-button mdTooltip="Subscribe" (click)="subscribe(podcast)">
