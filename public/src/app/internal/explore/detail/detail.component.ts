@@ -2,6 +2,7 @@ import {
   Component,
   Injectable,
   HostBinding,
+  HostListener,
   ViewChild,
   ElementRef,
   OnInit,
@@ -58,12 +59,18 @@ export class ExploreDetailComponent implements OnInit, AfterViewInit {
 
   public displayCount: number = 0;
 
+  private _offset: number = 0;
+
   constructor(
     private _route: ActivatedRoute,
     private _audioService: AudioService,
     private _podcastService: PodcastService
   ) {
     this.podcast = new Podcast( _route.snapshot.data['data'].json()[0] );
+  }
+
+  @HostListener('window:resize') public onWindowResize() {
+    this._calculateHeight(this._offset);
   }
 
   public ngOnInit() {
@@ -115,6 +122,7 @@ export class ExploreDetailComponent implements OnInit, AfterViewInit {
   private _onScroll(event: Event) {
     let pos = event.srcElement.scrollTop;
 
+    this._offset = pos;
     this._calculateHeight(pos);
   }
 
