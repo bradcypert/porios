@@ -32,11 +32,11 @@
     </div>
   </div>
 
-  <div class="tabs">
+  <div class="tabs" #tabContainer>
     <md-tab-group (selectChange)="onSelectChange($event)">
-      <md-tab label="Episodes" #episodesTab>
+      <md-tab label="Episodes">
         <md-list>
-          <template ngFor let-episode [ngForOf]="podcast.feed.items">
+          <template ngFor let-episode [ngForOf]="podcast.feed.items | myDetailView:displayCount">
             <md-list-item layout="row" layout-align="start center" (click)="listen(podcast, episode)">
               <div class="pointer"></div>
               <div class="date" layout="column" layout-align="start center">

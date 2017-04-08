@@ -19,6 +19,7 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
     Internal.InternalNavbarComponent,
     Internal.ExploreComponent,
     Internal.ExploreDetailComponent,
+    Internal.ExploreDetailViewPipe,
     Internal.PlayingComponent,
     Internal.SeekerComponent,
     Internal.VolumeComponent,

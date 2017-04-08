@@ -151,6 +151,7 @@ explore-detail {
             top: 0;
             bottom: 0;
             .mat-tab-body-wrapper {
+                height: calc(100% - 44px);
                 max-height: calc(100% - 44px);
                 overflow-y: auto;
             }
