@@ -107,4 +107,3 @@
   (POST "/users/:id/favorites" {params :params} (-> params add-user-favorites))
   (DELETE "/users/:id/favorites/:pid" {params :params} (-> params remove-user-favorite))
   (PATCH "/users/:id" {params :params} (-> params update-user)))
-

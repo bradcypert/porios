@@ -82,7 +82,7 @@
 
 (defn map-auth-token-to-user [handler]
   (fn [request]
-    (try 
+    (try
       (let [token (get (:headers request) "authorization")
             token (last (split token #" "))
             token (unsign-token token)]

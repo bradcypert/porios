@@ -1,11 +1,13 @@
 (ns app.modules.users
   (:require [app.db.core :as db]
-            [app.modules.auth :as auth]))
+            [app.modules.auth :as auth]
+            [app.sanitizers.users :as sanitizer]))
 
 (defn get-user
   "Fetches a user by ID"
   [^:Integer id]
-  (db/get-user {:id id}))
+  (-> (db/get-user {:id id})
+      (sanitizer/sanitize)))
 
 (defn get-user-subscriptions
   "Fetches the subscriptions for a user by their ID"
@@ -83,4 +85,3 @@
    ^:Integer pid]
   (db/delete-user-favorite {:user_id id
                             :podcast_id pid}))
-
