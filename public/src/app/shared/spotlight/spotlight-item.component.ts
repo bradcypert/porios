@@ -21,6 +21,9 @@ export class SpotlightItemComponent implements OnInit {
   /** Content for the spotlight label given by <ng-template spotlight-label>. */
   @ContentChild(SpotlightLabelDirective) public templateLabel: SpotlightLabelDirective;
 
+  /** The image source for the spotlight item */
+  @Input() public image: string = '';
+
   /** The plain text label for the spotlight item, used when there is no template label. */
   @Input() public textLabel: string = '';
 

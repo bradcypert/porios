@@ -50,7 +50,8 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   @HostBinding('class.route-animation') public classAnimation: boolean = true;
 
   public user: User;
-  public editForm: FormGroup;
+  public profileForm: FormGroup;
+  public accountForm: FormGroup;
   public passwordStrength: string = 'Poor';
   public passwordScore: number = 0;
   public passwordSuggestions: string[] = [];
@@ -58,24 +59,30 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   private _strengthChecker: any;
   private _subscriptions: Subscription[] = [];
 
-  constructor( private _fb: FormBuilder, private _route: ActivatedRoute ) {
+  constructor(
+    private _fb: FormBuilder,
+    private _route: ActivatedRoute,
+    private _userService: UserService
+  ) {
     this.user = _route.snapshot.data['data'];
     this._strengthChecker = require('zxcvbn');
   }
 
   public ngOnInit() {
     console.log(this.user);
-    this.editForm = this._fb.group({
+    this.profileForm = this._fb.group({
       firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      password: '',
-      confirmPassword: ''
+      lastName: this.user.lastName
+    });
+
+    this.accountForm = this._fb.group({
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     });
 
     this._subscriptions.push(
-      this.editForm.get('password').valueChanges.subscribe((res) => {
+      this.accountForm.get('password').valueChanges.subscribe((res) => {
         let strength = this._strengthChecker(res);
-        console.log(strength);
         if (strength) {
           this.passwordScore = Math.round((strength.score / 4) * 100);
           this.passwordSuggestions = strength.feedback.suggestions;
@@ -90,4 +97,24 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  public submitProfile() {
+    let userCopy: User = { ...this.user };
+
+    userCopy.firstName = this.profileForm.value['firstName'];
+    userCopy.lastName = this.profileForm.value['lastName'];
+    this._updateUser(userCopy);
+  }
+
+  public submitAccount() {
+    let userCopy: User = { ...this.user };
+
+    userCopy.password = this.profileForm.value['pass'];
+    this._updateUser(userCopy, true);
+  }
+
+  private _updateUser(user: User, changePassword: boolean = false) {
+    this._userService.save(user, changePassword).subscribe((res) => {
+      console.log(res);
+    });
+  }
 }

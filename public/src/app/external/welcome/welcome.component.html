@@ -1,14 +1,23 @@
 <div layout="column" layout-align="start center" class="welcome-wrapper">
-  <div class="headline">
+  <div class="headline mat-elevation-z1">
     <div class="headline-container">
       <img src="assets/img/podcast-bg.jpg" alt="Home Banner: Connecting people through podcasts">
       <div class="headline-content-container">
         <spotlight>
-          <spotlight-item textLabel="One">
-            Spotlight 1
-          </spotlight-item>
-          <spotlight-item textLabel="Two">
-            Spotlight 2
+          <spotlight-item textLabel="One" image="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg">
+            <div class="welcome-spotlight-header">
+              Grammar Girl
+            </div>
+            <div class="welcome-spotlight-summary">
+              Grammar Girl provides short, friendly tips to improve your writing.
+              Whether English is your first language or your second language, these grammar,
+              punctuation, style, and business tips will make you a better and more successful writer.
+              Grammar Girl is a Quick and Dirty Tips podcast.
+              To download podcast episodes not shown here, visit QuickandDirtyTips.com
+            </div>
+            <div class="welcome-spotlight-action">
+              <a [routerLink]="['/explore/1']"> Click here </a> to listen
+            </div>
           </spotlight-item>
         </spotlight>
       </div>

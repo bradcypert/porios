@@ -34,6 +34,12 @@
     </ng-template>
 
     <!-- If there is not a label template, fall back to the text label. -->
-    <ng-template [ngIf]="!item.templateLabel">{{item.textLabel}}</ng-template>
+    <ng-template [ngIf]="!item.templateLabel">
+      <div class="label-image">
+        <div class="label-image-container">
+          <img [src]="item.image" />
+        </div>
+      </div>
+    </ng-template>
   </div>
 </spotlight-header>
