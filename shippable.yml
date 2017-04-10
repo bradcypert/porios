@@ -2,10 +2,14 @@ language: clojure
 
 lein:
   - lein2
-
-before_script:
-  - psql -c "CREATE ROLE dev WITH LOGIN PASSWORD 'dev';" -U postgres
-  - psql -c 'create database poriostest;' -U postgres
+  
+services:
+  - postgres
+  
+build:
+  ci:
+    - psql -c "CREATE ROLE dev WITH LOGIN PASSWORD 'dev';" -U postgres
+    - psql -c 'create database poriostest;' -U postgres
 
 script:
   - cd app; lein test2junit
