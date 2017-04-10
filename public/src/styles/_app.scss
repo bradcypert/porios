@@ -78,6 +78,28 @@ md-input-container.dark {
     }
 }
 
+md-select {
+    &.small {
+        .mat-select-trigger {
+            min-width: 48px;
+            .mat-select-value {
+                font-size: 14px;
+                font-weight: 100;
+            }
+        }
+    }
+    &.dark {
+        .mat-select-trigger {
+            .mat-select-value {
+                color: rgba(255, 255, 255, 1);
+            }
+            .mat-select-arrow {
+                color: rgba(255, 255, 255, 1);
+            }
+        }
+    }
+}
+
 .tabs {
   color: white;
   > md-tab-group {

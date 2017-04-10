@@ -23,6 +23,16 @@ export class SeekerComponent {
     
     @HostBinding('@slideInBottom') public showSeeker: boolean = false;
 
+    public set rate(value: number) {
+        if (this._rate !== value) {
+            this._setPlaybackRate(value);
+            this._rate = value;
+        }
+    }
+    public get rate(): number {
+        return this._rate;
+    }
+
     public episode: PodcastEpisode = new PodcastEpisode();
     public progress: number = 0;
     public timeStamp: string = '0:00:00 / 0:00:00';
@@ -30,6 +40,7 @@ export class SeekerComponent {
     private _datePipe: DatePipe = new DatePipe('en-US');
     private _subscriptions: Subscription[] = [];
     private _audio: HTMLAudioElement;
+    private _rate: number = 1;
 
     constructor( private _audioService: AudioService ) {
         this._subscriptions.push(_audioService.audioChange.subscribe((event: IAudioEvent) => {
@@ -122,6 +133,14 @@ export class SeekerComponent {
         let current = new Date(event.timeStamp * 1000).toISOString();
 
         this.timeStamp = current.substr(11, 8) + ' / ' + duration.substr(11, 8);
+    }
+
+    private _setPlaybackRate(rate: number) {
+        if (!this._audio) {
+            return;
+        }
+
+        this._audioService.setPlaybackRate(rate);
     }
 
 }

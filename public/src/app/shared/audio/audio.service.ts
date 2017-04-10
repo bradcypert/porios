@@ -159,6 +159,14 @@ export class AudioService {
     }
   }
 
+  public setPlaybackRate(value: number) {
+    if (!this._audioObject) {
+      return;
+    }
+
+    this._audioObject.playbackRate = value;
+  }
+
   private _onEnded() {
     if (!this._audioObject) {
       return;

@@ -8,11 +8,29 @@
         <div flex="33" class="seeker-container">
             <span class="spacer"></span>
             <div layout="row" layout-align="center center">
+                <div class="play-speed">
+                    <md-select [(ngModel)]="rate" class="dark small">
+                        <md-option [value]="0.75">
+                            0.75X
+                        </md-option>
+                        <md-option [value]="1">
+                            1X
+                        </md-option>
+                        <md-option [value]="1.25">
+                            1.25X
+                        </md-option>
+                        <md-option [value]="1.5">
+                            1.5X
+                        </md-option>
+                    </md-select>
+                </div>
+                
                 <md-slider
                     flex
                     (change)="seek($event)"
                     [value]="progress">
                 </md-slider>
+                <span class="spacer"></span>
             </div>
             <span class="spacer"></span>
         </div>

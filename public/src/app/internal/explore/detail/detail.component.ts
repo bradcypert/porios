@@ -115,7 +115,7 @@ export class ExploreDetailComponent implements OnInit, AfterViewInit {
     let tmpDisplayCount = ((tabContainerHeight * 2) + offset) / listHeight;
 
     if (tmpDisplayCount > this.displayCount) {
-      this.displayCount = tmpDisplayCount
+      this.displayCount = tmpDisplayCount;
     }
   }
 
