@@ -8,7 +8,10 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
 
 import {
   User,
@@ -32,11 +35,15 @@ export class LoginComponent implements OnInit {
   public user: User = new User();
   public loginForm: FormGroup;
 
+  private _returnUrl: string;
+
   constructor(
     private _fb: FormBuilder,
     private _userService: UserService,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {
+    this._returnUrl = _route.snapshot.queryParams['returnUrl'] || '/explore';
   }
 
   public ngOnInit() {
@@ -56,7 +63,7 @@ export class LoginComponent implements OnInit {
     this._userService.login(this.user).subscribe(
       (res: Response) => {
         Config.token = <any> res.text();
-        this._router.navigate(['/explore']);
+        this._router.navigate([this._returnUrl]);
       },
       (err) => {
         this._handleError(err);

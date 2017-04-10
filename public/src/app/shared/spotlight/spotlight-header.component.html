@@ -1,0 +1,31 @@
+<div class="spotlight-header-pagination spotlight-header-pagination-before mat-elevation-z4"
+  aria-hidden="true"
+  md-ripple
+  [mdRippleDisabled]="disableScrollBefore"
+  [class.spotlight-header-pagination-disabled]="disableScrollBefore"
+  (click)="scrollHeader('before')">
+  <div class="spotlight-header-pagination-chevron"></div>
+</div>
+
+<div class="spotlight-label-container"
+  #spotlightListContainer
+  (keydown)="handleKeydown($event)">
+  <div class="spotlight-list"
+    #spotlightList
+    role="tablist"
+    (cdkObserveContent)="onContentChanges()">
+    <div class="spotlight-labels">
+      <ng-content></ng-content>
+    </div>
+    <spotlight-ink-bar></spotlight-ink-bar>
+  </div>
+</div>
+
+<div class="spotlight-header-pagination spotlight-header-pagination-after mat-elevation-z4"
+  aria-hidden="true"
+  md-ripple
+  [mdRippleDisabled]="disableScrollAfter"
+  [class.spotlight-header-pagination-disabled]="disableScrollAfter"
+  (click)="scrollHeader('after')">
+  <div class="spotlight-header-pagination-chevron"></div>
+</div>

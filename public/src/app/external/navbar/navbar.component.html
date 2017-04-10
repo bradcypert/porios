@@ -1,9 +1,19 @@
 <md-toolbar color="primary">
     <div layout="row" layout-align="start center" flex>
-        Porios
+        <span class="clickable" [routerLink]="['/']"> Porios </span>
         <span flex></span>
-        <button md-icon-button (click)="navigate('/login')">
-            <md-icon>lock_outline</md-icon>
+        <button md-button [routerLink]="['/explore']">
+            Explore
+        </button>
+        <span class="spacer"></span>
+        |
+        <span class="spacer"></span>
+        <button md-button [routerLink]="['/login']">
+            Log In
+        </button>
+        <span class="spacer"></span>
+        <button md-button [routerLink]="['/register']">
+            Sign Up
         </button>
     </div>
 </md-toolbar>

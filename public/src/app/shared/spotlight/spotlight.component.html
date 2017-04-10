@@ -1,0 +1,39 @@
+<div class="spotlight-body-wrapper" #spotlightBodyWrapper>
+  <spotlight-body role="tabpanel"
+    *ngFor="let item of items; let i = index"
+    [id]="getSpotlightContentId(i)"
+    [attr.aria-labelledby]="getSpotlightLabelId(i)"
+    [class.spotlight-body-active]="selectedIndex == i"
+    [content]="item.content"
+    [position]="item.position"
+    [origin]="item.origin"
+    (onCentered)="removeSpotlightBodyWrapperHeight()"
+    (onCentering)="setSpotlightBodyWrapperHeight($event)">
+  </spotlight-body>
+</div>
+
+<spotlight-header #spotlightHeader
+  [selectedIndex]="selectedIndex"
+  (indexFocused)="focusChanged($event)"
+  (selectFocusedIndex)="selectedIndex = $event">
+  <div class="spotlight-label"
+    role="tab"
+    spotlight-label-wrapper
+    md-ripple
+    *ngFor="let item of items; let i = index"
+    [id]="getSpotlightLabelId(i)"
+    [tabIndex]="selectedIndex == i ? 0 : -1"
+    [attr.aria-controls]="getSpotlightContentId(i)"
+    [attr.aria-selected]="selectedIndex == i"
+    [class.spotlight-label-active]="selectedIndex == i"
+    (click)="spotlightHeader.focusIndex = selectedIndex = i">
+
+    <!-- If there is a label template, use it. -->
+    <ng-template [ngIf]="item.templateLabel">
+      <ng-template [cdkPortalHost]="item.templateLabel"></ng-template>
+    </ng-template>
+
+    <!-- If there is not a label template, fall back to the text label. -->
+    <ng-template [ngIf]="!item.templateLabel">{{item.textLabel}}</ng-template>
+  </div>
+</spotlight-header>

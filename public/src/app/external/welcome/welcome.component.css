@@ -4,7 +4,6 @@
 }
 
 .logo {
-    margin-top: -5%;
     position: relative;
     height: 168px;
     width: 168px;
@@ -32,12 +31,4 @@ h1 {
 h2 {
     text-align: center;
     font-size: 19px;
-}
-
-button[md-raised-button] {
-    margin-top: 32px;
-    font-size: 18px;
-    border-radius: 25px;
-    height: 50px;
-    width: 168px;
 }

@@ -9,6 +9,8 @@ import { DBService } from '../../shared/db';
 })
 export class WelcomeComponent {
 
+  public collection: any[] = new Array(10);
+
   constructor( private _db: DBService ) {
 
   }
