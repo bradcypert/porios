@@ -39,4 +39,17 @@ export class UserService {
         return this._api.postRequest('users', data);
     }
 
+    public save(user: User, changePassword: boolean = false) {
+        let data = {
+            first_name: user.firstName,
+            last_name: user.lastName
+        };
+
+        if (changePassword) {
+            data['password'] = user.password;
+        }
+
+        return this._api.patchRequest('users/' + user.id, data);
+    }
+
 }

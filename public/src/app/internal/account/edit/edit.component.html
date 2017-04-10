@@ -1,4 +1,4 @@
-<div class="account-edit" layout="row" layout-fill>
+<div class="account-edit" layout="row">
   <div>
     <div layout="column" class="bio">
       <div class="avatar">
@@ -7,59 +7,92 @@
     </div>
   </div>
   <span class="spacer"></span>
-  <div flex layout="column">
-    <md-card class="edit-form">
-      <div class="section">
-        Update Account Details
-      </div>
-      <form [formGroup]="editForm">
-        <div layout="row">
-          <md-input-container flex class="dark">
-            <input mdInput placeholder="First Name" formControlName="firstName" />
-          </md-input-container>
-          <span class="spacer"></span>
-          <md-input-container flex class="dark">
-            <input mdInput placeholder="Last Name" formControlName="lastName" />
-          </md-input-container>
-        </div>
-        <div layout="row" layout-align="start center">
-          <md-input-container flex class="dark">
-            <input mdInput placeholder="Password" type="password" formControlName="password" #password />
-          </md-input-container>
-          <span class="spacer"></span>
-          <span flex></span> 
-        </div>
-        <div layout="row" *ngIf="password.value !== ''">
-          <div layout="column" flex>
-            <div layout="row" layout-align="start center">
-              Strength:
-              <span class="spacer"></span>
-              <md-progress-bar
-                [color]="primary"
-                [mode]="determinate"
-                [value]="passwordScore">
-              </md-progress-bar>
+  <div flex layout="column" class="tabs">
+    <md-tab-group>
+      <md-tab label="Profile">
+        <form [formGroup]="profileForm" (ngSubmit)="submitProfile()">
+          <div class="detail-container">
+            <div layout="column">
+              <div class="section">
+                Update Profile
+              </div>
+              <div layout="row" layout-align="start center">
+                <md-input-container flex class="dark">
+                  <input mdInput placeholder="First Name" formControlName="firstName" />
+                </md-input-container>
+                <span class="spacer"></span>
+                <md-input-container flex class="dark">
+                  <input mdInput placeholder="Last Name" formControlName="lastName" />
+                </md-input-container>
+              </div>
+              <div layout="row">
+                <md-input-container flex class="dark">
+                  <textarea mdInput
+                    mdTextareaAutosize
+                    placeholder="Bio"></textarea>
+                </md-input-container>
+              </div>
             </div>
-            <ul class="nopadding">
-              <li *ngFor="let suggestion of passwordSuggestions">
-                {{ suggestion }}
-              </li>
-            </ul>
           </div>
           <span class="spacer"></span>
-          <span flex></span>
-        </div>
-      </form>
-      <span class="spacer"></span>
-      <div layout="row" layout-align="end center">
-        <button md-raised-button color="primary">
-          Submit
-        </button>
-        <span class="spacer"></span>
-        <button md-raised-button class="dark">
-          Cancel
-        </button>
-      </div>
-    </md-card>
+          <div layout="row" layout-align="end center">
+            <button type="submit" md-raised-button color="primary">
+              Update
+            </button>
+            <span class="spacer"></span>
+            <button type="button" md-raised-button class="dark" [routerLink]="['/account']">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </md-tab>
+      <md-tab label="Account">
+        <form [formGroup]="accountForm"  (ngSubmit)="submitAccount()">
+          <div class="detail-container">
+            <div layout="column">
+              <div class="section">
+                Update Account Details
+              </div>
+              <div layout="row" layout-align="start center">
+                <md-input-container flex class="dark">
+                  <input #newPassword mdInput placeholder="New Password" formControlName="password" />
+                  <md-hint *ngIf="newPassword.value !== ''" style="width: 100%">
+                    <div layout="row" layout-align="start center">
+                      Strength:
+                      <span class="spacer"></span>
+                      <md-progress-bar
+                        color="primary"
+                        mode="determinate"
+                        [value]="passwordScore">
+                      </md-progress-bar>
+                    </div>
+                  </md-hint>
+                </md-input-container>
+                <span class="spacer"></span>
+                <md-input-container flex class="dark">
+                  <input #newPasswordConfirm mdInput placeholder="Confirm Password" formControlName="confirmPassword" />
+                  <md-hint *ngIf="newPassword.value !== '' && newPasswordConfirm.value === ''">
+                    Please confirm your password
+                  </md-hint>
+                  <md-hint *ngIf="newPassword.value !== '' && newPasswordConfirm.value !== '' && newPassword.value !== newPasswordConfirm.value">
+                    Passwords do not match
+                  </md-hint>
+                </md-input-container>
+              </div>
+            </div>
+          </div>
+          <span class="spacer"></span>
+          <div layout="row" layout-align="end center">
+            <button type="submit" md-raised-button color="primary">
+              Update
+            </button>
+            <span class="spacer"></span>
+            <button type="button" md-raised-button class="dark" [routerLink]="['/account']">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </md-tab>
+    </md-tab-group>
   </div>
 </div>
