@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
   CanActivate,
-  Router
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
 } from '@angular/router';
 
 import { Config } from '../shared/config';
@@ -13,11 +15,11 @@ export class AuthGuard implements CanActivate {
 
   }
 
-  public canActivate() {
+  public canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
     if (Config.token) {
       return true;
     } else {
-      this._router.navigate(['/login']);
+      this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
       return false;
     }
   }

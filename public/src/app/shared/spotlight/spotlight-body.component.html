@@ -1,0 +1,6 @@
+<div class="spotlight-body-content" #content
+     [@translateSpotlight]="canBeAnimated ? _position : null"
+     (@translateSpotlight.start)="onTranslateSpotlightStarted($event)"
+     (@translateSpotlight.done)="onTranslateSpotlightComplete($event)">
+  <ng-template cdkPortalHost></ng-template>
+</div>
