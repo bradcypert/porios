@@ -21,6 +21,7 @@ export class MaxCharDirective implements OnInit {
   public ngOnInit() {
     if (this._element.innerText.length > parseInt(this.maxChar, 10)) {
       let text = this._element.innerText.slice(0, parseInt(this.maxChar, 10));
+      console.log(text);
       this._element.innerText = text + '...';
     }
   }

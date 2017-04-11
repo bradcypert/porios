@@ -31,6 +31,7 @@ export const COMPONENTS: Array<Type<Component | Directive>> = [
   Shared.LoadingComponent,
   Shared.GroupArrayPipe,
   Shared.SearchPipe,
+  Shared.StrighLengthPipe,
   Shared.SpotlightBodyComponent,
   Shared.SpotlightHeaderComponent,
   Shared.SpotlightInkBarDirective,

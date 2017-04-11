@@ -2,33 +2,3 @@
     height: 100%;
     color: white;
 }
-
-.logo {
-    position: relative;
-    height: 168px;
-    width: 168px;
-}
-
-.logo .logo-container {
-    padding-bottom: 100%;
-}
-
-.logo .logo-container img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
-
-h1 {
-    text-align: center;
-    font-size: 37px;
-}
-
-h2 {
-    text-align: center;
-    font-size: 19px;
-}

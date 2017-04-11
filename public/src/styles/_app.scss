@@ -8,6 +8,18 @@ span.spacer {
     display: block;
     width: 8px;
     height: 8px;
+    &.spacer-2x {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.thin {
+    font-weight: 100;
+}
+
+.center {
+    text-align: center;
 }
 
 .main-content,
@@ -24,6 +36,23 @@ span.spacer {
 .page-content {
     padding: 8px;
     box-sizing: border-box;
+}
+
+.image-box {
+    width: 100%;
+    position: relative;
+    .image-container {
+        padding-bottom: 100%;
+        img {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
 }
 
 .date {

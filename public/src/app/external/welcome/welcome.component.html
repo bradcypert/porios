@@ -2,24 +2,92 @@
   <div class="headline mat-elevation-z1">
     <div class="headline-container">
       <img src="assets/img/podcast-bg.jpg" alt="Home Banner: Connecting people through podcasts">
-      <div class="headline-content-container">
-        <spotlight>
-          <spotlight-item textLabel="One" image="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg">
-            <div class="welcome-spotlight-header">
-              Grammar Girl
+      <spotlight id="welcome-spotlight">
+        <spotlight-item textLabel="One" image="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg">
+          <div class="welcome-spotlight-header">
+            Podcast Spotlight
+          </div>
+          <div class="welcome-spotlight-container" layout="row">
+            <div class="welcome-spotlight-image image-box">
+              <div class="welcome-spotlight-image-container image-container">
+                <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg" />
+              </div>
             </div>
-            <div class="welcome-spotlight-summary">
-              Grammar Girl provides short, friendly tips to improve your writing.
-              Whether English is your first language or your second language, these grammar,
-              punctuation, style, and business tips will make you a better and more successful writer.
-              Grammar Girl is a Quick and Dirty Tips podcast.
-              To download podcast episodes not shown here, visit QuickandDirtyTips.com
+            <div layout="column">
+              <div class="welcome-spotlight-title">
+                Grammar Girl
+              </div>
+              <div class="welcome-spotlight-summary">
+                Grammar Girl provides short, friendly tips to improve your writing.
+                Whether English is your first language or your second language, these grammar,
+                punctuation, style, and business tips will make you a better and more successful writer.
+                Grammar Girl is a Quick and Dirty Tips podcast.
+                To download podcast episodes not shown here, visit QuickandDirtyTips.com
+              </div>
+              <div class="welcome-spotlight-action">
+                <a [routerLink]="['/explore/1']"> Click here </a> to listen
+              </div>
             </div>
-            <div class="welcome-spotlight-action">
-              <a [routerLink]="['/explore/1']"> Click here </a> to listen
-            </div>
-          </spotlight-item>
-        </spotlight>
+          </div>
+        </spotlight-item>
+      </spotlight>
+    </div>
+  </div>
+
+  <div class="headline">
+    <div class="headline-container">
+      <div class="headline-content">
+        <h1 class="thin"> Connecting people, through podcasts. </h1>
+        <h2 class="thin"> A new way to experience what you love. </h2>
+        <button md-raised-button color="warn">
+          Get Started
+        </button>
+        <p class="thin"> Your podcasts, just the way you want them. </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="podcast-section-divider mat-elevation-z1" layout="row" layout-align="center center">
+    <div class="divider-wrapper" layout="row" layout-align="start center">
+      <div class="divider-logo">
+        <img src="assets/img/angular-logo.png">
+      </div>
+      <div class="divider-content" layout="row" layout-align="center start">
+        <div layout="column" layout-align="center center">
+          <md-icon>
+            favorite_border
+          </md-icon>
+          <h3 class="thin">
+            Subscriptions
+          </h3>
+          <span class="center">
+            Never miss a new episode from your favorite podcasts.
+          </span>
+        </div>
+        <span class="spacer"></span>
+        <div layout="column" layout-align="center center">
+          <md-icon>
+            play_circle_outline
+          </md-icon>
+          <h3 class="thin">
+            Playback Support
+          </h3>
+          <span class="center">
+            Take control of your episodes and listen to them how you want.
+          </span>
+        </div>
+        <span class="spacer"></span>
+        <div layout="column" layout-align="center center">
+          <md-icon>
+            face
+          </md-icon>
+          <h3 class="thin">
+            Connect
+          </h3>
+          <span class="center">
+            Interact with other users to connect and share favorites.
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -43,56 +111,6 @@
     </div>
   </div>
 
-  <div class="podcast-section-divider" layout="row" layout-align="center center">
-    <div class="divider-wrapper" layout="row" layout-align="start center">
-      <div class="divider-logo">
-        <img src="assets/img/angular-logo.png">
-      </div>
-      <div class="divider-content">
-        <p>Porios is connecting people through podcasts.</p>
-        <p>Sign up to get updates about your favorite podcasts and more!</p>
-        <button md-raised-button color="warn">
-          Get Started
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="podcast-section-container">
-    <div class="podcast-section-header" layout="row" layout-align="start end">
-      <span class="header">Top Educational</span>
-      <span class="spacer"></span>
-      <span class="subheader">Fountain of Knowledge</span>
-    </div>
-    <div class="podcast-section-list featured">
-      <div layout="row" layout-wrap="wrap" layout-align="start center">
-        <div class="podcast" *ngFor="let index of collection" layout="column">
-          <div class="podcast-image">
-            <div class="podcast-image-container">
-              <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="podcast-section-container">
-    <div class="podcast-section-header" layout="row" layout-align="start end">
-      <span class="header">Top Comedy</span>
-      <span class="spacer"></span>
-      <span class="subheader">Endless Laughs</span>
-    </div>
-    <div class="podcast-section-list featured">
-      <div layout="row" layout-wrap="wrap" layout-align="start center">
-        <div class="podcast" *ngFor="let index of collection" layout="column">
-          <div class="podcast-image">
-            <div class="podcast-image-container">
-              <img src="http://www.qdnow.com/sites/default/files/avataritunes/5/Grammar_pod2.jpg">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="footer mat-elevation-z1">
   </div>
 </div>

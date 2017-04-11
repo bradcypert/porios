@@ -1,12 +1,9 @@
 @import 'theme';
 
 seeker {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
     height: 69px;
-    background-color: rgba(mat-color($primary), 0.6);
+    background-color: #343D46;
     .controls {
         height: 64px;
         .seeker-container {
@@ -21,6 +18,9 @@ seeker {
             &:last-of-type {
                 margin-right: 0;
             }
+        }
+        .metadata {
+            color: white;
         }
         .time-stamp {
             color: white;

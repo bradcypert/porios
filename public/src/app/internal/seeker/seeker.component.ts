@@ -1,6 +1,6 @@
 import {
-    Component,
-    HostBinding
+  Component,
+  HostBinding
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
@@ -10,137 +10,148 @@ import { Subscription } from 'rxjs';
 
 import { SlideInBottomAnimation } from '../../app.animations';
 
-import { IAudioEvent, ITimeEvent, AudioService } from '../../shared/audio';
-import { PodcastEpisode } from '../../shared/podcast';
+import {
+  IAudioEvent,
+  ITimeEvent,
+  AudioService
+} from '../../shared/audio';
+import {
+  Podcast,
+  PodcastEpisode
+} from '../../shared/podcast';
 
 @Component({
-    selector: 'seeker',
-    templateUrl: './seeker.component.html',
-    styleUrls: [ './seeker.component.css' ],
-    animations: [ SlideInBottomAnimation() ]
+  selector: 'seeker',
+  templateUrl: './seeker.component.html',
+  styleUrls: ['./seeker.component.css'],
+  animations: [SlideInBottomAnimation()]
 })
 export class SeekerComponent {
-    
-    @HostBinding('@slideInBottom') public showSeeker: boolean = false;
 
-    public set rate(value: number) {
-        if (this._rate !== value) {
-            this._setPlaybackRate(value);
-            this._rate = value;
-        }
+  @HostBinding('@slideInBottom') public showSeeker: boolean = false;
+
+  @HostBinding('class.mat-elevation-z1') public hasElevation: boolean = true;
+
+  public set rate(value: number) {
+    if (this._rate !== value) {
+      this._setPlaybackRate(value);
+      this._rate = value;
     }
-    public get rate(): number {
-        return this._rate;
-    }
+  }
+  public get rate(): number {
+    return this._rate;
+  }
 
-    public episode: PodcastEpisode = new PodcastEpisode();
-    public progress: number = 0;
-    public timeStamp: string = '0:00:00 / 0:00:00';
+  public podcast: Podcast = new Podcast();
+  public episode: PodcastEpisode = new PodcastEpisode();
+  public progress: number = 0;
+  public timeStamp: string = '0:00:00 / 0:00:00';
 
-    private _datePipe: DatePipe = new DatePipe('en-US');
-    private _subscriptions: Subscription[] = [];
-    private _audio: HTMLAudioElement;
-    private _rate: number = 1;
+  private _datePipe: DatePipe = new DatePipe('en-US');
+  private _subscriptions: Subscription[] = [];
+  private _audio: HTMLAudioElement;
+  private _rate: number = 1;
 
-    constructor( private _audioService: AudioService ) {
-        this._subscriptions.push(_audioService.audioChange.subscribe((event: IAudioEvent) => {
-            if (event.audio && event.episode) {
-                this.showSeeker = true;
-                this.episode = event.episode;
-                this._audio = event.audio;
-            } else {
-                this.showSeeker = false;
-            }
-        }));
-        this._subscriptions.push(_audioService.timeUpdate.subscribe((event: ITimeEvent) => {
-            this._setProgress(event);
-            this._setTimeStamp(event);
-        }));
-    }
+  constructor(private _audioService: AudioService) {
+    this._subscriptions.push(_audioService.audioChange.subscribe((event: IAudioEvent) => {
+      if (event.audio && event.episode) {
+        this.showSeeker = true;
+        this.podcast = event.podcast;
+        this.episode = event.episode;
+        this._audio = event.audio;
+      } else {
+        this.showSeeker = false;
+      }
+    }));
+    this._subscriptions.push(_audioService.timeUpdate.subscribe((event: ITimeEvent) => {
+      this._setProgress(event);
+      this._setTimeStamp(event);
+    }));
+  }
 
-    public play() {
-        this._audioService.toggle();
-    }
+  public play() {
+    this._audioService.toggle();
+  }
 
-    public replay() {
-        console.log('Replay');
-    }
+  public replay() {
+    console.log('Replay');
+  }
 
-    public skipPrevious() {
-        console.log('Skip Back');
-    }
+  public skipPrevious() {
+    console.log('Skip Back');
+  }
 
-    public skipNext() {
-        console.log('Skip Forward');
-    }
+  public skipNext() {
+    console.log('Skip Forward');
+  }
 
-    public star() {
-        console.log('Star');
-    }
+  public star() {
+    console.log('Star');
+  }
 
-    public seek(event: MdSliderChange) {
-        if (!this._audio) {
-            return;
-        }
-
-        let percent = event.value / 100;
-        let duration = this._audio.duration;
-        
-        if (percent > 1) {
-            percent = 1;
-        } else if (percent < 0) {
-            percent = 0;
-        }
-
-        let time = duration * percent;
-
-        this._audioService.seekTo(time);
+  public seek(event: MdSliderChange) {
+    if (!this._audio) {
+      return;
     }
 
-    public setVolume(event: number) {
-        let volume = event / 100;
+    let percent = event.value / 100;
+    let duration = this._audio.duration;
 
-        if (volume > 1) {
-            volume = 1;
-        } else if (volume < 0) {
-            volume = 0;
-        }
-
-        this._audioService.setVolume(volume);
+    if (percent > 1) {
+      percent = 1;
+    } else if (percent < 0) {
+      percent = 0;
     }
 
-    private _setProgress(event: ITimeEvent) {
-        if (!this._audio) {
-            return;
-        }
+    let time = duration * percent;
 
-        let duration = this._audio.duration;
-        let timeStamp = event.timeStamp;
-        this.progress = (timeStamp / duration) * 100;
+    this._audioService.seekTo(time);
+  }
+
+  public setVolume(event: number) {
+    let volume = event / 100;
+
+    if (volume > 1) {
+      volume = 1;
+    } else if (volume < 0) {
+      volume = 0;
     }
 
-    private _setTimeStamp(event: ITimeEvent) {
-        if (!this._audio) {
-            return;
-        }
+    this._audioService.setVolume(volume);
+  }
 
-        let duration: string;
-        if (this._audio.duration) {
-            duration = new Date(this._audio.duration * 1000).toISOString();
-        } else {
-            duration = new Date(0).toISOString();
-        }
-        let current = new Date(event.timeStamp * 1000).toISOString();
-
-        this.timeStamp = current.substr(11, 8) + ' / ' + duration.substr(11, 8);
+  private _setProgress(event: ITimeEvent) {
+    if (!this._audio) {
+      return;
     }
 
-    private _setPlaybackRate(rate: number) {
-        if (!this._audio) {
-            return;
-        }
+    let duration = this._audio.duration;
+    let timeStamp = event.timeStamp;
+    this.progress = (timeStamp / duration) * 100;
+  }
 
-        this._audioService.setPlaybackRate(rate);
+  private _setTimeStamp(event: ITimeEvent) {
+    if (!this._audio) {
+      return;
     }
+
+    let duration: string;
+    if (this._audio.duration) {
+      duration = new Date(this._audio.duration * 1000).toISOString();
+    } else {
+      duration = new Date(0).toISOString();
+    }
+    let current = new Date(event.timeStamp * 1000).toISOString();
+
+    this.timeStamp = current.substr(11, 8) + ' / ' + duration.substr(11, 8);
+  }
+
+  private _setPlaybackRate(rate: number) {
+    if (!this._audio) {
+      return;
+    }
+
+    this._audioService.setPlaybackRate(rate);
+  }
 
 }
